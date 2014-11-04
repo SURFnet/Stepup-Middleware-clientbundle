@@ -22,11 +22,11 @@ services:
     surfnet_stepup_middleware_client.library.service.command:
         class: Surfnet\StepupMiddlewareClient\Service\CommandService
         arguments:
-            - @surfnet_stepup_middleware_client.library.guzzle
+            - @surfnet_stepup_middleware_client.guzzle.commands
             - %authorisation.username%
             - %authorisation.password%
 
-    surfnet_stepup_middleware_client.library.guzzle:
+    surfnet_stepup_middleware_client.guzzle.commands:
         class: GuzzleHttp\Client
         arguments:
-            - { base_url: %base_url% }
+            - { base_url: %commands.base_url% }

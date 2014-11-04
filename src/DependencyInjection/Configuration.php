@@ -40,7 +40,12 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('password')->isRequired()->end()
                     ->end()
                 ->end()
-                ->scalarNode('base_url')->isRequired()->end()
+                ->arrayNode('commands')
+                    ->info('Configuration related to the command API')
+                    ->children()
+                        ->scalarNode('base_url')->isRequired()->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
