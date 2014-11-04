@@ -59,10 +59,7 @@ class CommandService
         $payload = $command->serialise();
         $metadataPayload = $metadata ? $metadata->serialise() : [];
 
-        $this->logger->info(
-            sprintf("Executing command '%s'", $commandName),
-            ['payload' => $payload, 'metadata' => $metadata]
-        );
+        $this->logger->info(sprintf("Executing command '%s'", $commandName));
 
         try {
             $result = $this->commandService->execute($commandName, $payload, $metadataPayload);
