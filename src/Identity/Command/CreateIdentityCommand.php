@@ -40,6 +40,6 @@ class CreateIdentityCommand implements Command
 
     public function serialise()
     {
-        return (array) $this;
+        return ['uuid' => $this->uuid, 'name_id' => $this->nameId];
     }
 }
