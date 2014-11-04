@@ -40,10 +40,9 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('password')->isRequired()->end()
                     ->end()
                 ->end()
-                ->arrayNode('commands')
-                    ->info('Configuration related to the command API')
+                ->arrayNode('url')
                     ->children()
-                        ->scalarNode('url')->isRequired()->end()
+                        ->scalarNode('command_api')->isRequired()->end()
                     ->end()
                 ->end()
             ->end();

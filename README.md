@@ -26,8 +26,8 @@ surfnet_stepup_middleware_client:
     authorisation:
         username: john
         password: doe
-    commands:
-        url: http://middleware.tld/command
+    url:
+        command_api: http://middleware.tld/command
 ```
 
 ## Usage
