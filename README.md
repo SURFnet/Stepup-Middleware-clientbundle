@@ -19,6 +19,26 @@ A Symfony2 bundle to consume the Step-up Middleware API.
     }
     ```
 
+## Configuration
+
+```yaml
+surfnet_stepup_middleware_client:
+    authorisation:
+        username: john
+        password: doe
+    commands:
+        url: http://middleware.tld/command
+```
+
 ## Usage
 
-*TBD*
+```php
+# In the context of a Symfony2 controller action
+$command = new \Surfnet\StepupMiddlewareClientBundle\Identity\Command\CreateIdentityCommand();
+$command->uuid = (string) \Rhumsaa\Uuid\Uuid::uuid4();
+$command->nameId = (string) \Rhumsaa\Uuid\Uuid::uuid4();
+
+/** @var \Surfnet\StepupMiddlewareClientBundle\Service\CommandService $service */
+$service = $this->get('surfnet_stepup_middleware_client.service.command');
+$result = $service->execute($command);
+```
