@@ -33,7 +33,7 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
 
         $container->setParameter('authorisation.username', $config['authorisation']['username']);
         $container->setParameter('authorisation.password', $config['authorisation']['password']);
-        $container->setParameter('commands.base_url', $config['commands.base_url']);
+        $container->setParameter('commands.url', $config['commands']['url']);
 
         $loader = new YamlFileLoader(
             $container,

@@ -29,4 +29,4 @@ services:
     surfnet_stepup_middleware_client.guzzle.commands:
         class: GuzzleHttp\Client
         arguments:
-            - { base_url: %commands.base_url% }
+            - { base_url: %commands.url% }
