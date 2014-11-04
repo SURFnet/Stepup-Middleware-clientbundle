@@ -7,7 +7,7 @@ A Symfony2 bundle to consume the Step-up Middleware API.
 
  * Add the package to your Composer file
     ```sh
-    composer require surfnet/stepup-middleware-client-bundle:~1.0
+    composer require surfnet/stepup-middleware-client-bundle
     ```
 
  * Add the bundle to your kernel in `app/AppKernel.php`
