@@ -18,6 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -27,6 +28,13 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
 {
     public function load(array $config, ContainerBuilder $container)
     {
+        $processor = new Processor();
+        $config = $processor->processConfiguration(new Configuration(), $config);
+
+        $container->setParameter('authorisation.username', $config['authorisation']['username']);
+        $container->setParameter('authorisation.password', $config['authorisation']['password']);
+        $container->setParameter('base_url', $config['base_url']);
+
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')

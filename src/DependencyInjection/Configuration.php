@@ -30,7 +30,18 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder;
 
-        $treeBuilder->root('surfnet_stepup_middleware_api_client');
+        $treeBuilder
+            ->root('surfnet_stepup_middleware_client')
+            ->children()
+                ->arrayNode('authorisation')
+                    ->info('Middleware API Credentials')
+                    ->children()
+                        ->scalarNode('username')->isRequired()->end()
+                        ->scalarNode('password')->isRequired()->end()
+                    ->end()
+                ->end()
+                ->scalarNode('base_url')->isRequired()->end()
+            ->end();
 
         return $treeBuilder;
     }
