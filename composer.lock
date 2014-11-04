@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7dd3f04a9fdb3cacdca86459529e8f12",
+    "hash": "7f1bc2ee12694016b5278a8ff158c093",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -266,16 +266,16 @@
         },
         {
             "name": "surfnet/stepup-middleware-client",
-            "version": "dev-feature/command-api-client",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SURFnet/Stepup-Middleware-client.git",
-                "reference": "3c4189942622ab0a03ad06d3d85fdeef96d9e5b6"
+                "reference": "d7ce8331674ea46712581857a767628a9d8c70a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/3c4189942622ab0a03ad06d3d85fdeef96d9e5b6",
-                "reference": "3c4189942622ab0a03ad06d3d85fdeef96d9e5b6",
+                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/d7ce8331674ea46712581857a767628a9d8c70a7",
+                "reference": "d7ce8331674ea46712581857a767628a9d8c70a7",
                 "shasum": ""
             },
             "require": {
@@ -303,7 +303,7 @@
                 "Apache-2.0"
             ],
             "description": "Library for consuming the Step-up Middleware API.",
-            "time": "2014-11-04 09:13:58"
+            "time": "2014-11-04 10:43:18"
         },
         {
             "name": "symfony/config",
