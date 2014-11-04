@@ -23,10 +23,10 @@ services:
         class: Surfnet\StepupMiddlewareClient\Service\CommandService
         arguments:
             - @surfnet_stepup_middleware_client.guzzle.commands
-            - %authorisation.username%
-            - %authorisation.password%
+            - ~ # Username, overridden in extension
+            - ~ # Password, overridden in extension
 
     surfnet_stepup_middleware_client.guzzle.commands:
         class: GuzzleHttp\Client
         arguments:
-            - { base_url: %commands.url% }
+            - ~ # Guzzle options, overridden in extension

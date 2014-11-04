@@ -31,14 +31,17 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
         $processor = new Processor();
         $config = $processor->processConfiguration(new Configuration(), $config);
 
-        $container->setParameter('authorisation.username', $config['authorisation']['username']);
-        $container->setParameter('authorisation.password', $config['authorisation']['password']);
-        $container->setParameter('commands.url', $config['commands']['url']);
-
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.yml');
+
+        $commandService = $container->getDefinition('surfnet_stepup_middleware_client.library.service.command');
+        $commandService->replaceArgument(1, $config['authorisation']['username']);
+        $commandService->replaceArgument(2, $config['authorisation']['password']);
+
+        $guzzle = $container->getDefinition('surfnet_stepup_middleware_client.guzzle.commands');
+        $guzzle->replaceArgument(0, ['base_url' => $config['commands']['url']]);
     }
 }
