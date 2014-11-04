@@ -66,7 +66,8 @@ class CommandService
 
             if ($result->isSuccessful()) {
                 $this->logger->info(sprintf(
-                    "Command '%s' was processed successfully by '%s'",
+                    "Command '%s' with UUID '%s' was processed successfully by '%s'",
+                    $commandName,
                     $result->getUuid(),
                     $result->getProcessedBy()
                 ));
