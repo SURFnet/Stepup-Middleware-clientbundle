@@ -79,8 +79,10 @@ class CommandService
         } catch (CommandExecutionFailedException $e) {
             $this->logger->error(sprintf('Command could not be executed (%s)', $e->getMessage()), ['exception' => $e]);
 
-            return new ExecutionResult(null, null, [$e->getMessage()]);
+            $result = new ExecutionResult(null, null, [$e->getMessage()]);
         }
+
+        return $result;
     }
 
     /**
