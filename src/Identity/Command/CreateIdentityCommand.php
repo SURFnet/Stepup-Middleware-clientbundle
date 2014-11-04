@@ -23,17 +23,11 @@ use Surfnet\StepupMiddlewareClientBundle\Command\Command;
 class CreateIdentityCommand implements Command
 {
     /**
-     * @Assert\NotBlank(message="stepup.command.create_identity.uuid.must_not_be_blank")
-     * @Assert\Type(type="string", message="stepup.command.create_identity.uuid.must_be_string")
-     *
      * @var string
      */
     public $uuid;
 
     /**
-     * @Assert\NotBlank(message="stepup.command.create_identity.name_id.must_not_be_blank")
-     * @Assert\Type(type="string", message="stepup.command.create_identity.name_id.must_be_string")
-     *
      * @var string
      */
     public $nameId;
