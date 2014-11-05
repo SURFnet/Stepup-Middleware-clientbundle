@@ -19,13 +19,13 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Service;
 
 use Psr\Log\LoggerInterface;
-use Rhumsaa\Uuid\Uuid;
 use Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException;
 use Surfnet\StepupMiddlewareClient\Service\CommandService as LibraryCommandService;
 use Surfnet\StepupMiddlewareClient\Service\ExecutionResult;
 use Surfnet\StepupMiddlewareClientBundle\Command\Command;
 use Surfnet\StepupMiddlewareClientBundle\Command\Metadata;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidArgumentException;
+use Surfnet\StepupMiddlewareClientBundle\Uuid\Uuid;
 
 class CommandService
 {
@@ -60,7 +60,7 @@ class CommandService
         $payload = $command->serialise();
         $metadataPayload = $metadata ? $metadata->serialise() : [];
 
-        $command->UUID = (string) Uuid::uuid4();
+        $command->UUID = Uuid::generate();
 
         $this->logger->info(sprintf("Command '%s' with UUID '%s' is executing", $commandName, $command->UUID));
 
