@@ -60,18 +60,18 @@ class CommandService
         $payload = $command->serialise();
         $metadataPayload = $metadata ? $metadata->serialise() : [];
 
-        $command->UUID = Uuid::generate();
+        $command->setUuid(Uuid::generate());
 
-        $this->logger->info(sprintf("Command '%s' with UUID '%s' is executing", $commandName, $command->UUID));
+        $this->logger->info(sprintf("Command '%s' with UUID '%s' is executing", $commandName, $command->getUuid()));
 
         try {
-            $result = $this->commandService->execute($commandName, $command->UUID, $payload, $metadataPayload);
+            $result = $this->commandService->execute($commandName, $command->getUuid(), $payload, $metadataPayload);
 
             if ($result->isSuccessful()) {
                 $this->logger->info(sprintf(
                     "Command '%s' with UUID '%s' was processed successfully by '%s'",
                     $commandName,
-                    $command->UUID,
+                    $command->getUuid(),
                     $result->getProcessedBy()
                 ));
             } else {
@@ -79,7 +79,7 @@ class CommandService
                     sprintf(
                         "Command '%s' with UUID '%s' could not be executed (%s)",
                         $commandName,
-                        $command->UUID,
+                        $command->getUuid(),
                         join('; ', $result->getErrors())
                     )
                 );
@@ -89,7 +89,7 @@ class CommandService
                 sprintf(
                     "Command '%s' with UUID '%s' could not be executed (%s)",
                     $commandName,
-                    $command->UUID,
+                    $command->getUuid(),
                     $e->getMessage()
                 ),
                 ['exception' => $e]

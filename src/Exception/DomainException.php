@@ -16,24 +16,8 @@
  * limitations under the License.
  */
 
-namespace Surfnet\StepupMiddlewareClientBundle\Tests\Service\Fixtures\Root\Command;
+namespace Surfnet\StepupMiddlewareClientBundle\Exception;
 
-use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
-
-class CauseCommand extends AbstractCommand
+class DomainException extends \DomainException
 {
-    /**
-     * @var array
-     */
-    public $payload;
-
-    public function __construct(array $payload)
-    {
-        $this->payload = $payload;
-    }
-
-    public function serialise()
-    {
-        return $this->payload;
-    }
 }

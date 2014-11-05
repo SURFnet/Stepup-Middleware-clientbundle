@@ -55,9 +55,9 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
         $service = new CommandService($commandService, m::mock('Psr\Log\LoggerInterface')->shouldIgnoreMissing());
         $service->execute($command, $metadata);
 
-        $this->assertNotEmpty($command->UUID, 'UUID wasn\'t set during command execution');
-        $this->assertInternalType('string', $command->UUID, 'UUID set is not a string');
-        $this->assertEquals($sentUuid, $command->UUID, 'UUID set doesn\'t match the UUID sent');
+        $this->assertNotEmpty($command->getUuid(), 'UUID wasn\'t set during command execution');
+        $this->assertInternalType('string', $command->getUuid(), 'UUID set is not a string');
+        $this->assertEquals($sentUuid, $command->getUuid(), 'UUID set doesn\'t match the UUID sent');
     }
 
     public function commands()

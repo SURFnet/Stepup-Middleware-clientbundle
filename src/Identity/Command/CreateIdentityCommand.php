@@ -18,15 +18,10 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
-use Surfnet\StepupMiddlewareClientBundle\Command\Command;
+use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
 
-class CreateIdentityCommand implements Command
+class CreateIdentityCommand extends AbstractCommand
 {
-    /**
-     * @var string
-     */
-    public $UUID;
-
     /**
      * @var string
      */

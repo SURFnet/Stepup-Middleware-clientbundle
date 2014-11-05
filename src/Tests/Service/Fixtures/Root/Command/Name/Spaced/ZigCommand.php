@@ -18,9 +18,9 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Tests\Service\Fixtures\Root\Command\Name\Spaced;
 
-use Surfnet\StepupMiddlewareClientBundle\Command\Command;
+use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
 
-class ZigCommand implements Command
+class ZigCommand extends AbstractCommand
 {
     /**
      * @var array

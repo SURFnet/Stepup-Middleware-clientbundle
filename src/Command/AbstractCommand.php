@@ -19,22 +19,30 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Command;
 
 use Surfnet\StepupMiddlewareClientBundle\Exception\DomainException;
+use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidArgumentException;
 
-interface Command
+abstract class AbstractCommand implements Command
 {
     /**
-     * @return string|null
+     * @var string|null
      */
-    public function getUuid();
+    private $uuid;
 
-    /**
-     * @param string $uuid
-     * @throws DomainException Thrown when UUID is already set.
-     */
-    public function setUuid($uuid);
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
 
-    /**
-     * @return array
-     */
-    public function serialise();
+    public function setUuid($uuid)
+    {
+        if (!is_string($uuid)) {
+            InvalidArgumentException::invalidType('string', 'uuid', $uuid);
+        }
+
+        if ($this->uuid) {
+            throw new DomainException('Command UUID may not be overwritten');
+        }
+
+        $this->uuid = $uuid;
+    }
 }
