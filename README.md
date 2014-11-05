@@ -35,7 +35,7 @@ surfnet_stepup_middleware_client:
 ```php
 # In the context of a Symfony2 controller action
 $command = new \Surfnet\StepupMiddlewareClientBundle\Identity\Command\CreateIdentityCommand();
-$command->uuid = (string) \Rhumsaa\Uuid\Uuid::uuid4();
+$command->id = (string) \Rhumsaa\Uuid\Uuid::uuid4();
 $command->nameId = (string) \Rhumsaa\Uuid\Uuid::uuid4();
 
 /** @var \Surfnet\StepupMiddlewareClientBundle\Service\CommandService $service */

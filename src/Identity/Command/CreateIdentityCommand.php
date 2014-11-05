@@ -30,7 +30,7 @@ class CreateIdentityCommand implements Command
     /**
      * @var string
      */
-    public $uuid;
+    public $id;
 
     /**
      * @var string
@@ -39,6 +39,6 @@ class CreateIdentityCommand implements Command
 
     public function serialise()
     {
-        return ['uuid' => $this->uuid, 'name_id' => $this->nameId];
+        return ['id' => $this->id, 'name_id' => $this->nameId];
     }
 }
