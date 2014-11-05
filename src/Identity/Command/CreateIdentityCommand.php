@@ -25,6 +25,11 @@ class CreateIdentityCommand implements Command
     /**
      * @var string
      */
+    public $UUID;
+
+    /**
+     * @var string
+     */
     public $uuid;
 
     /**

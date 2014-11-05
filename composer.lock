@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5174640d965705d3121e1a9f40ec9c1d",
+    "hash": "7e85032dfb63913e19b827026260fb87",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -270,19 +270,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SURFnet/Stepup-Middleware-client.git",
-                "reference": "12bda5c1cca7ce1b2e3284242b53e31283dd50ad"
+                "reference": "1a7841f1993acbd6c3cd8b9171854126e1ccb975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/12bda5c1cca7ce1b2e3284242b53e31283dd50ad",
-                "reference": "12bda5c1cca7ce1b2e3284242b53e31283dd50ad",
+                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/1a7841f1993acbd6c3cd8b9171854126e1ccb975",
+                "reference": "1a7841f1993acbd6c3cd8b9171854126e1ccb975",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "~4",
-                "moontoast/math": "~1.1",
-                "php": "~5.4",
-                "rhumsaa/uuid": "~2.7"
+                "php": "~5.4"
             },
             "require-dev": {
                 "ibuildings/qa-tools": "~1.1,>=1.1.27",
@@ -303,7 +301,7 @@
                 "Apache-2.0"
             ],
             "description": "Library for consuming the Step-up Middleware API.",
-            "time": "2014-11-04 15:34:44"
+            "time": "2014-11-05 09:21:58"
         },
         {
             "name": "symfony/config",

@@ -49,11 +49,15 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('getProcessedBy')->andReturn('mw-01')
             ->getMock();
         $commandService = m::mock('Surfnet\StepupMiddlewareClient\Service\CommandService')
-            ->shouldReceive('execute')->once()->with($expectedCommandName, $expectedPayload, $expectedMetadataPayload)->andReturn($result)
+            ->shouldReceive('execute')->once()->with($expectedCommandName, self::spy($sentUuid), $expectedPayload, $expectedMetadataPayload)->andReturn($result)
             ->getMock();
 
         $service = new CommandService($commandService, m::mock('Psr\Log\LoggerInterface')->shouldIgnoreMissing());
         $service->execute($command, $metadata);
+
+        $this->assertNotEmpty($command->UUID, 'UUID wasn\'t set during command execution');
+        $this->assertInternalType('string', $command->UUID, 'UUID set is not a string');
+        $this->assertEquals($sentUuid, $command->UUID, 'UUID set doesn\'t match the UUID sent');
     }
 
     public function commands()
@@ -63,5 +67,14 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
             'Nested command' => ['Root:Name.Spaced.Zig', ['all' => 'base'], [], new ZigCommand(['all' => 'base'])],
             'Non-nested command w/ metadata' => ['Root:Cause', [1], ['millibars' => 918.8], new CauseCommand([1]), new WeatherMetadata(918.8)],
         ];
+    }
+
+    private static function spy(&$spiedValue)
+    {
+        return m::on(function ($value) use (&$spiedValue) {
+            $spiedValue = $value;
+
+            return true;
+        });
     }
 }

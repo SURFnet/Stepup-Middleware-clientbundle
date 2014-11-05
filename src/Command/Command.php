@@ -18,6 +18,11 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Command;
 
+/**
+ * Every command must expose a public, string UUID field.
+ *
+ * @property string $UUID
+ */
 interface Command
 {
     /**

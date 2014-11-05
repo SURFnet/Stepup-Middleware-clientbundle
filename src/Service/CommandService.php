@@ -19,6 +19,7 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Service;
 
 use Psr\Log\LoggerInterface;
+use Rhumsaa\Uuid\Uuid;
 use Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException;
 use Surfnet\StepupMiddlewareClient\Service\CommandService as LibraryCommandService;
 use Surfnet\StepupMiddlewareClient\Service\ExecutionResult;
@@ -59,23 +60,40 @@ class CommandService
         $payload = $command->serialise();
         $metadataPayload = $metadata ? $metadata->serialise() : [];
 
-        $this->logger->info(sprintf("Executing command '%s'", $commandName));
+        $command->UUID = (string) Uuid::uuid4();
+
+        $this->logger->info(sprintf("Command '%s' with UUID '%s' is executing", $commandName, $command->UUID));
 
         try {
-            $result = $this->commandService->execute($commandName, $payload, $metadataPayload);
+            $result = $this->commandService->execute($commandName, $command->UUID, $payload, $metadataPayload);
 
             if ($result->isSuccessful()) {
                 $this->logger->info(sprintf(
                     "Command '%s' with UUID '%s' was processed successfully by '%s'",
                     $commandName,
-                    $result->getUuid(),
+                    $command->UUID,
                     $result->getProcessedBy()
                 ));
             } else {
-                $this->logger->warning(sprintf('Command could not be executed (%s)', join('; ', $result->getErrors())));
+                $this->logger->warning(
+                    sprintf(
+                        "Command '%s' with UUID '%s' could not be executed (%s)",
+                        $commandName,
+                        $command->UUID,
+                        join('; ', $result->getErrors())
+                    )
+                );
             }
         } catch (CommandExecutionFailedException $e) {
-            $this->logger->error(sprintf('Command could not be executed (%s)', $e->getMessage()), ['exception' => $e]);
+            $this->logger->error(
+                sprintf(
+                    "Command '%s' with UUID '%s' could not be executed (%s)",
+                    $commandName,
+                    $command->UUID,
+                    $e->getMessage()
+                ),
+                ['exception' => $e]
+            );
 
             $result = new ExecutionResult(null, null, [$e->getMessage()]);
         }
