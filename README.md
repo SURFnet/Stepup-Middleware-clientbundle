@@ -7,7 +7,7 @@ A Symfony2 bundle to consume the Step-up Middleware API.
 
  * Add the package to your Composer file
     ```sh
-    composer require surfnet/stepup-middleware-client-bundle:~1.0
+    composer require surfnet/stepup-middleware-client-bundle
     ```
 
  * Add the bundle to your kernel in `app/AppKernel.php`
@@ -19,6 +19,26 @@ A Symfony2 bundle to consume the Step-up Middleware API.
     }
     ```
 
+## Configuration
+
+```yaml
+surfnet_stepup_middleware_client:
+    authorisation:
+        username: john
+        password: doe
+    url:
+        command_api: http://middleware.tld/command
+```
+
 ## Usage
 
-*TBD*
+```php
+# In the context of a Symfony2 controller action
+$command = new \Surfnet\StepupMiddlewareClientBundle\Identity\Command\CreateIdentityCommand();
+$command->id = \Surfnet\StepupMiddlewareClientBundle\Uuid\Uuid::generate();
+$command->nameId = \Surfnet\StepupMiddlewareClientBundle\Uuid\Uuid::generate();
+
+/** @var \Surfnet\StepupMiddlewareClientBundle\Service\CommandService $service */
+$service = $this->get('surfnet_stepup_middleware_client.service.command');
+$result = $service->execute($command);
+```

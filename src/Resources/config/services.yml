@@ -12,4 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-services: ~
+services:
+    surfnet_stepup_middleware_client.service.command:
+        class: Surfnet\StepupMiddlewareClientBundle\Service\CommandService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.command
+            - @logger
+
+    surfnet_stepup_middleware_client.library.service.command:
+        class: Surfnet\StepupMiddlewareClient\Service\CommandService
+        arguments:
+            - @surfnet_stepup_middleware_client.guzzle.commands
+            - ~ # Username, overridden in extension
+            - ~ # Password, overridden in extension
+
+    surfnet_stepup_middleware_client.guzzle.commands:
+        class: GuzzleHttp\Client
+        arguments:
+            - ~ # Guzzle options, overridden in extension

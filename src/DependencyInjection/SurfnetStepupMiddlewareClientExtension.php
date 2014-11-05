@@ -18,6 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -27,10 +28,20 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
 {
     public function load(array $config, ContainerBuilder $container)
     {
+        $processor = new Processor();
+        $config = $processor->processConfiguration(new Configuration(), $config);
+
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.yml');
+
+        $commandService = $container->getDefinition('surfnet_stepup_middleware_client.library.service.command');
+        $commandService->replaceArgument(1, $config['authorisation']['username']);
+        $commandService->replaceArgument(2, $config['authorisation']['password']);
+
+        $guzzle = $container->getDefinition('surfnet_stepup_middleware_client.guzzle.commands');
+        $guzzle->replaceArgument(0, ['base_url' => $config['url']['command_api']]);
     }
 }
