@@ -26,11 +26,11 @@ abstract class AbstractCommand implements Command
     /**
      * @var string|null
      */
-    private $uuid;
+    private $commandUuid;
 
     public function getUuid()
     {
-        return $this->uuid;
+        return $this->commandUuid;
     }
 
     public function setUuid($uuid)
@@ -39,10 +39,10 @@ abstract class AbstractCommand implements Command
             InvalidArgumentException::invalidType('string', 'uuid', $uuid);
         }
 
-        if ($this->uuid) {
+        if ($this->commandUuid) {
             throw new DomainException('Command UUID may not be overwritten');
         }
 
-        $this->uuid = $uuid;
+        $this->commandUuid = $uuid;
     }
 }
