@@ -43,5 +43,23 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
 
         $guzzle = $container->getDefinition('surfnet_stepup_middleware_client.guzzle.commands');
         $guzzle->replaceArgument(0, ['base_url' => $config['url']['command_api']]);
+
+        $guzzle = $container->getDefinition('surfnet_stepup_middleware_client.guzzle.api');
+        $guzzle->replaceArgument(
+            0,
+            [
+                'base_url' => $config['url']['api'],
+                'defaults' => [
+                    'auth' => [
+                        $config['authorisation']['username'],
+                        $config['authorisation']['password'],
+                        'basic'
+                    ],
+                    'headers' => [
+                        'Accept' => 'application/json'
+                    ]
+                ]
+            ]
+        );
     }
 }

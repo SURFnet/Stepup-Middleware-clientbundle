@@ -32,6 +32,8 @@ surfnet_stepup_middleware_client:
 
 ## Usage
 
+### Executing commands
+
 ```php
 # In the context of a Symfony2 controller action
 $command = new \Surfnet\StepupMiddlewareClientBundle\Identity\Command\CreateIdentityCommand();
@@ -41,4 +43,13 @@ $command->nameId = \Surfnet\StepupMiddlewareClientBundle\Uuid\Uuid::generate();
 /** @var \Surfnet\StepupMiddlewareClientBundle\Service\CommandService $service */
 $service = $this->get('surfnet_stepup_middleware_client.service.command');
 $result = $service->execute($command);
+```
+
+### Reading DTOs
+
+```php
+/** @var \Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService $service */
+$service = $container->get('surfnet_stepup_middleware_client.identity.service.identity');
+/** @var null|\Surfnet\StepupMiddlewareClientBundle\Identity\Dto\Identity */
+$identity = $service->get($id, $institution);
 ```

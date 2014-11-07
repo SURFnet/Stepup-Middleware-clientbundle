@@ -20,6 +20,7 @@ services:
             - @logger
 
     surfnet_stepup_middleware_client.library.service.command:
+        public: false
         class: Surfnet\StepupMiddlewareClient\Service\CommandService
         arguments:
             - @surfnet_stepup_middleware_client.guzzle.commands
@@ -27,6 +28,31 @@ services:
             - ~ # Password, overridden in extension
 
     surfnet_stepup_middleware_client.guzzle.commands:
+        public: false
+        class: GuzzleHttp\Client
+        arguments:
+            - ~ # Guzzle options, overridden in extension
+
+    surfnet_stepup_middleware_client.identity.service.identity:
+        class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.identity.service.identity
+            - @validator
+
+    surfnet_stepup_middleware_client.library.identity.service.identity:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.api
+
+    surfnet_stepup_middleware_client.library.service.api:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Service\ApiService
+        arguments:
+            - @surfnet_stepup_middleware_client.guzzle.api
+
+    surfnet_stepup_middleware_client.guzzle.api:
+        public: false
         class: GuzzleHttp\Client
         arguments:
             - ~ # Guzzle options, overridden in extension
