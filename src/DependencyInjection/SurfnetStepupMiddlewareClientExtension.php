@@ -54,6 +54,9 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
                         $config['authorisation']['username'],
                         $config['authorisation']['password'],
                         'basic'
+                    ],
+                    'headers' => [
+                        'Accept' => 'application/json'
                     ]
                 ]
             ]
