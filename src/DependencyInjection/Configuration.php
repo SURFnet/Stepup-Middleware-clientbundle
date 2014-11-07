@@ -43,7 +43,15 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('url')
                     ->children()
                         ->scalarNode('command_api')->isRequired()->end()
-                        ->scalarNode('api')->isRequired()->end()
+                        ->scalarNode('api')
+                            ->isRequired()
+                            ->validate()
+                                ->ifTrue(function ($url) {
+                                    return !preg_match('~/$~', $url);
+                                })
+                                ->thenInvalid("API URL must end with a forward slash, got '%s'")
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();
