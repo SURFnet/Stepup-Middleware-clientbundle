@@ -18,8 +18,8 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
+use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
-use Surfnet\StepupMiddlewareClientBundle\Dto;
 
 class Identity implements Dto
 {

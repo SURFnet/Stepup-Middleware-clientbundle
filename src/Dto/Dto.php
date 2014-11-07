@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Surfnet\StepupMiddlewareClientBundle;
+namespace Surfnet\StepupMiddlewareClientBundle\Dto;
 
 interface Dto
 {
