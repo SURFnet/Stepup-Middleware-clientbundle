@@ -30,3 +30,24 @@ services:
         class: GuzzleHttp\Client
         arguments:
             - ~ # Guzzle options, overridden in extension
+
+    surfnet_stepup_middleware_client.identity.service.identity:
+        class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.identity.service.identity
+            - @validator
+
+    surfnet_stepup_middleware_client.library.identity.service.identity:
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.api
+
+    surfnet_stepup_middleware_client.library.service.api:
+        class: Surfnet\StepupMiddlewareClient\Service\ApiService
+        arguments:
+            - @surfnet_stepup_middleware_client.guzzle.api
+
+    surfnet_stepup_middleware_client.guzzle.api:
+        class: GuzzleHttp\Client
+        arguments:
+            - ~ # Guzzle options, overridden in extension

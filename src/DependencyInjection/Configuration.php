@@ -43,6 +43,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('url')
                     ->children()
                         ->scalarNode('command_api')->isRequired()->end()
+                        ->scalarNode('api')->isRequired()->end()
                     ->end()
                 ->end()
             ->end();
