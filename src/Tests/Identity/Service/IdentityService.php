@@ -28,10 +28,9 @@ class IdentityServiceTests extends \PHPUnit_Framework_TestCase
     {
         $id = 'a';
         $nameId = 'b';
-        $institution = 'c';
 
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService')
-            ->shouldReceive('get')->with($id, $institution)->once()->andReturn(['id' => $id, 'name_id' => $nameId])
+            ->shouldReceive('get')->with($id)->once()->andReturn(['id' => $id, 'name_id' => $nameId])
             ->getMock();
         $violations = m::mock('Symfony\Component\Validator\ConstraintViolationListInterface')
             ->shouldReceive('count')->with()->once()->andReturn(0)
@@ -41,7 +40,7 @@ class IdentityServiceTests extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $service = new IdentityService($libraryService, $validator);
-        $identity = $service->get($id, $institution);
+        $identity = $service->get($id);
 
         $expectedIdentity = new Identity();
         $expectedIdentity->id = $id;
@@ -56,10 +55,9 @@ class IdentityServiceTests extends \PHPUnit_Framework_TestCase
 
         $id = 'a';
         $nameId = 'b';
-        $institution = 'c';
 
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService')
-            ->shouldReceive('get')->with($id, $institution)->once()->andReturn(['id' => $id, 'name_id' => $nameId])
+            ->shouldReceive('get')->with($id)->once()->andReturn(['id' => $id, 'name_id' => $nameId])
             ->getMock();
         $violations = m::mock('Symfony\Component\Validator\ConstraintViolationListInterface')
             ->shouldReceive('count')->with()->once()->andReturn(1)
@@ -69,6 +67,6 @@ class IdentityServiceTests extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $service = new IdentityService($libraryService, $validator);
-        $service->get($id, $institution);
+        $service->get($id);
     }
 }

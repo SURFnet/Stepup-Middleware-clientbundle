@@ -53,16 +53,15 @@ class IdentityService
 
     /**
      * @param string $id
-     * @param string $institution
      * @return null|Identity
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws InvalidResponseException When the API responded with invalid data.
      * @throws ResourceReadException When the API doesn't respond with the resource.
      * @throws MalformedResponseException When the API doesn't respond with a proper response.
      */
-    public function get($id, $institution)
+    public function get($id)
     {
-        $data = $this->service->get($id, $institution);
+        $data = $this->service->get($id);
 
         if ($data === null) {
             return null;
