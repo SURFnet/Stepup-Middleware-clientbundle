@@ -22,7 +22,7 @@ use Mockery as m;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\Identity;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService;
 
-class IdentityServiceTests extends \PHPUnit_Framework_TestCase
+class IdentityServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testItGetsAnIdentity()
     {
@@ -61,6 +61,7 @@ class IdentityServiceTests extends \PHPUnit_Framework_TestCase
             ->getMock();
         $violations = m::mock('Symfony\Component\Validator\ConstraintViolationListInterface')
             ->shouldReceive('count')->with()->once()->andReturn(1)
+            ->shouldReceive('getIterator')->with()->once()->andReturn(new \ArrayIterator())
             ->getMock();
         $validator = m::mock('Symfony\Component\Validator\Validator\ValidatorInterface')
             ->shouldReceive('validate')->once()->andReturn($violations)
