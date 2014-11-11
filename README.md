@@ -51,5 +51,5 @@ $result = $service->execute($command);
 /** @var \Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService $service */
 $service = $container->get('surfnet_stepup_middleware_client.identity.service.identity');
 /** @var null|\Surfnet\StepupMiddlewareClientBundle\Identity\Dto\Identity */
-$identity = $service->get($id, $institution);
+$identity = $service->get($id);
 ```
