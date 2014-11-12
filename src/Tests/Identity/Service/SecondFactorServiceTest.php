@@ -32,7 +32,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
             [
                 "id" => "769a6649-b3e8-4dd4-8715-2941f947a016",
                 "type" => "yubikey",
-                "second_factor_id" => "ccccccbtbhnh"
+                "second_factor_identifier" => "ccccccbtbhnh"
             ]
         ];
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService')
@@ -52,7 +52,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
         $expectedSecondFactors = [new SecondFactor()];
         $expectedSecondFactors[0]->id = $secondFactorData[0]['id'];
         $expectedSecondFactors[0]->type = $secondFactorData[0]['type'];
-        $expectedSecondFactors[0]->secondFactorId = $secondFactorData[0]['second_factor_id'];
+        $expectedSecondFactors[0]->secondFactorIdentifier = $secondFactorData[0]['second_factor_identifier'];
 
         $this->assertEquals($expectedSecondFactors, $secondFactors);
     }

@@ -38,19 +38,18 @@ class SecondFactor implements Dto
     public $type;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.second_factor.second_factor_id.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.second_factor.second_factor_id.must_be_string")
-     * @Assert\Type(type="int", message="lololololololololo")
+     * @Assert\NotBlank(message="middleware_client.dto.second_factor.second_factor_identifier.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.second_factor.second_factor_identifier.must_be_string")
      * @var string
      */
-    public $secondFactorId;
+    public $secondFactorIdentifier;
 
     public static function fromData(array $data)
     {
         $identity = new self();
         $identity->id = $data['id'];
         $identity->type = $data['type'];
-        $identity->secondFactorId = $data['second_factor_id'];
+        $identity->secondFactorIdentifier = $data['second_factor_identifier'];
 
         return $identity;
     }
