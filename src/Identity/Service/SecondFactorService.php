@@ -25,6 +25,7 @@ use Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService as Libra
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\Identity;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\SecondFactor;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactor;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SecondFactorService
@@ -66,6 +67,39 @@ class SecondFactorService
         }
 
         $secondFactors = array_map('Surfnet\StepupMiddlewareClientBundle\Identity\Dto\SecondFactor::fromData', $data);
+
+        $violations = $this->validator->validate($secondFactors);
+
+        if (count($violations) > 0) {
+            throw InvalidResponseException::withViolations(
+                "One or more second factors retrieved from the Middleware were invalid",
+                $violations
+            );
+        }
+
+        return $secondFactors;
+    }
+
+    /**
+     * @param string $identityId
+     * @return UnverifiedSecondFactor[]
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws InvalidResponseException When the API responded with invalid data.
+     * @throws ResourceReadException When the API doesn't respond with the resource.
+     * @throws MalformedResponseException When the API doesn't respond with a proper response.
+     */
+    public function findUnverifiedByIdentity($identityId)
+    {
+        $data = $this->service->findUnverifiedByIdentity($identityId);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $secondFactors = array_map(
+            'Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactor::fromData',
+            $data
+        );
 
         $violations = $this->validator->validate($secondFactors);
 
