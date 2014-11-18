@@ -4,8 +4,57 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "47f82aaebf9d4113d2fe784c6c270fe6",
+    "hash": "1b716a3a4d82edb361996c611c92547f",
     "packages": [
+        {
+            "name": "beberlei/assert",
+            "version": "v2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "8c60f8a1c31dcd61c928bf024bc59a3472f00632"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/8c60f8a1c31dcd61c928bf024bc59a3472f00632",
+                "reference": "8c60f8a1c31dcd61c928bf024bc59a3472f00632",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assert": "lib/"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "time": "2014-11-06 10:17:53"
+        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "4.2.3",
@@ -266,19 +315,20 @@
         },
         {
             "name": "surfnet/stepup-middleware-client",
-            "version": "dev-develop",
+            "version": "dev-feature/identity-search",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SURFnet/Stepup-Middleware-client.git",
-                "reference": "f7e114eaf7ef591009bc10350e68dd7319f1901d"
+                "reference": "c51d5f281ea181744912734d94038c23ec4dddb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/f7e114eaf7ef591009bc10350e68dd7319f1901d",
-                "reference": "f7e114eaf7ef591009bc10350e68dd7319f1901d",
+                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/c51d5f281ea181744912734d94038c23ec4dddb1",
+                "reference": "c51d5f281ea181744912734d94038c23ec4dddb1",
                 "shasum": ""
             },
             "require": {
+                "beberlei/assert": "~2.0",
                 "guzzlehttp/guzzle": "~4",
                 "php": "~5.4"
             },
@@ -301,7 +351,7 @@
                 "Apache-2.0"
             ],
             "description": "Library for consuming the Step-up Middleware API.",
-            "time": "2014-11-12 13:49:10"
+            "time": "2014-11-18 13:20:13"
         },
         {
             "name": "symfony/config",
