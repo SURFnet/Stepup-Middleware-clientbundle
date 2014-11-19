@@ -69,4 +69,15 @@ class Identity implements Dto
 
         return $identity;
     }
+
+    /**
+     * This is a requirement to be able to set the identity as user in the TokenInterface.
+     * (so we can use it as user in SF)
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id;
+    }
 }
