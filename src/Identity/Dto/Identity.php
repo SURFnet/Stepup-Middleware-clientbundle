@@ -104,7 +104,7 @@ class Identity implements Dto, Serializable
             $this->institution,
             $this->email,
             $this->commonName
-            ) = unserialize($serialized);
+        ) = unserialize($serialized);
     }
 
     /**

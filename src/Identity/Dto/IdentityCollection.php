@@ -26,7 +26,7 @@ class IdentityCollection extends CollectionDto
      * @param array $data
      * @return static
      */
-    public static function fromData(array $data)
+    protected static function createElementFromData(array $data)
     {
         return Identity::fromData($data);
     }

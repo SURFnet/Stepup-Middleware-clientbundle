@@ -78,7 +78,7 @@ class IdentityService
     {
         $data = $this->service->search($searchQuery);
 
-        $collection = IdentityCollection::fromCollectionData($data);
+        $collection = IdentityCollection::fromData($data);
 
         $this->assertIsValid($collection, 'Invalid elements received in collection');
 

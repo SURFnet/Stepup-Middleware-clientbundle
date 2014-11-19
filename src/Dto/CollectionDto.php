@@ -18,7 +18,6 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Dto;
 
-use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class CollectionDto implements Dto
@@ -45,6 +44,12 @@ abstract class CollectionDto implements Dto
      */
     protected $itemsPerPage;
 
+    /**
+     * @param array $elements
+     * @param int   $totalItems
+     * @param int   $currentPage
+     * @param int   $itemsPerPage
+     */
     public function __construct(array $elements, $totalItems, $currentPage, $itemsPerPage)
     {
         $this->elements = $elements;
@@ -54,14 +59,14 @@ abstract class CollectionDto implements Dto
     }
 
     /**
-     * @param array   $data
+     * @param  array  $data
      * @return static
      */
-    public static function fromCollectionData(array $data)
+    public static function fromData(array $data)
     {
         $elements = [];
         foreach ($data['items'] as $key => $item) {
-            $elements[$key] = static::fromData($item);
+            $elements[$key] = static::createElementFromData($item);
         }
 
         return new static(
@@ -70,6 +75,19 @@ abstract class CollectionDto implements Dto
             $data['collection']['page'],
             $data['collection']['page_size']
         );
+    }
+
+    /**
+     * Load the element in the collection based on the data given
+     *
+     * @param  array $item
+     * @return mixed
+     */
+    protected static function createElementFromData(array $item)
+    {
+        throw new \LogicException(sprintf(
+            'The method "%s::createElementFromData must be implemented to load the Collection Element"'
+        ));
     }
 
     /**
