@@ -30,16 +30,6 @@ class UpdateIdentityCommand extends AbstractCommand
     /**
      * @var string
      */
-    public $nameId;
-
-    /**
-     * @var string
-     */
-    public $institution;
-
-    /**
-     * @var string
-     */
     public $email;
 
     /**
@@ -56,8 +46,6 @@ class UpdateIdentityCommand extends AbstractCommand
     {
         return [
             'id'          => $this->id,
-            'name_id'     => $this->nameId,
-            'institution' => $this->institution,
             'email'       => $this->email,
             'common_name' => $this->commonName
         ];
