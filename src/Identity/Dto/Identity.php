@@ -18,10 +18,11 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
+use Serializable;
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Identity implements Dto
+class Identity implements Dto, Serializable
 {
     /**
      * @Assert\NotBlank(message="middleware_client.dto.identity.id.must_not_be_blank")
@@ -68,6 +69,42 @@ class Identity implements Dto
         $identity->commonName = $data['common_name'];
 
         return $identity;
+    }
+
+    /**
+     * Used so that we can serialize the Identity within the SAMLToken, so we can store the token in a session.
+     * This to support persistent login
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(
+            [
+                $this->id,
+                $this->nameId,
+                $this->institution,
+                $this->email,
+                $this->commonName
+            ]
+        );
+    }
+
+    /**
+     * Used so that we can unserialize the Identity within the SAMLToken, so that it can be loaded from the session
+     * for persistent login.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->nameId,
+            $this->institution,
+            $this->email,
+            $this->commonName
+            ) = unserialize($serialized);
     }
 
     /**
