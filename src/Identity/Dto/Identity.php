@@ -37,11 +37,35 @@ class Identity implements Dto
      */
     public $nameId;
 
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.identity.institution.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.identity.institution.must_be_string")
+     * @var string
+     */
+    public $institution;
+
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.identity.email.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.identity.email.must_be_string")
+     * @var string
+     */
+    public $email;
+
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.identity.common_name.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.identity.common_name.must_be_string")
+     * @var string
+     */
+    public $commonName;
+
     public static function fromData(array $data)
     {
         $identity = new self();
         $identity->id = $data['id'];
         $identity->nameId = $data['name_id'];
+        $identity->institution = $data['institution'];
+        $identity->email = $data['email'];
+        $identity->commonName = $data['common_name'];
 
         return $identity;
     }

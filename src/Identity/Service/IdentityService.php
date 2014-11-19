@@ -18,9 +18,6 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 
-use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
-use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
-use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\IdentitySearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService as LibraryIdentityService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
@@ -56,10 +53,6 @@ class IdentityService
     /**
      * @param string $id
      * @return null|Identity
-     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
-     * @throws InvalidResponseException When the API responded with invalid data.
-     * @throws ResourceReadException When the API doesn't respond with the resource.
-     * @throws MalformedResponseException When the API doesn't respond with a proper response.
      */
     public function get($id)
     {

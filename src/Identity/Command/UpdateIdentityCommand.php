@@ -20,7 +20,7 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
 use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
 
-class CreateIdentityCommand extends AbstractCommand
+class UpdateIdentityCommand extends AbstractCommand
 {
     /**
      * @var string
@@ -47,6 +47,10 @@ class CreateIdentityCommand extends AbstractCommand
      */
     public $commonName;
 
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
 
     public function serialise()
     {
