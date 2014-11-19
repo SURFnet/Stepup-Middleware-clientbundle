@@ -61,7 +61,7 @@ abstract class CollectionDto implements Dto
     {
         $elements = [];
         foreach ($data['items'] as $key => $item) {
-            $elements[$key] = self::fromData($item);
+            $elements[$key] = static::fromData($item);
         }
 
         return new static(
