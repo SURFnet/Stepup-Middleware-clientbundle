@@ -18,10 +18,11 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
+use Serializable;
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Identity implements Dto
+class Identity implements Dto, Serializable
 {
     /**
      * @Assert\NotBlank(message="middleware_client.dto.identity.id.must_not_be_blank")
@@ -37,12 +38,83 @@ class Identity implements Dto
      */
     public $nameId;
 
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.identity.institution.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.identity.institution.must_be_string")
+     * @var string
+     */
+    public $institution;
+
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.identity.email.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.identity.email.must_be_string")
+     * @var string
+     */
+    public $email;
+
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.identity.common_name.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.identity.common_name.must_be_string")
+     * @var string
+     */
+    public $commonName;
+
     public static function fromData(array $data)
     {
         $identity = new self();
         $identity->id = $data['id'];
         $identity->nameId = $data['name_id'];
+        $identity->institution = $data['institution'];
+        $identity->email = $data['email'];
+        $identity->commonName = $data['common_name'];
 
         return $identity;
+    }
+
+    /**
+     * Used so that we can serialize the Identity within the SAMLToken, so we can store the token in a session.
+     * This to support persistent login
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(
+            [
+                $this->id,
+                $this->nameId,
+                $this->institution,
+                $this->email,
+                $this->commonName
+            ]
+        );
+    }
+
+    /**
+     * Used so that we can unserialize the Identity within the SAMLToken, so that it can be loaded from the session
+     * for persistent login.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->nameId,
+            $this->institution,
+            $this->email,
+            $this->commonName
+        ) = unserialize($serialized);
+    }
+
+    /**
+     * This is a requirement to be able to set the identity as user in the TokenInterface.
+     * (so we can use it as user in SF)
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id;
     }
 }

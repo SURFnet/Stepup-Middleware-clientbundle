@@ -7,6 +7,55 @@
     "hash": "47f82aaebf9d4113d2fe784c6c270fe6",
     "packages": [
         {
+            "name": "beberlei/assert",
+            "version": "v2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "8c60f8a1c31dcd61c928bf024bc59a3472f00632"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/8c60f8a1c31dcd61c928bf024bc59a3472f00632",
+                "reference": "8c60f8a1c31dcd61c928bf024bc59a3472f00632",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assert": "lib/"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "time": "2014-11-06 10:17:53"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "4.2.3",
             "source": {
@@ -270,15 +319,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SURFnet/Stepup-Middleware-client.git",
-                "reference": "db2efa193904ab419447b7b8f2e6b66cf309e458"
+                "reference": "c351729c0a2c220e392958dd8d597b3933f1c921"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/db2efa193904ab419447b7b8f2e6b66cf309e458",
-                "reference": "db2efa193904ab419447b7b8f2e6b66cf309e458",
+                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/c351729c0a2c220e392958dd8d597b3933f1c921",
+                "reference": "c351729c0a2c220e392958dd8d597b3933f1c921",
                 "shasum": ""
             },
             "require": {
+                "beberlei/assert": "~2.0",
                 "guzzlehttp/guzzle": "~4",
                 "php": "~5.4"
             },
@@ -301,7 +351,7 @@
                 "Apache-2.0"
             ],
             "description": "Library for consuming the Step-up Middleware API.",
-            "time": "2014-11-11 14:24:32"
+            "time": "2014-11-20 09:13:23"
         },
         {
             "name": "symfony/config",
