@@ -47,7 +47,6 @@ class CreateIdentityCommand extends AbstractCommand
      */
     public $commonName;
 
-
     public function serialise()
     {
         return [
