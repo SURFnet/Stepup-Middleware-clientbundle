@@ -18,12 +18,11 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 
-use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
-use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
-use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\IdentitySearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService as LibraryIdentityService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\Identity;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\IdentityCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -54,10 +53,6 @@ class IdentityService
     /**
      * @param string $id
      * @return null|Identity
-     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
-     * @throws InvalidResponseException When the API responded with invalid data.
-     * @throws ResourceReadException When the API doesn't respond with the resource.
-     * @throws MalformedResponseException When the API doesn't respond with a proper response.
      */
     public function get($id)
     {
@@ -69,13 +64,39 @@ class IdentityService
 
         $identity = Identity::fromData($data);
 
-        $violations = $this->validator->validate($identity);
-
-        if (count($violations) > 0) {
-            $message = sprintf("Identity '%s' retrieved from the Middleware is invalid", $id);
-            throw InvalidResponseException::withViolations($message, $violations);
-        }
+        $message = sprintf("Identity '%s' retrieved from the Middleware is invalid", $id);
+        $this->assertIsValid($identity, $message);
 
         return $identity;
+    }
+
+    /**
+     * @param IdentitySearchQuery $searchQuery
+     * @return \Surfnet\StepupMiddlewareClientBundle\Identity\Dto\IdentityCollection
+     */
+    public function search(IdentitySearchQuery $searchQuery)
+    {
+        $data = $this->service->search($searchQuery);
+
+        $collection = IdentityCollection::fromData($data);
+
+        $this->assertIsValid($collection, 'Invalid elements received in collection');
+
+        return $collection;
+    }
+
+    /**
+     * @param object      $value
+     * @param null|string $message
+     */
+    private function assertIsValid($value, $message = null)
+    {
+        $violations = $this->validator->validate($value);
+
+        $message = $message ?: 'Invalid Response Received';
+
+        if (count($violations) > 0) {
+            throw InvalidResponseException::withViolations($message, $violations);
+        }
     }
 }
