@@ -24,7 +24,7 @@ use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
 use Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService as LibrarySecondFactorService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\SecondFactor;
-use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactor;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactorCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SecondFactorService
@@ -81,7 +81,7 @@ class SecondFactorService
 
     /**
      * @param string $identityId
-     * @return UnverifiedSecondFactor[]
+     * @return UnverifiedSecondFactorCollection
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws InvalidResponseException When the API responded with invalid data.
      * @throws ResourceReadException When the API doesn't respond with the resource.
@@ -95,11 +95,7 @@ class SecondFactorService
             return null;
         }
 
-        $secondFactors = array_map(
-            'Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactor::fromData',
-            $data
-        );
-
+        $secondFactors = UnverifiedSecondFactorCollection::fromData($data);
         $violations = $this->validator->validate($secondFactors);
 
         if (count($violations) > 0) {

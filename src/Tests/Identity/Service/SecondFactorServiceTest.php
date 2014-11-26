@@ -63,11 +63,14 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
         $identityId = 'a';
 
         $secondFactorData = [
-            [
-                "id" => "769a6649-b3e8-4dd4-8715-2941f947a016",
-                "type" => "yubikey",
-                "second_factor_identifier" => "ccccccbtbhnh"
-            ]
+            'collection' => ['total_items' => 1, 'page' => 1, 'page_size' => 25],
+            'items' => [
+                [
+                    "id" => "769a6649-b3e8-4dd4-8715-2941f947a016",
+                    "type" => "yubikey",
+                    "second_factor_identifier" => "ccccccbtbhnh",
+                ]
+            ],
         ];
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService')
             ->shouldReceive('findUnverifiedByIdentity')->with($identityId)->once()->andReturn($secondFactorData)
@@ -82,12 +85,11 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
         $service = new SecondFactorService($libraryService, $validator);
         $secondFactors = $service->findUnverifiedByIdentity($identityId);
 
-        /** @var UnverifiedSecondFactor[] $expectedSecondFactors */
-        $expectedSecondFactors = [new UnverifiedSecondFactor()];
-        $expectedSecondFactors[0]->id = $secondFactorData[0]['id'];
-        $expectedSecondFactors[0]->type = $secondFactorData[0]['type'];
-        $expectedSecondFactors[0]->secondFactorIdentifier = $secondFactorData[0]['second_factor_identifier'];
+        $expectedSecondFactor = new UnverifiedSecondFactor();
+        $expectedSecondFactor->id = $secondFactorData['items'][0]['id'];
+        $expectedSecondFactor->type = $secondFactorData['items'][0]['type'];
+        $expectedSecondFactor->secondFactorIdentifier = $secondFactorData['items'][0]['second_factor_identifier'];
 
-        $this->assertEquals($expectedSecondFactors, $secondFactors);
+        $this->assertEquals([$expectedSecondFactor], $secondFactors->getElements());
     }
 }
