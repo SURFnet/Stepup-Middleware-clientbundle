@@ -46,11 +46,11 @@ class SecondFactor implements Dto
 
     public static function fromData(array $data)
     {
-        $identity = new self();
-        $identity->id = $data['id'];
-        $identity->type = $data['type'];
-        $identity->secondFactorIdentifier = $data['second_factor_identifier'];
+        $secondFactor = new self();
+        $secondFactor->id = $data['id'];
+        $secondFactor->type = $data['type'];
+        $secondFactor->secondFactorIdentifier = $data['second_factor_identifier'];
 
-        return $identity;
+        return $secondFactor;
     }
 }
