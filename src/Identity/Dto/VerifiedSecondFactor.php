@@ -21,25 +21,30 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class SecondFactor implements Dto
+class VerifiedSecondFactor implements Dto
 {
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.second_factor.id.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.second_factor.id.must_be_string")
+     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.id.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.verified_second_factor.id.must_be_string")
      * @var string
      */
     public $id;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.second_factor.type.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.second_factor.type.must_be_string")
+     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.type.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.verified_second_factor.type.must_be_string")
      * @var string
      */
     public $type;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.second_factor.second_factor_identifier.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.second_factor.second_factor_identifier.must_be_string")
+     * @Assert\NotBlank(
+     *     message="middleware_client.dto.verified_second_factor.second_factor_identifier.must_not_be_blank"
+     * )
+     * @Assert\Type(
+     *     type="string",
+     *     message="middleware_client.dto.verified_second_factor.second_factor_identifier.must_be_string"
+     * )
      * @var string
      */
     public $secondFactorIdentifier;

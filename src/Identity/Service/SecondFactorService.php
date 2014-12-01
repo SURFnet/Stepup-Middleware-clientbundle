@@ -23,8 +23,8 @@ use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
 use Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService as LibrarySecondFactorService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
-use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\SecondFactor;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactorCollection;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\VerifiedSecondFactorCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SecondFactorService
@@ -51,36 +51,6 @@ class SecondFactorService
 
     /**
      * @param string $identityId
-     * @return SecondFactor[]
-     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
-     * @throws InvalidResponseException When the API responded with invalid data.
-     * @throws ResourceReadException When the API doesn't respond with the resource.
-     * @throws MalformedResponseException When the API doesn't respond with a proper response.
-     */
-    public function findByIdentity($identityId)
-    {
-        $data = $this->service->findByIdentity($identityId);
-
-        if ($data === null) {
-            return null;
-        }
-
-        $secondFactors = array_map('Surfnet\StepupMiddlewareClientBundle\Identity\Dto\SecondFactor::fromData', $data);
-
-        $violations = $this->validator->validate($secondFactors);
-
-        if (count($violations) > 0) {
-            throw InvalidResponseException::withViolations(
-                "One or more second factors retrieved from the Middleware were invalid",
-                $violations
-            );
-        }
-
-        return $secondFactors;
-    }
-
-    /**
-     * @param string $identityId
      * @return UnverifiedSecondFactorCollection
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws InvalidResponseException When the API responded with invalid data.
@@ -96,6 +66,35 @@ class SecondFactorService
         }
 
         $secondFactors = UnverifiedSecondFactorCollection::fromData($data);
+        $violations = $this->validator->validate($secondFactors);
+
+        if (count($violations) > 0) {
+            throw InvalidResponseException::withViolations(
+                "One or more second factors retrieved from the Middleware were invalid",
+                $violations
+            );
+        }
+
+        return $secondFactors;
+    }
+
+    /**
+     * @param string $identityId
+     * @return VerifiedSecondFactorCollection
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws InvalidResponseException When the API responded with invalid data.
+     * @throws ResourceReadException When the API doesn't respond with the resource.
+     * @throws MalformedResponseException When the API doesn't respond with a proper response.
+     */
+    public function findVerifiedByIdentity($identityId)
+    {
+        $data = $this->service->findVerifiedByIdentity($identityId);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $secondFactors = VerifiedSecondFactorCollection::fromData($data);
         $violations = $this->validator->validate($secondFactors);
 
         if (count($violations) > 0) {

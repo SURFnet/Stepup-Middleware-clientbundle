@@ -13,7 +13,7 @@
         "moontoast/math": "~1.1",
         "psr/log": "~1.0",
         "rhumsaa/uuid": "~2.7",
-        "surfnet/stepup-middleware-client": "dev-feature/list-second-factors",
+        "surfnet/stepup-middleware-client": "dev-develop",
         "symfony/config": "~2",
         "symfony/dependency-injection": "~2",
         "symfony/http-kernel": "~2",
