@@ -22,10 +22,6 @@ use Surfnet\StepupMiddlewareClientBundle\Dto\CollectionDto;
 
 class VerifiedSecondFactorCollection extends CollectionDto
 {
-    /**
-     * @param array $data
-     * @return static
-     */
     protected static function createElementFromData(array $data)
     {
         return VerifiedSecondFactor::fromData($data);
