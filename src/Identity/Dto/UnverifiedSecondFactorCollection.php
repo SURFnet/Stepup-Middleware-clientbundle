@@ -20,10 +20,10 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
 use Surfnet\StepupMiddlewareClientBundle\Dto\CollectionDto;
 
-class IdentityCollection extends CollectionDto
+class UnverifiedSecondFactorCollection extends CollectionDto
 {
     protected static function createElementFromData(array $data)
     {
-        return Identity::fromData($data);
+        return UnverifiedSecondFactor::fromData($data);
     }
 }

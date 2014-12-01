@@ -319,12 +319,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SURFnet/Stepup-Middleware-client.git",
-                "reference": "c351729c0a2c220e392958dd8d597b3933f1c921"
+                "reference": "e19f0e108ab0682b92b7d8c67a78999a9611a008"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/c351729c0a2c220e392958dd8d597b3933f1c921",
-                "reference": "c351729c0a2c220e392958dd8d597b3933f1c921",
+                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/e19f0e108ab0682b92b7d8c67a78999a9611a008",
+                "reference": "e19f0e108ab0682b92b7d8c67a78999a9611a008",
                 "shasum": ""
             },
             "require": {
@@ -351,7 +351,7 @@
                 "Apache-2.0"
             ],
             "description": "Library for consuming the Step-up Middleware API.",
-            "time": "2014-11-20 09:13:23"
+            "time": "2014-12-01 13:29:45"
         },
         {
             "name": "symfony/config",
