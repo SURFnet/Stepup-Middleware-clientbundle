@@ -19,13 +19,15 @@
 namespace Surfnet\StepupMiddlewareClient\Tests\Identity\Service;
 
 use Mockery as m;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\UnverifiedSecondFactorSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\VerifiedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\VerifiedSecondFactor;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactor;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Service\SecondFactorService;
 
 class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
 {
-    public function testItFindsUnverifiedSecondFactorsByIdentity()
+    public function testItSearchesUnverifiedSecondFactorsByIdentity()
     {
         $identityId = 'a';
 
@@ -39,8 +41,10 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
         ];
+        $query = (new UnverifiedSecondFactorSearchQuery())->setIdentityId($identityId);
+
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService')
-            ->shouldReceive('findUnverifiedByIdentity')->with($identityId)->once()->andReturn($secondFactorData)
+            ->shouldReceive('searchUnverified')->with($query)->once()->andReturn($secondFactorData)
             ->getMock();
         $violations = m::mock('Symfony\Component\Validator\ConstraintViolationListInterface')
             ->shouldReceive('count')->with()->once()->andReturn(0)
@@ -50,7 +54,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $service = new SecondFactorService($libraryService, $validator);
-        $secondFactors = $service->findUnverifiedByIdentity($identityId);
+        $secondFactors = $service->searchUnverified($query);
 
         $expectedSecondFactor = new UnverifiedSecondFactor();
         $expectedSecondFactor->id = $secondFactorData['items'][0]['id'];
@@ -60,7 +64,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([$expectedSecondFactor], $secondFactors->getElements());
     }
 
-    public function testItFindsVerifiedSecondFactorsByIdentity()
+    public function testItSearchesVerifiedSecondFactorsByIdentity()
     {
         $identityId = 'a';
 
@@ -74,8 +78,10 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
         ];
+        $query = (new VerifiedSecondFactorSearchQuery())->setIdentityId($identityId);
+
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService')
-            ->shouldReceive('findVerifiedByIdentity')->with($identityId)->once()->andReturn($secondFactorData)
+            ->shouldReceive('searchVerified')->with($query)->once()->andReturn($secondFactorData)
             ->getMock();
         $violations = m::mock('Symfony\Component\Validator\ConstraintViolationListInterface')
             ->shouldReceive('count')->with()->once()->andReturn(0)
@@ -85,9 +91,8 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $service = new SecondFactorService($libraryService, $validator);
-        $secondFactors = $service->findVerifiedByIdentity($identityId);
+        $secondFactors = $service->searchVerified($query);
 
-        /** @var VerifiedSecondFactor[] $expectedSecondFactor */
         $expectedSecondFactor = new VerifiedSecondFactor();
         $expectedSecondFactor->id = $secondFactorData['items'][0]['id'];
         $expectedSecondFactor->type = $secondFactorData['items'][0]['type'];
