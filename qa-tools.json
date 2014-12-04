@@ -36,14 +36,14 @@
 	],
 	"enablePhpCopyPasteDetection": true,
 	"phpCpdExcludePatterns": [
-		"*\/Tests\/*"
+
 	],
 	"enablePhpSecurityChecker": false,
 	"phpSrcPath": [
 		"src"
 	],
 	"enablePhpUnit": true,
-	"customPhpUnitXml": false,
+	"customPhpUnitXml": true,
 	"phpTestsPath": [
 		"src\/Tests"
 	],
@@ -52,7 +52,8 @@
 	"enableJsTools": false,
 	"enableJsHint": false,
 	"enableBehat": false,
-	"enablePreCommitHook": true,
+	"enablePreCommitHook": false,
 	"md5Command": "md5sum",
-	"_qa_tools_run_completed": true
+	"_qa_tools_run_completed": true,
+	"phpUnitConfigPath": "phpunit.xml"
 }

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "47f82aaebf9d4113d2fe784c6c270fe6",
+    "hash": "18b5f5eab77d9e090b92835380cf200a",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -312,46 +312,6 @@
                 "uuid"
             ],
             "time": "2014-10-30 03:36:49"
-        },
-        {
-            "name": "surfnet/stepup-middleware-client",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SURFnet/Stepup-Middleware-client.git",
-                "reference": "e19f0e108ab0682b92b7d8c67a78999a9611a008"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SURFnet/Stepup-Middleware-client/zipball/e19f0e108ab0682b92b7d8c67a78999a9611a008",
-                "reference": "e19f0e108ab0682b92b7d8c67a78999a9611a008",
-                "shasum": ""
-            },
-            "require": {
-                "beberlei/assert": "~2.0",
-                "guzzlehttp/guzzle": "~4",
-                "php": "~5.4"
-            },
-            "require-dev": {
-                "ibuildings/qa-tools": "~1.1,>=1.1.27",
-                "liip/rmt": "1.1.*",
-                "mockery/mockery": "0.9.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Surfnet\\StepupMiddlewareClient\\": [
-                        "src",
-                        "tests"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Library for consuming the Step-up Middleware API.",
-            "time": "2014-12-01 13:29:45"
         },
         {
             "name": "symfony/config",
@@ -3330,9 +3290,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "surfnet/stepup-middleware-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "platform": {
         "php": "~5.4"
