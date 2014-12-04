@@ -3,6 +3,13 @@
 
 A Symfony2 bundle to consume the Step-up Middleware API.
 
+## Requirements
+
+ * PHP 5.4+
+ * [Composer](https://getcomposer.org/)
+ * A working [Gateway](https://github.com/SURFnet/Stepup-Gateway)
+ * Working [Middleware](https://github.com/SURFnet/Stepup-Middleware)
+
 ## Installation
 
  * Add the package to your Composer file
