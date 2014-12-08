@@ -23,6 +23,7 @@ use Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService as LibraryId
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\Identity;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\IdentityCollection;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RegistrationAuthorityCredentials;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -83,6 +84,22 @@ class IdentityService
         $this->assertIsValid($collection, 'Invalid elements received in collection');
 
         return $collection;
+    }
+
+    /**
+     * @param Identity $identity
+     * @return RegistrationAuthorityCredentials
+     */
+    public function getRegistrationAuthorityCredentials(Identity $identity)
+    {
+        $data = $this->service->getRegistrationAuthorityCredentials($identity->id);
+
+        $credentials = RegistrationAuthorityCredentials::fromData($data);
+
+        $message = sprintf('Registration Authority Credentials for Identity[%s] are invalid', $identity->id);
+        $this->assertIsValid($credentials, $message);
+
+        return $credentials;
     }
 
     /**

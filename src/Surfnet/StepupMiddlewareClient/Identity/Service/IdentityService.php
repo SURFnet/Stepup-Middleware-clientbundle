@@ -62,4 +62,13 @@ class IdentityService
     {
         return $this->apiService->read('identity' . $searchQuery->toHttpQuery());
     }
+
+    /**
+     * @param string $identityId
+     * @return array|null
+     */
+    public function getRegistrationAuthorityCredentials($identityId)
+    {
+        return $this->apiService->read('registration-authority/%s', [$identityId]);
+    }
 }
