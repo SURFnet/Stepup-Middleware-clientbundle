@@ -32,16 +32,31 @@ class RegistrationAuthorityCredentials implements Dto
     public $identityId;
 
     /**
+     * @Assert\Expression(
+     *     "!value or !is_string(value)",
+     *     message="middleware_client.dto.ra_credentials.institution.must_be_null_or_string"
+     * )
+     *
      * @var string
      */
     public $institution;
 
     /**
+     * @Assert\Expression(
+     *     "!value or !is_string(value)",
+     *     message="middleware_client.dto.ra_credentials.location.must_be_null_or_string"
+     * )
+     *
      * @var string
      */
     public $location;
 
     /**
+     * @Assert\Expression(
+     *     "!value or !is_string(value)",
+     *     message="middleware_client.dto.ra_credentials.contact_information.must_be_null_or_string"
+     * )
+     *
      * @var string
      */
     public $contactInformation;
