@@ -62,7 +62,6 @@ class RegistrationAuthorityCredentials implements Dto
     public $contactInformation;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_credentials.is_raa.must_not_be_blank")
      * @Assert\Type(type="bool", message="middleware_client.dto.ra_credentials.is_raa.must_be_boolean")
      *
      * @var bool
@@ -70,7 +69,6 @@ class RegistrationAuthorityCredentials implements Dto
     public $isRaa;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_credentials.is_sraa.must_not_be_blank")
      * @Assert\Type(type="bool", message="middleware_client.dto.ra_credentials.is_sraa.must_be_boolean")
      *
      * @var bool
