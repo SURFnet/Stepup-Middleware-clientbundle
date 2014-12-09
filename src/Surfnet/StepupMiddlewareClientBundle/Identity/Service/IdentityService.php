@@ -94,6 +94,11 @@ class IdentityService
     {
         $data = $this->service->getRegistrationAuthorityCredentials($identity->id);
 
+        // 404 Not Found is a valid case.
+        if (!$data) {
+            return null;
+        }
+
         $credentials = RegistrationAuthorityCredentials::fromData($data);
 
         $message = sprintf('Registration Authority Credentials for Identity[%s] are invalid', $identity->id);
