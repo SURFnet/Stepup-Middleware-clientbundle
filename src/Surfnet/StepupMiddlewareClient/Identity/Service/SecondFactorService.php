@@ -23,6 +23,7 @@ use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\UnverifiedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\VerifiedSecondFactorSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\VettedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
 /**
@@ -65,5 +66,17 @@ class SecondFactorService
     public function searchVerified(VerifiedSecondFactorSearchQuery $query)
     {
         return $this->apiService->read('verified-second-factors' . $query->toHttpQuery());
+    }
+
+    /**
+     * @param VettedSecondFactorSearchQuery $query
+     * @return null|array
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws ResourceReadException When the server doesn't respond with the resource.
+     * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
+     */
+    public function searchVetted(VettedSecondFactorSearchQuery $query)
+    {
+        return $this->apiService->read('vetted-second-factors' . $query->toHttpQuery());
     }
 }

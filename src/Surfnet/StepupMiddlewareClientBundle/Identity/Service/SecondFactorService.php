@@ -23,10 +23,12 @@ use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\UnverifiedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\VerifiedSecondFactorSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\VettedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService as LibrarySecondFactorService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\UnverifiedSecondFactorCollection;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\VerifiedSecondFactorCollection;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\VettedSecondFactorCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SecondFactorService
@@ -97,6 +99,35 @@ class SecondFactorService
         }
 
         $secondFactors = VerifiedSecondFactorCollection::fromData($data);
+        $violations = $this->validator->validate($secondFactors);
+
+        if (count($violations) > 0) {
+            throw InvalidResponseException::withViolations(
+                "One or more second factors retrieved from the Middleware were invalid",
+                $violations
+            );
+        }
+
+        return $secondFactors;
+    }
+
+    /**
+     * @param VettedSecondFactorSearchQuery $query
+     * @return VettedSecondFactorCollection
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws InvalidResponseException When the API responded with invalid data.
+     * @throws ResourceReadException When the API doesn't respond with the resource.
+     * @throws MalformedResponseException When the API doesn't respond with a proper response.
+     */
+    public function searchVetted(VettedSecondFactorSearchQuery $query)
+    {
+        $data = $this->service->searchVetted($query);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $secondFactors = VettedSecondFactorCollection::fromData($data);
         $violations = $this->validator->validate($secondFactors);
 
         if (count($violations) > 0) {
