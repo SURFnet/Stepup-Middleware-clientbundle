@@ -88,7 +88,7 @@ class IdentityService
 
     /**
      * @param Identity $identity
-     * @return RegistrationAuthorityCredentials
+     * @return RegistrationAuthorityCredentials|null
      */
     public function getRegistrationAuthorityCredentials(Identity $identity)
     {
