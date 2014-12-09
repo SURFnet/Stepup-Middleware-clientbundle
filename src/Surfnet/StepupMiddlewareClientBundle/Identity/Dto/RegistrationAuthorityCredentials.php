@@ -33,7 +33,7 @@ class RegistrationAuthorityCredentials implements Dto
 
     /**
      * @Assert\Expression(
-     *     "!value or !is_string(value)",
+     *     "this.assertNullOrString(value)",
      *     message="middleware_client.dto.ra_credentials.institution.must_be_null_or_string"
      * )
      *
@@ -43,7 +43,7 @@ class RegistrationAuthorityCredentials implements Dto
 
     /**
      * @Assert\Expression(
-     *     "!value or !is_string(value)",
+     *     "this.assertNullOrString(value)",
      *     message="middleware_client.dto.ra_credentials.location.must_be_null_or_string"
      * )
      *
@@ -53,7 +53,7 @@ class RegistrationAuthorityCredentials implements Dto
 
     /**
      * @Assert\Expression(
-     *     "!value or !is_string(value)",
+     *     "this.assertNullOrString(value)",
      *     message="middleware_client.dto.ra_credentials.contact_information.must_be_null_or_string"
      * )
      *
@@ -88,5 +88,14 @@ class RegistrationAuthorityCredentials implements Dto
         $credentials->isSraa = $data['attributes']['is_sraa'];
 
         return $credentials;
+    }
+
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    public function assertNullOrString($value)
+    {
+        return is_null($value) || is_string($value);
     }
 }
