@@ -31,6 +31,9 @@ use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\VerifiedSecondFactorCollec
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\VettedSecondFactorCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class SecondFactorService
 {
     /**
