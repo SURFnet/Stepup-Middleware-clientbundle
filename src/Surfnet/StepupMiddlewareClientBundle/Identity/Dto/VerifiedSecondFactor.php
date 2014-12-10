@@ -49,12 +49,30 @@ class VerifiedSecondFactor implements Dto
      */
     public $secondFactorIdentifier;
 
+    /**
+     * @var string
+     */
+    public $identityId;
+
+    /**
+     * @var string
+     */
+    public $institution;
+
+    /**
+     * @var string
+     */
+    public $commonName;
+
     public static function fromData(array $data)
     {
         $secondFactor = new self();
         $secondFactor->id = $data['id'];
         $secondFactor->type = $data['type'];
         $secondFactor->secondFactorIdentifier = $data['second_factor_identifier'];
+        $secondFactor->identityId = $data['identity_id'];
+        $secondFactor->institution = $data['institution'];
+        $secondFactor->commonName = $data['common_name'];
 
         return $secondFactor;
     }
