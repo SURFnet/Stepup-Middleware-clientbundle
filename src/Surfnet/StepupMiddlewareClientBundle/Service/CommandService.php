@@ -60,7 +60,10 @@ class CommandService
         $payload = $command->serialise();
         $metadataPayload = $metadata ? $metadata->serialise() : [];
 
-        $command->setUuid(Uuid::generate());
+        // Only set the command's UUID if it hasn't already been set. Allows pre-setting of UUID, if needed.
+        if (!$command->getUuid()) {
+            $command->setUuid(Uuid::generate());
+        }
 
         $this->logger->info(sprintf("Command '%s' with UUID '%s' is executing", $commandName, $command->getUuid()));
 

@@ -21,6 +21,9 @@ namespace Surfnet\StepupMiddlewareClient\Identity\Service;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\UnverifiedSecondFactorSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\VerifiedSecondFactorSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\VettedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
 /**
@@ -42,26 +45,38 @@ class SecondFactorService
     }
 
     /**
-     * @param string $identityId
+     * @param UnverifiedSecondFactorSearchQuery $query
      * @return null|array
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws ResourceReadException When the server doesn't respond with the resource.
      * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
      */
-    public function findUnverifiedByIdentity($identityId)
+    public function searchUnverified(UnverifiedSecondFactorSearchQuery $query)
     {
-        return $this->apiService->read('identity/%s/unverified-second-factors', [$identityId]);
+        return $this->apiService->read('unverified-second-factors' . $query->toHttpQuery());
     }
 
     /**
-     * @param string $identityId
+     * @param VerifiedSecondFactorSearchQuery $query
      * @return null|array
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws ResourceReadException When the server doesn't respond with the resource.
      * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
      */
-    public function findVerifiedByIdentity($identityId)
+    public function searchVerified(VerifiedSecondFactorSearchQuery $query)
     {
-        return $this->apiService->read('identity/%s/verified-second-factors', [$identityId]);
+        return $this->apiService->read('verified-second-factors' . $query->toHttpQuery());
+    }
+
+    /**
+     * @param VettedSecondFactorSearchQuery $query
+     * @return null|array
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws ResourceReadException When the server doesn't respond with the resource.
+     * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
+     */
+    public function searchVetted(VettedSecondFactorSearchQuery $query)
+    {
+        return $this->apiService->read('vetted-second-factors' . $query->toHttpQuery());
     }
 }

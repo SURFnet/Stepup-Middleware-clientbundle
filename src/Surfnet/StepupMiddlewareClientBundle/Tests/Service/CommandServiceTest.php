@@ -69,6 +69,29 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function testItOnlySetsTheUuidIfNotAlreadySet()
+    {
+        $preSetUuid = 'aaaaaa-bbbb-cccc-dddddddddddd';
+
+        $command = new ZigCommand([]);
+        $command->setUuid($preSetUuid);
+
+        $result = m::mock('Surfnet\StepupMiddlewareClient\Service\ExecutionResult')
+            ->shouldReceive('isSuccessful')->andReturn(true)
+            ->shouldReceive('getUuid')->andReturn($preSetUuid)
+            ->shouldReceive('getProcessedBy')->andReturn('mw-01')
+            ->getMock();
+        $commandService = m::mock('Surfnet\StepupMiddlewareClient\Service\CommandService')
+            ->shouldReceive('execute')->once()->with('Root:Name.Spaced.Zig', self::spy($sentUuid), [], [])->andReturn($result)
+            ->getMock();
+
+        $service = new CommandService($commandService, m::mock('Psr\Log\LoggerInterface')->shouldIgnoreMissing());
+        $service->execute($command);
+
+        $this->assertEquals($preSetUuid, $command->getUuid(), 'UUID was overwritten during command execution');
+        $this->assertEquals($preSetUuid, $sentUuid, 'Another UUID than the pre-set UUID was sent to the server');
+    }
+
     private static function spy(&$spiedValue)
     {
         return m::on(function ($value) use (&$spiedValue) {

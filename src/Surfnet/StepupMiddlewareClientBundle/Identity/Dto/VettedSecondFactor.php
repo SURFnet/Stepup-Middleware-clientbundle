@@ -21,48 +21,31 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class VerifiedSecondFactor implements Dto
+class VettedSecondFactor implements Dto
 {
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.id.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.verified_second_factor.id.must_be_string")
+     * @Assert\NotBlank(message="middleware_client.dto.vetted_second_factor.id.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.vetted_second_factor.id.must_be_string")
      * @var string
      */
     public $id;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.type.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.verified_second_factor.type.must_be_string")
+     * @Assert\NotBlank(message="middleware_client.dto.vetted_second_factor.type.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.vetted_second_factor.type.must_be_string")
      * @var string
      */
     public $type;
 
     /**
-     * @Assert\NotBlank(
-     *     message="middleware_client.dto.verified_second_factor.second_factor_identifier.must_not_be_blank"
-     * )
+     * @Assert\NotBlank(message="middleware_client.dto.vetted_second_factor.second_factor_identifier.must_not_be_blank")
      * @Assert\Type(
      *     type="string",
-     *     message="middleware_client.dto.verified_second_factor.second_factor_identifier.must_be_string"
+     *     message="middleware_client.dto.vetted_second_factor.second_factor_identifier.must_be_string"
      * )
      * @var string
      */
     public $secondFactorIdentifier;
-
-    /**
-     * @var string
-     */
-    public $identityId;
-
-    /**
-     * @var string
-     */
-    public $institution;
-
-    /**
-     * @var string
-     */
-    public $commonName;
 
     public static function fromData(array $data)
     {
@@ -70,9 +53,6 @@ class VerifiedSecondFactor implements Dto
         $secondFactor->id = $data['id'];
         $secondFactor->type = $data['type'];
         $secondFactor->secondFactorIdentifier = $data['second_factor_identifier'];
-        $secondFactor->identityId = $data['identity_id'];
-        $secondFactor->institution = $data['institution'];
-        $secondFactor->commonName = $data['common_name'];
 
         return $secondFactor;
     }
