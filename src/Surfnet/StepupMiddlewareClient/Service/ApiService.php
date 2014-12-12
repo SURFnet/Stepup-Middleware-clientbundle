@@ -22,6 +22,7 @@ use GuzzleHttp\ClientInterface;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\HttpQuery;
 
 /**
  * Provides remote read access to the Middleware's API.
@@ -42,18 +43,39 @@ class ApiService
     }
 
     /**
-     * @param string $resource A URL path, optionally containing printf parameters (e.g. '/a/b/%s/d'). The parameters
+     * @param string $path A URL path, optionally containing printf parameters (e.g. '/a/b/%s/d'). The parameters
      *               will be URL encoded and formatted into the path string.
      *               Example: '/institution/%s/identity/%s', ['institution' => 'ab-cd', 'identity' => 'ef']
      * @param array $parameters An array containing the parameters to replace in the path.
+     * @param HttpQuery $httpQuery|null
      * @return null|mixed Most likely an array structure, null when the resource doesn't exist.
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws ResourceReadException When the server doesn't respond with the resource.
      * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
      */
-    public function read($resource, array $parameters = [])
+    public function read($path, array $parameters = [], HttpQuery $httpQuery = null)
     {
-        $resource = vsprintf($resource, array_map('urlencode', $parameters));
+        if (count($parameters) > 0) {
+            $resource = vsprintf($path, array_map('urlencode', $parameters));
+        } else {
+            $resource = $path;
+        }
+
+        if (empty($resource)) {
+            throw new \RuntimeException(
+                sprintf(
+                    'Could not construct resource path from path "%s", parameters "%s" and search query "%s"',
+                    $path,
+                    implode('","', $parameters),
+                    $httpQuery ? $httpQuery->toHttpQuery() : ''
+                )
+            );
+        }
+
+        if ($httpQuery !== null) {
+            $resource .= $httpQuery->toHttpQuery();
+        }
+
         $response = $this->guzzleClient->get($resource, ['exceptions' => false]);
         $statusCode = $response->getStatusCode();
 

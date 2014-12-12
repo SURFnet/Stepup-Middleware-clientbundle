@@ -60,7 +60,7 @@ class IdentityService
      */
     public function search(IdentitySearchQuery $searchQuery)
     {
-        return $this->apiService->read('identity' . $searchQuery->toHttpQuery());
+        return $this->apiService->read('identity', [], $searchQuery);
     }
 
     /**
