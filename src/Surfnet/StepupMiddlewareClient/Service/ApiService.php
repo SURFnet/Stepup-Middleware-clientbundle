@@ -55,26 +55,7 @@ class ApiService
      */
     public function read($path, array $parameters = [], HttpQuery $httpQuery = null)
     {
-        if (count($parameters) > 0) {
-            $resource = vsprintf($path, array_map('urlencode', $parameters));
-        } else {
-            $resource = $path;
-        }
-
-        if (empty($resource)) {
-            throw new \RuntimeException(
-                sprintf(
-                    'Could not construct resource path from path "%s", parameters "%s" and search query "%s"',
-                    $path,
-                    implode('","', $parameters),
-                    $httpQuery ? $httpQuery->toHttpQuery() : ''
-                )
-            );
-        }
-
-        if ($httpQuery !== null) {
-            $resource .= $httpQuery->toHttpQuery();
-        }
+        $resource = $this->buildResourcePath($path, $parameters, $httpQuery);
 
         $response = $this->guzzleClient->get($resource, ['exceptions' => false]);
         $statusCode = $response->getStatusCode();
@@ -104,5 +85,37 @@ class ApiService
         }
 
         return $data;
+    }
+
+    /**
+     * @param string $path
+     * @param array $parameters
+     * @param HttpQuery|null $httpQuery
+     * @return string
+     */
+    private function buildResourcePath($path, array $parameters, HttpQuery $httpQuery = null)
+    {
+        if (count($parameters) > 0) {
+            $resource = vsprintf($path, array_map('urlencode', $parameters));
+        } else {
+            $resource = $path;
+        }
+
+        if (empty($resource)) {
+            throw new \RuntimeException(
+                sprintf(
+                    'Could not construct resource path from path "%s", parameters "%s" and search query "%s"',
+                    $path,
+                    implode('","', $parameters),
+                    $httpQuery ? $httpQuery->toHttpQuery() : ''
+                )
+            );
+        }
+
+        if ($httpQuery !== null) {
+            $resource .= $httpQuery->toHttpQuery();
+        }
+
+        return $resource;
     }
 }
