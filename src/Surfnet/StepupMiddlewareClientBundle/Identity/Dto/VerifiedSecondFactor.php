@@ -50,16 +50,41 @@ class VerifiedSecondFactor implements Dto
     public $secondFactorIdentifier;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.registration_code.must_not_be_blank")
+     * @Assert\Type(
+     *     type="string",
+     *     message="middleware_client.dto.verified_second_factor.registration_code.must_be_string"
+     * )
+     * @var string
+     */
+    public $registrationCode;
+
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.identity_id.must_not_be_blank")
+     * @Assert\Type(
+     *     type="string",
+     *     message="middleware_client.dto.verified_second_factor.identity_id.must_be_string"
+     * )
      * @var string
      */
     public $identityId;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.institution.must_not_be_blank")
+     * @Assert\Type(
+     *     type="string",
+     *     message="middleware_client.dto.verified_second_factor.institution.must_be_string"
+     * )
      * @var string
      */
     public $institution;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.common_name.must_not_be_blank")
+     * @Assert\Type(
+     *     type="string",
+     *     message="middleware_client.dto.verified_second_factor.common_name.must_be_string"
+     * )
      * @var string
      */
     public $commonName;
@@ -70,6 +95,7 @@ class VerifiedSecondFactor implements Dto
         $secondFactor->id = $data['id'];
         $secondFactor->type = $data['type'];
         $secondFactor->secondFactorIdentifier = $data['second_factor_identifier'];
+        $secondFactor->registrationCode = $data['registration_code'];
         $secondFactor->identityId = $data['identity_id'];
         $secondFactor->institution = $data['institution'];
         $secondFactor->commonName = $data['common_name'];
