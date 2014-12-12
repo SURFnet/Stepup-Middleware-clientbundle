@@ -30,6 +30,11 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
     /**
      * @var string
      */
+    private $secondFactorId;
+
+    /**
+     * @var string
+     */
     private $registrationCode;
 
     /**
@@ -41,6 +46,19 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
         $this->assertNonEmptyString($identityId, 'identityId');
 
         $this->identityId = $identityId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $secondFactorId
+     * @return self
+     */
+    public function setSecondFactorId($secondFactorId)
+    {
+        $this->assertNonEmptyString($secondFactorId, 'secondFactorId');
+
+        $this->secondFactorId = $secondFactorId;
 
         return $this;
     }
@@ -71,8 +89,14 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
 
     public function toHttpQuery()
     {
+        $fields = [];
+
         if ($this->identityId) {
             $fields['identityId'] = $this->identityId;
+        }
+
+        if ($this->secondFactorId) {
+            $fields['secondFactorId'] = $this->secondFactorId;
         }
 
         if ($this->registrationCode) {
