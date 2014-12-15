@@ -45,6 +45,12 @@ services:
             - @surfnet_stepup_middleware_client.library.identity.service.second_factor
             - @validator
 
+    surfnet_stepup_middleware_client.identity.service.ra:
+        class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\RaService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.identity.service.ra
+            - @validator
+
     surfnet_stepup_middleware_client.library.identity.service.identity:
         public: false
         class: Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService
@@ -54,6 +60,12 @@ services:
     surfnet_stepup_middleware_client.library.identity.service.second_factor:
         public: false
         class: Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.api
+
+    surfnet_stepup_middleware_client.library.identity.service.ra:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaService
         arguments:
             - @surfnet_stepup_middleware_client.library.service.api
 

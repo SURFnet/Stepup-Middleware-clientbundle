@@ -44,6 +44,16 @@ class RegistrationAuthorityCredentials implements Dto
     /**
      * @Assert\Expression(
      *     "this.assertNullOrString(value)",
+     *     message="middleware_client.dto.ra_credentials.common_name.must_be_null_or_string"
+     * )
+     *
+     * @var string
+     */
+    public $commonName;
+
+    /**
+     * @Assert\Expression(
+     *     "this.assertNullOrString(value)",
      *     message="middleware_client.dto.ra_credentials.location.must_be_null_or_string"
      * )
      *
@@ -80,6 +90,7 @@ class RegistrationAuthorityCredentials implements Dto
         $credentials = new self();
         $credentials->identityId = $data['id'];
         $credentials->institution = $data['attributes']['institution'];
+        $credentials->commonName = $data['attributes']['common_name'];
         $credentials->location = $data['attributes']['location'];
         $credentials->contactInformation = $data['attributes']['contact_information'];
         $credentials->isRaa = $data['attributes']['is_raa'];
