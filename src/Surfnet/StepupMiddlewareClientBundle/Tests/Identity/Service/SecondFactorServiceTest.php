@@ -75,6 +75,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
                     "id" => "769a6649-b3e8-4dd4-8715-2941f947a016",
                     "type" => "yubikey",
                     "second_factor_identifier" => "ccccccbtbhnh",
+                    'registration_code' => 'abc',
                     "identity_id" => "a",
                     "institution" => "b",
                     "common_name" => "c",
@@ -100,6 +101,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
         $expectedSecondFactor->id = $secondFactorData['items'][0]['id'];
         $expectedSecondFactor->type = $secondFactorData['items'][0]['type'];
         $expectedSecondFactor->secondFactorIdentifier = $secondFactorData['items'][0]['second_factor_identifier'];
+        $expectedSecondFactor->registrationCode = $secondFactorData['items'][0]['registration_code'];
         $expectedSecondFactor->identityId = $secondFactorData['items'][0]['identity_id'];
         $expectedSecondFactor->institution = $secondFactorData['items'][0]['institution'];
         $expectedSecondFactor->commonName = $secondFactorData['items'][0]['common_name'];

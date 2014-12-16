@@ -28,6 +28,11 @@ class UnverifiedSecondFactorSearchQuery implements HttpQuery
     private $identityId;
 
     /**
+     * @var string|null
+     */
+    private $verificationNonce;
+
+    /**
      * @param string $identityId
      * @return self
      */
@@ -36,6 +41,19 @@ class UnverifiedSecondFactorSearchQuery implements HttpQuery
         $this->assertNonEmptyString($identityId, 'identityId');
 
         $this->identityId = $identityId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $verificationNonce
+     * @return self
+     */
+    public function setVerificationNonce($verificationNonce)
+    {
+        $this->assertNonEmptyString($verificationNonce, 'verificationNonce');
+
+        $this->verificationNonce = $verificationNonce;
 
         return $this;
     }
@@ -55,6 +73,10 @@ class UnverifiedSecondFactorSearchQuery implements HttpQuery
     {
         if ($this->identityId) {
             $fields['identityId'] = $this->identityId;
+        }
+
+        if ($this->verificationNonce) {
+            $fields['verificationNonce'] = $this->verificationNonce;
         }
 
         return '?' . http_build_query($fields);
