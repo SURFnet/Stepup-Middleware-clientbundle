@@ -18,6 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Dto;
 
+use LogicException;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class CollectionDto implements Dto
@@ -85,7 +86,7 @@ abstract class CollectionDto implements Dto
      */
     protected static function createElementFromData(array $item)
     {
-        throw new \LogicException(sprintf(
+        throw new LogicException(sprintf(
             'The method "%s::createElementFromData must be implemented to load the Collection Element"'
         ));
     }
@@ -104,6 +105,23 @@ abstract class CollectionDto implements Dto
     public function getElements()
     {
         return $this->elements;
+    }
+
+    /**
+     * @return mixed|null
+     * @throws LogicException When there is more than 1 element present.
+     */
+    public function getOnlyElement()
+    {
+        $elementCount = count($this->elements);
+
+        if ($elementCount === 1) {
+            return reset($this->elements);
+        } elseif ($elementCount === 0) {
+            return null;
+        }
+
+        throw new LogicException(sprintf('There are %d elements in this collection instead of one.', $elementCount));
     }
 
     /**

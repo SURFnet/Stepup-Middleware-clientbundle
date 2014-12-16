@@ -45,6 +45,42 @@ class SecondFactorService
     }
 
     /**
+     * @param string $secondFactorId
+     * @return null|array
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws ResourceReadException When the server doesn't respond with the resource.
+     * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
+     */
+    public function getUnverified($secondFactorId)
+    {
+        return $this->apiService->read('unverified-second-factor/%s', [$secondFactorId]);
+    }
+
+    /**
+     * @param string $secondFactorId
+     * @return null|array
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws ResourceReadException When the server doesn't respond with the resource.
+     * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
+     */
+    public function getVerified($secondFactorId)
+    {
+        return $this->apiService->read('verified-second-factor/%s', [$secondFactorId]);
+    }
+
+    /**
+     * @param string $secondFactorId
+     * @return null|array
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws ResourceReadException When the server doesn't respond with the resource.
+     * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
+     */
+    public function getVetted($secondFactorId)
+    {
+        return $this->apiService->read('vetted-second-factor/%s', [$secondFactorId]);
+    }
+
+    /**
      * @param UnverifiedSecondFactorSearchQuery $query
      * @return null|array
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
