@@ -118,7 +118,7 @@ class IdentitySearchQuery implements HttpQuery
         }
 
         if ($this->nameId) {
-            $fields['nameId'] = $this->nameId;
+            $fields['NameId'] = $this->nameId;
         }
 
         return '?' . http_build_query($fields);
