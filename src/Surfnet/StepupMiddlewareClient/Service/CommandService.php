@@ -71,6 +71,9 @@ class CommandService
     public function execute($commandName, $uuid, array $payload, array $metadata = [])
     {
         $this->assertIsValidCommandName($commandName);
+        if (!is_string($uuid)) {
+            throw InvalidArgumentException::invalidType('string', 'uuid', $uuid);
+        }
 
         $command = [
             'name' => $commandName,
