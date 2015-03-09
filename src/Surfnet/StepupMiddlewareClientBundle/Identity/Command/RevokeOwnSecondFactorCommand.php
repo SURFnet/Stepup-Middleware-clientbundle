@@ -24,15 +24,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class RevokeOwnSecondFactorCommand extends AbstractCommand
 {
     /**
-     * @Assert\Type(type="string", message="ss.revoke_own_second_factor_command.identity_id.must_be_string")
-     *
      * @var string
      */
     public $identityId;
 
     /**
-     * @Assert\Type(type="string", message="ss.revoke_own_second_factor_command.second_factor_id.must_be_string")
-     *
      * @var string
      */
     public $secondFactorId;
