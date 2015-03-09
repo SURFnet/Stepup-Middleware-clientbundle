@@ -40,7 +40,7 @@ class ExecutionResult
      * @param string|null $processedBy Null in case of errors.
      * @param array $errors
      */
-    public function __construct($uuid, $processedBy, array $errors)
+    public function __construct($uuid, $processedBy, array $errors = [])
     {
         $this->uuid = $uuid;
         $this->processedBy = $processedBy;
