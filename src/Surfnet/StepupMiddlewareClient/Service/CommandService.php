@@ -19,7 +19,7 @@
 namespace Surfnet\StepupMiddlewareClient\Service;
 
 use GuzzleHttp\ClientInterface;
-use Rhumsaa\Uuid\Uuid;
+use RuntimeException;
 use Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException;
 use Surfnet\StepupMiddlewareClient\Exception\InvalidArgumentException;
 
@@ -48,11 +48,11 @@ class CommandService
     public function __construct(ClientInterface $guzzleClient, $username, $password)
     {
         if (!is_string($username)) {
-            InvalidArgumentException::invalidType('string', 'username', $username);
+            throw InvalidArgumentException::invalidType('string', 'username', $username);
         }
 
         if (!is_string($password)) {
-            InvalidArgumentException::invalidType('string', 'password', $password);
+            throw InvalidArgumentException::invalidType('string', 'password', $password);
         }
 
         $this->guzzleClient = $guzzleClient;
@@ -71,7 +71,6 @@ class CommandService
     public function execute($commandName, $uuid, array $payload, array $metadata = [])
     {
         $this->assertIsValidCommandName($commandName);
-        InvalidArgumentException::invalidType('string', 'uuid', $uuid);
 
         $command = [
             'name' => $commandName,
@@ -95,7 +94,7 @@ class CommandService
 
         try {
             $response = $httpResponse->json();
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             throw new CommandExecutionFailedException(
                 'Server response could not be decoded as it isn\'t valid JSON.',
                 0,
@@ -104,8 +103,8 @@ class CommandService
         }
 
         return $httpResponse->getStatusCode() == 200
-            ? $this->createSuccessfulExecuteResult($uuid, $response)
-            : $this->createFailedExecuteResult($uuid, $response);
+            ? $this->processOkResponse($uuid, $response)
+            : $this->processErrorResponse($uuid, $response);
     }
 
     /**
@@ -130,14 +129,18 @@ class CommandService
      * @param mixed $response
      * @return ExecutionResult
      */
-    private function createSuccessfulExecuteResult($uuid, $response)
+    private function processOkResponse($uuid, $response)
     {
         if (!isset($response['command'])) {
             throw new CommandExecutionFailedException('Unexpected response format: command key missing.');
         }
 
         if ($response['command'] !== $uuid) {
-            throw new CommandExecutionFailedException("Unexpected response: returned command UUID doesn't match ours.");
+            throw new CommandExecutionFailedException(sprintf(
+                'Unexpected response: returned command UUID "%s" does not match sent UUID "%s".',
+                $response['command'],
+                $uuid
+            ));
         }
 
         if (!isset($response['processed_by'])) {
@@ -145,10 +148,13 @@ class CommandService
         }
 
         if (!is_string($response['processed_by'])) {
-            throw new CommandExecutionFailedException('Unexpected response format: processed_by not a string.');
+            throw new CommandExecutionFailedException(sprintf(
+                'Unexpected response format: processed_by should be a string, "%s" given.',
+                gettype($response['processed_by'])
+            ));
         }
 
-        return new ExecutionResult($uuid, $response['processed_by'], []);
+        return new ExecutionResult($uuid, $response['processed_by']);
     }
 
     /**
@@ -156,14 +162,17 @@ class CommandService
      * @param mixed $response
      * @return ExecutionResult
      */
-    private function createFailedExecuteResult($uuid, $response)
+    private function processErrorResponse($uuid, $response)
     {
         if (!isset($response['errors'])) {
             throw new CommandExecutionFailedException('Unexpected response format: errors key missing.');
         }
 
         if (!is_array($response['errors'])) {
-            throw new CommandExecutionFailedException('Unexpected response format: errors not an array.');
+            throw new CommandExecutionFailedException(sprintf(
+                'Unexpected response format: errors should be an array, "%s" given.',
+                gettype($response['errors'])
+            ));
         }
 
         return new ExecutionResult($uuid, null, $response['errors']);
