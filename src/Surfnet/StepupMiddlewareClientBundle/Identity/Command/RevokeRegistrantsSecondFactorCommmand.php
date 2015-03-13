@@ -18,7 +18,9 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
-class RevokeRegistrantsSecondFactorCommand
+use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
+
+class RevokeRegistrantsSecondFactorCommand extends AbstractCommand
 {
     /**
      * @var string
@@ -34,4 +36,16 @@ class RevokeRegistrantsSecondFactorCommand
      * @var string
      */
     public $secondFactorId;
+
+    /**
+     * @return array
+     */
+    public function serialise()
+    {
+        return [
+            'authority_id'     => $this->authorityId,
+            'identity_id'      => $this->identityId,
+            'second_factor_id' => $this->secondFactorId
+        ];
+    }
 }
