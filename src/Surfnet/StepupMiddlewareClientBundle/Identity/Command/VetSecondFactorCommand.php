@@ -26,7 +26,17 @@ class VetSecondFactorCommand extends AbstractCommand
     /**
      * @var string
      */
+    public $authorityId;
+
+    /**
+     * @var string
+     */
     public $identityId;
+
+    /**
+     * @var string
+     */
+    public $secondFactorId;
 
     /**
      * @var string
@@ -51,7 +61,9 @@ class VetSecondFactorCommand extends AbstractCommand
     public function serialise()
     {
         return [
+            'authority_id'             => $this->authorityId,
             'identity_id'              => $this->identityId,
+            'second_factor_id'         => $this->secondFactorId,
             'registration_code'        => $this->registrationCode,
             'second_factor_identifier' => $this->secondFactorIdentifier,
             'document_number'          => $this->documentNumber,
