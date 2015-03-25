@@ -51,10 +51,10 @@ class CommandService
 
     /**
      * @param Command $command
-     * @param Metadata|null $metadata
+     * @param Metadata $metadata
      * @return ExecutionResult
      */
-    public function execute(Command $command, Metadata $metadata = null)
+    public function execute(Command $command, Metadata $metadata)
     {
         $commandName = $this->getCommandName($command);
         $payload = $command->serialise();
