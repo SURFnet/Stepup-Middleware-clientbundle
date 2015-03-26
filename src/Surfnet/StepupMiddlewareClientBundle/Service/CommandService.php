@@ -58,7 +58,7 @@ class CommandService
     {
         $commandName = $this->getCommandName($command);
         $payload = $command->serialise();
-        $metadataPayload = $metadata ? $metadata->serialise() : [];
+        $metadataPayload = $metadata->serialise();
 
         // Only set the command's UUID if it hasn't already been set. Allows pre-setting of UUID, if needed.
         if (!$command->getUuid()) {
