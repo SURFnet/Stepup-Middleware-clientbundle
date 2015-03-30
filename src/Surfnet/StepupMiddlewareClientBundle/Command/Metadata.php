@@ -23,27 +23,27 @@ use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidArgumentException;
 final class Metadata
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $actorId;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $actorInstitution;
 
     /**
-     * @param string $actorId
-     * @param string $actorInstitution
+     * @param string|null $actorId
+     * @param string|null $actorInstitution
      */
     public function __construct($actorId, $actorInstitution)
     {
-        if (!is_string($actorId)) {
-            throw InvalidArgumentException::invalidType('string', 'actorId', $actorId);
+        if (!is_string($actorId) && $actorId !== null) {
+            throw InvalidArgumentException::invalidType('string|null', 'actorId', $actorId);
         }
 
-        if (!is_string($actorInstitution)) {
-            throw InvalidArgumentException::invalidType('string', 'actorInstitution', $actorInstitution);
+        if (!is_string($actorInstitution) && $actorInstitution !== null) {
+            throw InvalidArgumentException::invalidType('string|null', 'actorInstitution', $actorInstitution);
         }
 
         $this->actorId = $actorId;
