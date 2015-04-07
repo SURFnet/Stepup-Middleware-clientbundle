@@ -20,7 +20,7 @@ namespace Surfnet\StepupMiddlewareClient\Identity\Dto;
 
 use Assert;
 
-final class AuditLogSearchQuery implements HttpQuery
+final class SecondFactorAuditLogSearchQuery implements HttpQuery
 {
     /**
      * @var string

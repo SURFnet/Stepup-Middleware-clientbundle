@@ -21,7 +21,7 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
-use Surfnet\StepupMiddlewareClient\Identity\Dto\AuditLogSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\SecondFactorAuditLogSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\AuditLogService as LibraryAuditLogService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\AuditLog;
@@ -51,16 +51,16 @@ class AuditLogService
     }
 
     /**
-     * @param AuditLogSearchQuery $query
+     * @param SecondFactorAuditLogSearchQuery $query
      * @return AuditLog
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws InvalidResponseException When the API responded with invalid data.
      * @throws ResourceReadException When the API doesn't respond with the resource.
      * @throws MalformedResponseException When the API doesn't respond with a proper response.
      */
-    public function search(AuditLogSearchQuery $query)
+    public function searchSecondFactorAuditLog(SecondFactorAuditLogSearchQuery $query)
     {
-        $data = $this->service->search($query);
+        $data = $this->service->searchSecondFactorAuditLog($query);
 
         if ($data === null) {
             return null;

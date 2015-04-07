@@ -21,7 +21,7 @@ namespace Surfnet\StepupMiddlewareClient\Identity\Service;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
-use Surfnet\StepupMiddlewareClient\Identity\Dto\AuditLogSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\SecondFactorAuditLogSearchQuery;
 use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
 /**
@@ -43,14 +43,14 @@ class AuditLogService
     }
 
     /**
-     * @param AuditLogSearchQuery $query
+     * @param SecondFactorAuditLogSearchQuery $query
      * @return null|array
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws ResourceReadException When the server doesn't respond with the resource.
      * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
      */
-    public function search(AuditLogSearchQuery $query)
+    public function searchSecondFactorAuditLog(SecondFactorAuditLogSearchQuery $query)
     {
-        return $this->apiService->read('audit-log' . $query->toHttpQuery());
+        return $this->apiService->read('audit-log/second-factors' . $query->toHttpQuery());
     }
 }
