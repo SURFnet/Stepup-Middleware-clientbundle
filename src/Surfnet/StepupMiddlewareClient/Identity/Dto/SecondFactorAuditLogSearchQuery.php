@@ -63,6 +63,8 @@ final class SecondFactorAuditLogSearchQuery implements HttpQuery
         $this->institution = $institution;
         $this->identityId = $identityId;
         $this->pageNumber = $pageNumber;
+        $this->orderBy = 'recordedOn';
+        $this->orderDirection = 'desc';
     }
 
     /**
@@ -107,18 +109,13 @@ final class SecondFactorAuditLogSearchQuery implements HttpQuery
     public function toHttpQuery()
     {
         return '?' . http_build_query(
-            array_filter(
-                [
-                    'institution'    => $this->institution,
-                    'identityId'           => $this->identityId,
-                    'orderBy'        => $this->orderBy,
-                    'orderDirection' => $this->orderDirection,
-                    'p'              => $this->pageNumber,
-                ],
-                function ($value) {
-                    return !is_null($value);
-                }
-            )
+            [
+                'institution'    => $this->institution,
+                'identityId'     => $this->identityId,
+                'orderBy'        => $this->orderBy,
+                'orderDirection' => $this->orderDirection,
+                'p'              => $this->pageNumber,
+            ]
         );
     }
 }
