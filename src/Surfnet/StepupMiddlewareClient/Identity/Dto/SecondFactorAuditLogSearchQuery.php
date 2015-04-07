@@ -50,7 +50,7 @@ final class SecondFactorAuditLogSearchQuery implements HttpQuery
     /**
      * @param string $institution
      * @param string $identityId
-     * @param int $pageNumber
+     * @param int    $pageNumber
      */
     public function __construct($institution, $identityId, $pageNumber)
     {
