@@ -81,7 +81,7 @@ final class RaSecondFactorSearchQuery implements HttpQuery
         $this->assertNonEmptyString($institution, 'institution');
         Assert\that($pageNumber)
             ->integer('Page number must be an integer')
-            ->min(0, 'Page number must be greater than or equal to 1');
+            ->min(1, 'Page number must be greater than or equal to 1');
 
         $this->institution = $institution;
         $this->pageNumber = $pageNumber;
