@@ -90,7 +90,7 @@ services:
 
     surfnet_stepup_middleware_client.library.identity.service.ra_listing:
         public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaLisitngService
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaListingService
         arguments:
             - @surfnet_stepup_middleware_client.library.service.api
 
