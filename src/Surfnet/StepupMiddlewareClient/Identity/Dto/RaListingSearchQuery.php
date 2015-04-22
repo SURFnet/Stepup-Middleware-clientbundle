@@ -57,19 +57,35 @@ final class RaListingSearchQuery implements HttpQuery
         $this->pageNumber  = $pageNumber;
     }
 
+    /**
+     * @param string $institution
+     * @return RaListingSearchQuery
+     */
+    public function setInstitution($institution)
+    {
+        $this->assertNonEmptyString($institution, 'institution');
+
+        $this->institution = $institution;
+
+        return $this;
+    }
 
     /**
      * @param string $orderBy
+     * @return RaListingSearchQuery
      */
     public function setOrderBy($orderBy)
     {
         $this->assertNonEmptyString($orderBy, 'orderBy');
 
         $this->orderBy = $orderBy;
+
+        return $this;
     }
 
     /**
      * @param string|null $orderDirection
+     * @return RaListingSearchQuery
      */
     public function setOrderDirection($orderDirection)
     {
@@ -79,6 +95,8 @@ final class RaListingSearchQuery implements HttpQuery
         );
 
         $this->orderDirection = $orderDirection ?: null;
+
+        return $this;
     }
 
     private function assertNonEmptyString($value, $parameterName)
