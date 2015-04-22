@@ -18,6 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 
+use Surfnet\StepupMiddlewareClient\Identity\Dto\RaSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\RaService as LibraryRaService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCollection;
@@ -62,6 +63,28 @@ class RaService
         $this->assertIsValid($collection, 'Invalid elements received in collection');
 
         return $collection;
+    }
+
+    /**
+     * @param RaSearchQuery $searchQuery
+     * @return null|RegistrationAuthorityCredentialsCollection
+     */
+    public function search(RaSearchQuery $searchQuery)
+    {
+        $data = $this->service->search($searchQuery);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $registrationAuthorities = RegistrationAuthorityCredentialsCollection::fromData($data);
+
+        $this->assertIsValid(
+            $registrationAuthorities,
+            'One or more registrastion authorities retrieved from the Middleware were invalid'
+        );
+
+        return $registrationAuthorities;
     }
 
     /**

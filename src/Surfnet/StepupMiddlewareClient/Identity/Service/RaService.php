@@ -18,6 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClient\Identity\Service;
 
+use Surfnet\StepupMiddlewareClient\Identity\Dto\RaSearchQuery;
 use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
 class RaService
@@ -42,5 +43,14 @@ class RaService
     public function listRas($institution)
     {
         return $this->apiService->read('registration-authority?institution=%s', [$institution]);
+    }
+
+    /**
+     * @param RaSearchQuery $searchQuery
+     * @return mixed|null
+     */
+    public function search(RaSearchQuery $searchQuery)
+    {
+        return $this->apiService->read('registration-authority'. $searchQuery->toHttpQuery());
     }
 }
