@@ -18,18 +18,19 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 
-use Surfnet\StepupMiddlewareClient\Identity\Service\RaService as LibraryRaService;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\RaListingSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Service\RaListingService as LibraryRaListingService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
-use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RegistrationAuthorityCredentialsCollection;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaListingCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Provides access to the Middleware API resources.
  */
-class RaService
+class RaListingService
 {
     /**
-     * @var LibraryRaService
+     * @var LibraryRaListingService
      */
     private $service;
 
@@ -39,28 +40,31 @@ class RaService
     private $validator;
 
     /**
-     * @param LibraryRaService $service
-     * @param ValidatorInterface $validator
+     * @param LibraryRaListingService $service
+     * @param ValidatorInterface      $validator
      */
-    public function __construct(LibraryRaService $service, ValidatorInterface $validator)
+    public function __construct(LibraryRaListingService $service, ValidatorInterface $validator)
     {
-        $this->service = $service;
+        $this->service   = $service;
         $this->validator = $validator;
     }
 
-    /**
-     * @param string $institution
-     * @return RegistrationAuthorityCredentialsCollection
-     */
-    public function listRas($institution)
+    public function search(RaListingSearchQuery $searchQuery)
     {
-        $data = $this->service->listRas($institution);
+        $data = $this->service->search($searchQuery);
 
-        $collection = RegistrationAuthorityCredentialsCollection::fromData($data);
+        if ($data === null) {
+            return null;
+        }
 
-        $this->assertIsValid($collection, 'Invalid elements received in collection');
+        $registrationAuthorities = RaListingCollection::fromData($data);
 
-        return $collection;
+        $this->assertIsValid(
+            $registrationAuthorities,
+            'One or more registration authority listings retrieved from the Middleware were invalid'
+        );
+
+        return $registrationAuthorities;
     }
 
     /**

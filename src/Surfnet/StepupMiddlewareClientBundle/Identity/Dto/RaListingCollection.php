@@ -16,31 +16,14 @@
  * limitations under the License.
  */
 
-namespace Surfnet\StepupMiddlewareClient\Identity\Service;
+namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
-use Surfnet\StepupMiddlewareClient\Service\ApiService;
+use Surfnet\StepupMiddlewareClientBundle\Dto\CollectionDto;
 
-class RaService
+class RaListingCollection extends CollectionDto
 {
-    /**
-     * @var ApiService
-     */
-    private $apiService;
-
-    /**
-     * @param ApiService $apiService
-     */
-    public function __construct(ApiService $apiService)
+    protected static function createElementFromData(array $raListing)
     {
-        $this->apiService = $apiService;
-    }
-
-    /**
-     * @param string $institution
-     * @return array|null
-     */
-    public function listRas($institution)
-    {
-        return $this->apiService->read('registration-authority?institution=%s', [$institution]);
+        return RaListing::fromData($raListing);
     }
 }

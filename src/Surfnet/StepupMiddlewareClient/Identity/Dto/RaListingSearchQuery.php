@@ -20,7 +20,7 @@ namespace Surfnet\StepupMiddlewareClient\Identity\Dto;
 
 use Assert;
 
-final class RaSearchQuery implements HttpQuery
+final class RaListingSearchQuery implements HttpQuery
 {
     /**
      * @var string
@@ -28,19 +28,19 @@ final class RaSearchQuery implements HttpQuery
     private $institution;
 
     /**
-     * @var string|null
-     */
-    private $orderBy;
-
-    /**
-     * @var string|null
-     */
-    private $orderDirection;
-
-    /**
      * @var int
      */
     private $pageNumber;
+
+    /**
+     * @var string|null
+     */
+    private $orderBy = 'commonName';
+
+    /**
+     * @var string|null
+     */
+    private $orderDirection = 'desc';
 
     /**
      * @param string $institution
