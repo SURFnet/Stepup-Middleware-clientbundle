@@ -19,6 +19,7 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class RaListing implements Dto
 {
