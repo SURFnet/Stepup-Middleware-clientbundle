@@ -58,19 +58,6 @@ final class RaListingSearchQuery implements HttpQuery
     }
 
     /**
-     * @param string $institution
-     * @return RaListingSearchQuery
-     */
-    public function setInstitution($institution)
-    {
-        $this->assertNonEmptyString($institution, 'institution');
-
-        $this->institution = $institution;
-
-        return $this;
-    }
-
-    /**
      * @param string $orderBy
      * @return RaListingSearchQuery
      */
