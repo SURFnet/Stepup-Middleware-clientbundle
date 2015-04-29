@@ -22,6 +22,21 @@ use Surfnet\StepupMiddlewareClientBundle\Dto\CollectionDto;
 
 class InstitutionListingCollection extends CollectionDto
 {
+    public static function fromData(array $data)
+    {
+        $elements = [];
+        foreach ($data['items'] as $key => $item) {
+            $elements[$key] = static::createElementFromData($item);
+        }
+
+        return new static(
+            $elements,
+            count($elements),
+            1,
+            count($elements)
+        );
+    }
+
     protected static function createElementFromData(array $item)
     {
         return InstitutionListing::fromData($item);
