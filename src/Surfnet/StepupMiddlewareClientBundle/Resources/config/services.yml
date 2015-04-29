@@ -13,30 +13,24 @@
 # limitations under the License.
 
 services:
+    # Write Services
     surfnet_stepup_middleware_client.service.command:
         class: Surfnet\StepupMiddlewareClientBundle\Service\CommandService
         arguments:
             - @surfnet_stepup_middleware_client.library.service.command
             - @logger
 
-    surfnet_stepup_middleware_client.library.service.command:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Service\CommandService
-        arguments:
-            - @surfnet_stepup_middleware_client.guzzle.commands
-            - ~ # Username, overridden in extension
-            - ~ # Password, overridden in extension
-
-    surfnet_stepup_middleware_client.guzzle.commands:
-        public: false
-        class: GuzzleHttp\Client
-        arguments:
-            - ~ # Guzzle options, overridden in extension
-
+    # Read Services
     surfnet_stepup_middleware_client.identity.service.identity:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService
         arguments:
             - @surfnet_stepup_middleware_client.library.identity.service.identity
+            - @validator
+
+    surfnet_stepup_middleware_client.identity.service.institution_listing:
+        class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\InstitutionListingService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.identity.service.institution_listing
             - @validator
 
     surfnet_stepup_middleware_client.identity.service.second_factor:
@@ -64,21 +58,23 @@ services:
             - @validator
 
     # Library Services
+    surfnet_stepup_middleware_client.library.service.command:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Service\CommandService
+        arguments:
+            - @surfnet_stepup_middleware_client.guzzle.commands
+            - ~ # Username, overridden in extension
+            - ~ # Password, overridden in extension
+
     surfnet_stepup_middleware_client.library.identity.service.identity:
         public: false
         class: Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService
         arguments:
             - @surfnet_stepup_middleware_client.library.service.api
 
-    surfnet_stepup_middleware_client.library.identity.service.second_factor:
+    surfnet_stepup_middleware_client.library.identity.service.institution_listing:
         public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.ra_second_factor:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaSecondFactorService
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\InstitutionListingService
         arguments:
             - @surfnet_stepup_middleware_client.library.service.api
 
@@ -93,6 +89,25 @@ services:
         class: Surfnet\StepupMiddlewareClient\Identity\Service\RaListingService
         arguments:
             - @surfnet_stepup_middleware_client.library.service.api
+
+    surfnet_stepup_middleware_client.library.identity.service.ra_second_factor:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaSecondFactorService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.api
+
+    surfnet_stepup_middleware_client.library.identity.service.second_factor:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.api
+
+    # Client Services
+    surfnet_stepup_middleware_client.guzzle.commands:
+        public: false
+        class: GuzzleHttp\Client
+        arguments:
+            - ~ # Guzzle options, overridden in extension
 
     surfnet_stepup_middleware_client.library.service.api:
         public: false
