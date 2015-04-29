@@ -25,8 +25,8 @@ class InstitutionListingCollection extends CollectionDto
     public static function fromData(array $data)
     {
         $elements = [];
-        foreach ($data['items'] as $key => $item) {
-            $elements[$key] = static::createElementFromData($item);
+        foreach ($data as $item) {
+            $elements[] = static::createElementFromData($item);
         }
 
         return new static(
