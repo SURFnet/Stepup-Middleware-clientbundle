@@ -40,7 +40,7 @@ final class RaListingSearchQuery implements HttpQuery
     /**
      * @var string|null
      */
-    private $orderDirection = 'desc';
+    private $orderDirection = 'asc';
 
     /**
      * @param string $institution
