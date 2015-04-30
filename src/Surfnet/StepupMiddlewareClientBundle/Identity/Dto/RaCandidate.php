@@ -66,5 +66,7 @@ class RaCandidate implements Dto
         $raCandidate->institution = $data['institution'];
         $raCandidate->commonName  = $data['common_name'];
         $raCandidate->email       = $data['email'];
+
+        return $raCandidate;
     }
 }

@@ -35,6 +35,6 @@ class RaCandidateService
 
     public function search(RaCandidateSearchQuery $query)
     {
-        return $this->apiClient->read('ra-candidate', $query->toHttpQuery());
+        return $this->apiClient->read('ra-candidate' . $query->toHttpQuery());
     }
 }
