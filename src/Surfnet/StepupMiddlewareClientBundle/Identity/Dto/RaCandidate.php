@@ -19,25 +19,38 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class RaCandidate implements Dto
 {
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.ra_candidate.identity_id.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.ra_candidate.identity_id.must_be_string")
+     *
      * @var string
      */
     public $identityId;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.ra_candidate.institution.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.ra_candidate.institution.must_be_string")
+     *
      * @var string
      */
     public $institution;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.ra_candidate.common_name.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.ra_candidate.common_name.must_be_string")
+     *
      * @var string
      */
     public $commonName;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.ra_candidate.email.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.ra_candidate.email.must_be_string")
+     *
      * @var string
      */
     public $email;
