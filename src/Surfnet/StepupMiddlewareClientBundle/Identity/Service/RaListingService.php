@@ -49,12 +49,18 @@ class RaListingService
         $this->validator = $validator;
     }
 
+    /**
+     * @param RaListingSearchQuery $searchQuery
+     * @return RaListingCollection
+     */
     public function search(RaListingSearchQuery $searchQuery)
     {
         $data = $this->service->search($searchQuery);
 
         if ($data === null) {
-            return null;
+            throw new InvalidResponseException(
+                'Received a "null" as data when searching for RaListings, is the library service set up correctly?'
+            );
         }
 
         $registrationAuthorities = RaListingCollection::fromData($data);

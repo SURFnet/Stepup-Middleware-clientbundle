@@ -44,15 +44,18 @@ class RaCandidateService
     {
         $data = $this->libraryService->search($query);
 
+        if ($data === null) {
+            throw new InvalidResponseException(
+                'Received a "null" as data when searching for RaCandidates, is the library service set up correctly?'
+            );
+        }
+
         $collection = RaCandidateCollection::fromData($data);
 
         $violations = $this->validator->validate($collection);
 
         if (count($violations)) {
-            throw InvalidResponseException::withViolations(
-                'One or more RaCandidates are not valid',
-                $violations
-            );
+            throw InvalidResponseException::withViolations('One or more RaCandidates are not valid', $violations);
         }
 
         return $collection;
