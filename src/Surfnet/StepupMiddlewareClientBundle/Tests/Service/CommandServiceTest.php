@@ -24,7 +24,6 @@ use Surfnet\StepupMiddlewareClientBundle\Command\Metadata;
 use Surfnet\StepupMiddlewareClientBundle\Service\CommandService;
 use Surfnet\StepupMiddlewareClientBundle\Tests\Service\Fixtures\Root\Command\CauseCommand;
 use Surfnet\StepupMiddlewareClientBundle\Tests\Service\Fixtures\Root\Command\Name\Spaced\ZigCommand;
-use Surfnet\StepupMiddlewareClientBundle\Tests\Service\Fixtures\Root\Command\WeatherMetadata;
 
 class CommandServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,7 +40,7 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
         $expectedPayload,
         $expectedMetadataPayload,
         Command $command,
-        Metadata $metadata = null
+        Metadata $metadata
     ) {
         $result = m::mock('Surfnet\StepupMiddlewareClient\Service\ExecutionResult')
             ->shouldReceive('isSuccessful')->andReturn(true)
@@ -63,9 +62,20 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
     public function commands()
     {
         return [
-            'Non-nested command' => ['Root:Cause', [1], [], new CauseCommand([1])],
-            'Nested command' => ['Root:Name.Spaced.Zig', ['all' => 'base'], [], new ZigCommand(['all' => 'base'])],
-            'Non-nested command w/ metadata' => ['Root:Cause', [1], ['millibars' => 918.8], new CauseCommand([1]), new WeatherMetadata(918.8)],
+            'Non-nested command' => [
+                'Root:Cause',
+                [1],
+                ['actor_id' => 'actorId', 'actor_institution' => 'actorInstitution'],
+                new CauseCommand([1]),
+                new Metadata('actorId', 'actorInstitution')
+            ],
+            'Nested command'     => [
+                'Root:Name.Spaced.Zig',
+                ['all' => 'base'],
+                ['actor_id' => 'actorId', 'actor_institution' => 'actorInstitution'],
+                new ZigCommand(['all' => 'base']),
+                new Metadata('actorId', 'actorInstitution')
+            ],
         ];
     }
 
@@ -82,11 +92,11 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('getProcessedBy')->andReturn('mw-01')
             ->getMock();
         $commandService = m::mock('Surfnet\StepupMiddlewareClient\Service\CommandService')
-            ->shouldReceive('execute')->once()->with('Root:Name.Spaced.Zig', self::spy($sentUuid), [], [])->andReturn($result)
+            ->shouldReceive('execute')->once()->with('Root:Name.Spaced.Zig', self::spy($sentUuid), [], ['actor_id' => 'actorId', 'actor_institution' => 'actorInstitution'])->andReturn($result)
             ->getMock();
 
         $service = new CommandService($commandService, m::mock('Psr\Log\LoggerInterface')->shouldIgnoreMissing());
-        $service->execute($command);
+        $service->execute($command, new Metadata('actorId', 'actorInstitution'));
 
         $this->assertEquals($preSetUuid, $command->getUuid(), 'UUID was overwritten during command execution');
         $this->assertEquals($preSetUuid, $sentUuid, 'Another UUID than the pre-set UUID was sent to the server');
