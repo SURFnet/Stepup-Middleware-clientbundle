@@ -40,6 +40,14 @@ class RaCandidate implements Dto
     public $institution;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.ra_candidate.name_id.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.ra_candidate.name_id.must_be_string")
+     *
+     * @var string
+     */
+    public $nameId;
+
+    /**
      * @Assert\NotBlank(message="middleware_client.dto.ra_candidate.common_name.must_not_be_blank")
      * @Assert\Type(type="string", message="middleware_client.dto.ra_candidate.common_name.must_be_string")
      *
@@ -64,6 +72,7 @@ class RaCandidate implements Dto
         $raCandidate              = new self();
         $raCandidate->identityId  = $data['identity_id'];
         $raCandidate->institution = $data['institution'];
+        $raCandidate->nameId      = $data['name_id'];
         $raCandidate->commonName  = $data['common_name'];
         $raCandidate->email       = $data['email'];
 

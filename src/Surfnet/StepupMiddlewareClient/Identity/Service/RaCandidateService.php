@@ -28,13 +28,29 @@ class RaCandidateService
      */
     private $apiClient;
 
+    /**
+     * @param ApiService $apiClient
+     */
     public function __construct(ApiService $apiClient)
     {
         $this->apiClient = $apiClient;
     }
 
+    /**
+     * @param RaCandidateSearchQuery $query
+     * @return array|null
+     */
     public function search(RaCandidateSearchQuery $query)
     {
         return $this->apiClient->read('ra-candidate' . $query->toHttpQuery());
+    }
+
+    /**
+     * @param $identityId
+     * @return array|null
+     */
+    public function getByIdentityId($identityId)
+    {
+        return $this->apiClient->read('ra-candidate/%s', [$identityId]);
     }
 }

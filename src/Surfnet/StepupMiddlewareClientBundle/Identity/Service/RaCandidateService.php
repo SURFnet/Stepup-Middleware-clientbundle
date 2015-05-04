@@ -21,15 +21,26 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\RaCandidateSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\RaCandidateService as LibraryRaCandidateService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidate;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidateCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RaCandidateService
 {
+    /**
+     * @var LibraryRaCandidateService
+     */
     private $libraryService;
 
+    /**
+     * @var ValidatorInterface
+     */
     private $validator;
 
+    /**
+     * @param LibraryRaCandidateService $libraryService
+     * @param ValidatorInterface        $validator
+     */
     public function __construct(LibraryRaCandidateService $libraryService, ValidatorInterface $validator)
     {
         $this->libraryService = $libraryService;
@@ -52,12 +63,40 @@ class RaCandidateService
 
         $collection = RaCandidateCollection::fromData($data);
 
-        $violations = $this->validator->validate($collection);
-
-        if (count($violations)) {
-            throw InvalidResponseException::withViolations('One or more RaCandidates are not valid', $violations);
-        }
+        $this->assertIsValid($collection, 'One or more RaCandidates are not valid');
 
         return $collection;
+    }
+
+    /**
+     * @param string $identityId
+     * @return null|RaCandidate
+     */
+    public function getByIdentityId($identityId)
+    {
+        $data = $this->libraryService->getByIdentityId($identityId);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $raCandidate = RaCandidate::fromData($data);
+
+        $this->assertIsValid($raCandidate, 'Received invalid RaCandidate');
+
+        return $raCandidate;
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $message
+     */
+    private function assertIsValid($value, $message)
+    {
+        $violations = $this->validator->validate($value);
+
+        if (count($violations)) {
+            throw InvalidResponseException::withViolations($message, $violations);
+        }
     }
 }
