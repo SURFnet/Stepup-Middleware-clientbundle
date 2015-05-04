@@ -18,10 +18,46 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Command;
 
-interface Metadata
+use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidArgumentException;
+
+final class Metadata
 {
+    /**
+     * @var string|null
+     */
+    private $actorId;
+
+    /**
+     * @var string|null
+     */
+    private $actorInstitution;
+
+    /**
+     * @param string|null $actorId
+     * @param string|null $actorInstitution
+     */
+    public function __construct($actorId, $actorInstitution)
+    {
+        if (!is_string($actorId) && $actorId !== null) {
+            throw InvalidArgumentException::invalidType('string|null', 'actorId', $actorId);
+        }
+
+        if (!is_string($actorInstitution) && $actorInstitution !== null) {
+            throw InvalidArgumentException::invalidType('string|null', 'actorInstitution', $actorInstitution);
+        }
+
+        $this->actorId = $actorId;
+        $this->actorInstitution = $actorInstitution;
+    }
+
     /**
      * @return array
      */
-    public function serialise();
+    public function serialise()
+    {
+        return [
+            'actor_id' => $this->actorId,
+            'actor_institution' => $this->actorInstitution,
+        ];
+    }
 }
