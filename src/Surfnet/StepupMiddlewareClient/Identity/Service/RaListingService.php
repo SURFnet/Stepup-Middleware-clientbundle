@@ -18,16 +18,10 @@
 
 namespace Surfnet\StepupMiddlewareClient\Identity\Service;
 
-use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
-use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
-use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
-use Surfnet\StepupMiddlewareClient\Identity\Dto\RaSecondFactorSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\RaListingSearchQuery;
 use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
-/**
- * Provides remote read access to the Middleware's second factors for the RA list.
- */
-class RaSecondFactorService
+class RaListingService
 {
     /**
      * @var ApiService
@@ -43,14 +37,11 @@ class RaSecondFactorService
     }
 
     /**
-     * @param RaSecondFactorSearchQuery $query
-     * @return null|array
-     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
-     * @throws ResourceReadException When the server doesn't respond with the resource.
-     * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
+     * @param RaListingSearchQuery $searchQuery
+     * @return mixed|null
      */
-    public function search(RaSecondFactorSearchQuery $query)
+    public function search(RaListingSearchQuery $searchQuery)
     {
-        return $this->apiService->read('ra-second-factors' . $query->toHttpQuery());
+        return $this->apiService->read('ra-listing' . $searchQuery->toHttpQuery());
     }
 }
