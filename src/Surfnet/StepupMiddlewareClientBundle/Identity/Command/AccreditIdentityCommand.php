@@ -19,6 +19,7 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
 use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class AccreditIdentityCommand extends AbstractCommand
 {
