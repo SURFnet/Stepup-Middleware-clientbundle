@@ -29,9 +29,14 @@ final class AuditLogEntry implements Dto
     public $actorId;
 
     /**
-     * r@var string|null
+     * @var string|null
      */
     public $actorInstitution;
+
+    /**
+     * @var string
+     */
+    public $actorCommonName;
 
     /**
      * @var string
@@ -56,6 +61,11 @@ final class AuditLogEntry implements Dto
     /**
      * @var string
      */
+    public $secondFactorIdentifier;
+
+    /**
+     * @var string
+     */
     public $action;
 
     /**
@@ -69,15 +79,17 @@ final class AuditLogEntry implements Dto
      */
     public static function fromData(array $data)
     {
-        $entry = new self();
-        $entry->actorId = $data['actor_id'];
-        $entry->actorInstitution = $data['actor_institution'];
-        $entry->identityId = $data['identity_id'];
-        $entry->identityInstitution = $data['identity_institution'];
-        $entry->secondFactorId = $data['second_factor_id'];
-        $entry->secondFactorType = $data['second_factor_type'];
-        $entry->action = $data['action'];
-        $entry->recordedOn = new DateTime($data['recorded_on']);
+        $entry                         = new self();
+        $entry->actorId                = $data['actor_id'];
+        $entry->actorInstitution       = $data['actor_institution'];
+        $entry->actorCommonName        = $data['actor_common_name'];
+        $entry->identityId             = $data['identity_id'];
+        $entry->identityInstitution    = $data['identity_institution'];
+        $entry->secondFactorId         = $data['second_factor_id'];
+        $entry->secondFactorType       = $data['second_factor_type'];
+        $entry->secondFactorIdentifier = $data['second_factor_identifier'];
+        $entry->action                 = $data['action'];
+        $entry->recordedOn             = new DateTime($data['recorded_on']);
 
         return $entry;
     }
