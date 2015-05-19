@@ -21,6 +21,12 @@ services:
             - @logger
 
     # Read Services
+    surfnet_stepup_middleware_client.identity.service.audit_log:
+        class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\AuditLogService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.identity.service.audit_log
+            - @validator
+
     surfnet_stepup_middleware_client.identity.service.identity:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService
         arguments:
@@ -71,6 +77,12 @@ services:
             - @surfnet_stepup_middleware_client.guzzle.commands
             - ~ # Username, overridden in extension
             - ~ # Password, overridden in extension
+
+    surfnet_stepup_middleware_client.library.identity.service.audit_log:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\AuditLogService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.api
 
     surfnet_stepup_middleware_client.library.identity.service.identity:
         public: false
