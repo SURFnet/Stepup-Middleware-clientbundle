@@ -21,6 +21,7 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\RaListingSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\RaListingService as LibraryRaListingService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaListing;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaListingCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -47,6 +48,25 @@ class RaListingService
     {
         $this->service   = $service;
         $this->validator = $validator;
+    }
+
+    /**
+     * @param string $id
+     * @return null|RaListing
+     */
+    public function get($id)
+    {
+        $data = $this->service->get($id);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $raListing = RaListing::fromData($data);
+        $message = sprintf("RaListing '%s' retrieved from the Middleware is invalid", $id);
+        $this->assertIsValid($raListing, $message);
+
+        return $raListing;
     }
 
     /**
