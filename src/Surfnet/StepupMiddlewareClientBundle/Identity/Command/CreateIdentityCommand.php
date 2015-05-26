@@ -47,14 +47,20 @@ class CreateIdentityCommand extends AbstractCommand
      */
     public $commonName;
 
+    /**
+     * @var string
+     */
+    public $preferredLocale;
+
     public function serialise()
     {
         return [
-            'id'          => $this->id,
-            'name_id'     => $this->nameId,
-            'institution' => $this->institution,
-            'email'       => $this->email,
-            'common_name' => $this->commonName
+            'id'                => $this->id,
+            'name_id'           => $this->nameId,
+            'institution'       => $this->institution,
+            'email'             => $this->email,
+            'common_name'       => $this->commonName,
+            'preferred_locale ' => $this->preferredLocale,
         ];
     }
 }
