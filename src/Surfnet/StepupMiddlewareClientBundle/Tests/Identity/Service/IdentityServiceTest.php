@@ -29,7 +29,8 @@ class IdentityServiceTest extends \PHPUnit_Framework_TestCase
         'name_id' => '456',
         'institution' => 'Foo Inc.',
         'email' => 'a@b.c',
-        'common_name' => 'Foo Bar'
+        'common_name' => 'Foo Bar',
+        'preferred_locale' => 'en_GB',
     ];
 
     public function testItGetsAnIdentity()
