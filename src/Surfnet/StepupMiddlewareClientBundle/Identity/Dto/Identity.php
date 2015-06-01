@@ -59,6 +59,13 @@ class Identity implements Dto, Serializable
      */
     public $commonName;
 
+    /**
+     * @Assert\NotBlank(message="middleware_client.dto.identity.preferred_locale.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.identity.preferred_locale.must_be_string")
+     * @var string
+     */
+    public $preferredLocale;
+
     public static function fromData(array $data)
     {
         $identity = new self();
@@ -67,6 +74,7 @@ class Identity implements Dto, Serializable
         $identity->institution = $data['institution'];
         $identity->email = $data['email'];
         $identity->commonName = $data['common_name'];
+        $identity->preferredLocale = $data['preferred_locale'];
 
         return $identity;
     }
@@ -85,7 +93,8 @@ class Identity implements Dto, Serializable
                 $this->nameId,
                 $this->institution,
                 $this->email,
-                $this->commonName
+                $this->commonName,
+                $this->preferredLocale
             ]
         );
     }
@@ -103,7 +112,8 @@ class Identity implements Dto, Serializable
             $this->nameId,
             $this->institution,
             $this->email,
-            $this->commonName
+            $this->commonName,
+            $this->preferredLocale
         ) = unserialize($serialized);
     }
 
