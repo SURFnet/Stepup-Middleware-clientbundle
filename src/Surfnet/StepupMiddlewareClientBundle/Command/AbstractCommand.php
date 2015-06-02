@@ -21,6 +21,9 @@ namespace Surfnet\StepupMiddlewareClientBundle\Command;
 use Surfnet\StepupMiddlewareClientBundle\Exception\DomainException;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidArgumentException;
 
+/**
+ * @SuppressWarnings(PHPMD.NumberOfChildren) since well, we have more than 15 commands
+ */
 abstract class AbstractCommand implements Command
 {
     /**
