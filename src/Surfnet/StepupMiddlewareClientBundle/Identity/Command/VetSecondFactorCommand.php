@@ -46,6 +46,11 @@ class VetSecondFactorCommand extends AbstractCommand
     /**
      * @var string
      */
+    public $secondFactorType;
+
+    /**
+     * @var string
+     */
     public $secondFactorIdentifier;
 
     /**
@@ -65,6 +70,7 @@ class VetSecondFactorCommand extends AbstractCommand
             'identity_id'              => $this->identityId,
             'second_factor_id'         => $this->secondFactorId,
             'registration_code'        => $this->registrationCode,
+            'second_factor_type'       => $this->secondFactorType,
             'second_factor_identifier' => $this->secondFactorIdentifier,
             'document_number'          => $this->documentNumber,
             'identity_verified'        => $this->identityVerified,
