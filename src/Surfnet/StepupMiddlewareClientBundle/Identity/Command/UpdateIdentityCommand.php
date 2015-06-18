@@ -37,9 +37,15 @@ class UpdateIdentityCommand extends AbstractCommand
      */
     public $commonName;
 
-    public function __construct($id)
+    /**
+     * @var string
+     */
+    public $institution;
+
+    public function __construct($id, $institution)
     {
-        $this->id = $id;
+        $this->id          = $id;
+        $this->institution = $institution;
     }
 
     public function serialise()
@@ -47,7 +53,8 @@ class UpdateIdentityCommand extends AbstractCommand
         return [
             'id'          => $this->id,
             'email'       => $this->email,
-            'common_name' => $this->commonName
+            'common_name' => $this->commonName,
+            'institution' => $this->institution
         ];
     }
 }
