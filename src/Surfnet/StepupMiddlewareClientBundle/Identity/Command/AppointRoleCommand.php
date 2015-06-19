@@ -19,48 +19,28 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
 use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateIdentityCommand extends AbstractCommand
+class AppointRoleCommand extends AbstractCommand
 {
     /**
      * @var string
      */
-    public $id;
+    public $identityId;
 
     /**
      * @var string
      */
-    public $nameId;
+    public $role;
 
     /**
-     * @var string
+     * @return array
      */
-    public $institution;
-
-    /**
-     * @var string
-     */
-    public $email;
-
-    /**
-     * @var string
-     */
-    public $commonName;
-
-    /**
-     * @var string
-     */
-    public $preferredLocale;
-
     public function serialise()
     {
         return [
-            'id'                => $this->id,
-            'name_id'           => $this->nameId,
-            'institution'       => $this->institution,
-            'email'             => $this->email,
-            'common_name'       => $this->commonName,
-            'preferred_locale ' => $this->preferredLocale,
+            'identity_id' => $this->identityId,
+            'role'        => $this->role
         ];
     }
 }

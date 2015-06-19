@@ -38,20 +38,24 @@ class AuditLogServiceTest extends \PHPUnit_Framework_TestCase
     {
       "actor_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "actor_institution":"Ibuildings bv",
+      "actor_common_name":"Foo Bar",
       "identity_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "identity_institution":"Ibuildings bv",
       "second_factor_id":"1d645ab2-e523-4462-b85e-44f194f80bd6",
       "second_factor_type":"yubikey",
+      "second_factor_identifier":"ccccvfeghijk",
       "action":"email_verified",
       "recorded_on":"2015-03-31T12:07:28+02:00"
     },
     {
       "actor_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "actor_institution":"Ibuildings bv",
+      "actor_common_name":"Foo Bar",
       "identity_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "identity_institution":"Ibuildings bv",
       "second_factor_id":"1d645ab2-e523-4462-b85e-44f194f80bd6",
       "second_factor_type":"yubikey",
+      "second_factor_identifier":"ccccvfeghijk",
       "action":"possession_proven",
       "recorded_on":"2015-03-31T12:07:12+02:00"
     }
@@ -85,10 +89,12 @@ JSON;
         $entry = $actualAuditLog->getElements()[0];
         $this->assertEquals('5613875b-410e-407c-91ce-35bf0b5a8d89', $entry->actorId);
         $this->assertEquals('Ibuildings bv', $entry->actorInstitution);
+        $this->assertEquals('Foo Bar', $entry->actorCommonName);
         $this->assertEquals('5613875b-410e-407c-91ce-35bf0b5a8d89', $entry->identityId);
         $this->assertEquals('Ibuildings bv', $entry->identityInstitution);
         $this->assertEquals('1d645ab2-e523-4462-b85e-44f194f80bd6', $entry->secondFactorId);
         $this->assertEquals('yubikey', $entry->secondFactorType);
+        $this->assertEquals('ccccvfeghijk', $entry->secondFactorIdentifier);
         $this->assertEquals('email_verified', $entry->action);
         $this->assertEquals(new DateTime('2015-03-31 12:07:28 +02:00'), $entry->recordedOn);
     }

@@ -20,47 +20,15 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
 use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
 
-class CreateIdentityCommand extends AbstractCommand
+class RetractRegistrationAuthorityCommand extends AbstractCommand
 {
     /**
      * @var string
      */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $nameId;
-
-    /**
-     * @var string
-     */
-    public $institution;
-
-    /**
-     * @var string
-     */
-    public $email;
-
-    /**
-     * @var string
-     */
-    public $commonName;
-
-    /**
-     * @var string
-     */
-    public $preferredLocale;
+    public $identityId;
 
     public function serialise()
     {
-        return [
-            'id'                => $this->id,
-            'name_id'           => $this->nameId,
-            'institution'       => $this->institution,
-            'email'             => $this->email,
-            'common_name'       => $this->commonName,
-            'preferred_locale ' => $this->preferredLocale,
-        ];
+        return ['identity_id' => $this->identityId];
     }
 }

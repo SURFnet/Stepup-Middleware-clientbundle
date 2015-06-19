@@ -19,48 +19,31 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
 use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateIdentityCommand extends AbstractCommand
+class ExpressLocalePreferenceCommand extends AbstractCommand
 {
     /**
      * @var string
      */
-    public $id;
+    public $identityId;
 
     /**
-     * @var string
-     */
-    public $nameId;
-
-    /**
-     * @var string
-     */
-    public $institution;
-
-    /**
-     * @var string
-     */
-    public $email;
-
-    /**
-     * @var string
-     */
-    public $commonName;
-
-    /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
      * @var string
      */
     public $preferredLocale;
 
+    /**
+     * @return array
+     */
     public function serialise()
     {
         return [
-            'id'                => $this->id,
-            'name_id'           => $this->nameId,
-            'institution'       => $this->institution,
-            'email'             => $this->email,
-            'common_name'       => $this->commonName,
-            'preferred_locale ' => $this->preferredLocale,
+            'identity_id' => $this->identityId,
+            'preferred_locale' => $this->preferredLocale,
         ];
     }
 }

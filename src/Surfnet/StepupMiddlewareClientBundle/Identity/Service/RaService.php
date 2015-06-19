@@ -20,7 +20,6 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 
 use Surfnet\StepupMiddlewareClient\Identity\Service\RaService as LibraryRaService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
-use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCollection;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RegistrationAuthorityCredentialsCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

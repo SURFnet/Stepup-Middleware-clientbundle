@@ -21,59 +21,41 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class VetSecondFactorCommand extends AbstractCommand
+class AmendRegistrationAuthorityInformationCommand extends AbstractCommand
 {
     /**
-     * @var string
-     */
-    public $authorityId;
-
-    /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
      * @var string
      */
     public $identityId;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
      * @var string
      */
-    public $secondFactorId;
+    public $location;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
      * @var string
      */
-    public $registrationCode;
+    public $contactInformation;
 
     /**
-     * @var string
+     * @return array
      */
-    public $secondFactorType;
-
-    /**
-     * @var string
-     */
-    public $secondFactorIdentifier;
-
-    /**
-     * @var string
-     */
-    public $documentNumber;
-
-    /**
-     * @var boolean
-     */
-    public $identityVerified;
-
     public function serialise()
     {
         return [
-            'authority_id'             => $this->authorityId,
-            'identity_id'              => $this->identityId,
-            'second_factor_id'         => $this->secondFactorId,
-            'registration_code'        => $this->registrationCode,
-            'second_factor_type'       => $this->secondFactorType,
-            'second_factor_identifier' => $this->secondFactorIdentifier,
-            'document_number'          => $this->documentNumber,
-            'identity_verified'        => $this->identityVerified,
+            'identity_id'         => $this->identityId,
+            'location'            => $this->location,
+            'contact_information' => $this->contactInformation
         ];
     }
 }
