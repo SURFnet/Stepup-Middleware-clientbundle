@@ -10,7 +10,7 @@
         }
     },
     "require": {
-        "php": "~5.4|^7",
+        "php": ">=5.4,<8.0-dev",
         "moontoast/math": "~1.1",
         "psr/log": "~1.0",
         "rhumsaa/uuid": "~2.7",
