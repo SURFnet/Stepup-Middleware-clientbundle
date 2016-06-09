@@ -71,6 +71,13 @@ final class RaSecondFactor implements Dto
     public $name;
 
     /**
+     * Number of the document that was used in vetting.
+     *
+     * @var string|null
+     */
+    public $documentNumber;
+
+    /**
      * The e-mail of the registrant.
      *
      * @var string
@@ -89,9 +96,12 @@ final class RaSecondFactor implements Dto
         $secondFactor->secondFactorId = $data['second_factor_id'];
         $secondFactor->status = $data['status'];
         $secondFactor->identityId = $data['identity_id'];
-        $secondFactor->name = $data['name'];
-        $secondFactor->email = $data['email'];
         $secondFactor->institution = $data['institution'];
+        $secondFactor->name = $data['name'];
+        if (isset($data['document_number'])) {
+            $secondFactor->documentNumber = $data['document_number'];
+        }
+        $secondFactor->email = $data['email'];
 
         return $secondFactor;
     }
