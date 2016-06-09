@@ -73,7 +73,7 @@ final class RaSecondFactor implements Dto
     /**
      * Number of the document that was used in vetting.
      *
-     * @var string
+     * @var string|null
      */
     public $documentNumber;
 
