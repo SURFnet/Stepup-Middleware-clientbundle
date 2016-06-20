@@ -60,4 +60,3 @@ class RaLocationService
         return $this->apiService->read('ra-location' . $searchQuery->toHttpQuery());
     }
 }
-
