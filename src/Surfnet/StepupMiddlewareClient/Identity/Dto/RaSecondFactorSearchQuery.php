@@ -19,6 +19,7 @@
 namespace Surfnet\StepupMiddlewareClient\Identity\Dto;
 
 use Assert;
+use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 
 final class RaSecondFactorSearchQuery implements HttpQuery
 {
