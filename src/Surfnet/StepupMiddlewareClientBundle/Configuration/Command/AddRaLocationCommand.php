@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 
-namespace Surfnet\StepupMiddlewareClientBundle\Command;
+namespace Surfnet\StepupMiddlewareClientBundle\Configuration\Command;
+
+use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
 
 class AddRaLocationCommand extends AbstractCommand
 {
@@ -26,7 +28,7 @@ class AddRaLocationCommand extends AbstractCommand
      *
      * @var string
      */
-    private $institution;
+    public $id;
 
     /**
      * @Assert\NotBlank()
@@ -34,7 +36,15 @@ class AddRaLocationCommand extends AbstractCommand
      *
      * @var string
      */
-    private $name;
+    public $institution;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
+     * @var string
+     */
+    public $name;
 
     /**
      * @Assert\NotBlank()
@@ -55,8 +65,9 @@ class AddRaLocationCommand extends AbstractCommand
     public function serialise()
     {
         return [
+            'ra_location_id' => $this->id,
             'institution' => $this->institution,
-            'name' => $this->name,
+            'ra_location_name' => $this->name,
             'location' => $this->location,
             'contact_information' => $this->contactInformation,
         ];

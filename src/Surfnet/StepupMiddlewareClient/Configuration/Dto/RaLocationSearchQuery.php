@@ -33,6 +33,14 @@ class RaLocationSearchQuery implements HttpQuery
     }
 
     /**
+     * @return string
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
      * @param string $orderBy
      * @return $this
      */

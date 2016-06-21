@@ -21,6 +21,12 @@ services:
             - @logger
 
     # Read Services
+    surfnet_stepup_middleware_client.configuration.service.ra_location:
+        class: Surfnet\StepupMiddlewareClientBundle\Configuration\Service\RaLocationService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.configuration.service.ra_location
+            - @validator
+
     surfnet_stepup_middleware_client.identity.service.audit_log:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\AuditLogService
         arguments:
@@ -77,6 +83,12 @@ services:
             - @surfnet_stepup_middleware_client.guzzle.commands
             - ~ # Username, overridden in extension
             - ~ # Password, overridden in extension
+
+    surfnet_stepup_middleware_client.library.configuration.service.ra_location:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Configuration\Service\RaLocationService
+        arguments:
+            - @surfnet_stepup_middleware_client.library.service.api
 
     surfnet_stepup_middleware_client.library.identity.service.audit_log:
         public: false

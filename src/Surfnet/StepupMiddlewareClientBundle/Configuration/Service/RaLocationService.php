@@ -87,7 +87,7 @@ class RaLocationService
 
         $this->assertIsValid(
             $registrationLocations,
-            'One or more registration authority listings retrieved from the Middleware were invalid'
+            'One or more registration authority locations retrieved from the Middleware were invalid'
         );
 
         return $registrationLocations;

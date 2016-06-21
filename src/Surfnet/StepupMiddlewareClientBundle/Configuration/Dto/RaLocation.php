@@ -70,7 +70,7 @@ class RaLocation implements Dto
     public static function fromData(array $data)
     {
         $raLocation                     = new self();
-        $raLocation->identityId         = $data['id'];
+        $raLocation->id                 = $data['id'];
         $raLocation->institution        = $data['institution'];
         $raLocation->name               = $data['name'];
         $raLocation->location           = $data['location'];

@@ -16,22 +16,36 @@
  * limitations under the License.
  */
 
-namespace Surfnet\StepupMiddlewareClientBundle\Command;
+namespace Surfnet\StepupMiddlewareClientBundle\Configuration\Command;
+
+use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
 
 class RemoveRaLocationCommand extends AbstractCommand
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Type(type="string")
-     *
      * @var string
      */
-    private $id;
+    public $authorityId;
 
+    /**
+     * @var string
+     */
+    public $institution;
+
+    /**
+     * @var string
+     */
+    public $raLocationId;
+
+    /**
+     * @return array
+     */
     public function serialise()
     {
         return [
-            'id' => $this->id,
+            'authority_id'     => $this->authorityId,
+            'institution'      => $this->institution,
+            'ra_location_id'   => $this->raLocationId
         ];
     }
 }
