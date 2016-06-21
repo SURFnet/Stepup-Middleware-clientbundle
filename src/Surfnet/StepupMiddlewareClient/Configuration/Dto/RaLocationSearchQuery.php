@@ -75,8 +75,8 @@ class RaLocationSearchQuery implements HttpQuery
 
     public function toHttpQuery()
     {
-        return '/' . $this->institution
-            . '?orderBy=' . urlencode($this->orderBy)
+        return '?institution=' . urlencode($this->institution)
+            . '&orderBy=' . urlencode($this->orderBy)
             . '&orderDirection' . urlencode($this->orderDirection);
     }
 }
