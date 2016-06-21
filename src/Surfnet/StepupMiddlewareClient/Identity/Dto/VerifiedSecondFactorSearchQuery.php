@@ -33,7 +33,6 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
      */
     private $secondFactorId;
 
-
     /**
      * @var string
      */
