@@ -25,11 +25,6 @@ class RemoveRaLocationCommand extends AbstractCommand
     /**
      * @var string
      */
-    public $authorityId;
-
-    /**
-     * @var string
-     */
     public $institution;
 
     /**
@@ -43,7 +38,6 @@ class RemoveRaLocationCommand extends AbstractCommand
     public function serialise()
     {
         return [
-            'authority_id'     => $this->authorityId,
             'institution'      => $this->institution,
             'ra_location_id'   => $this->raLocationId
         ];
