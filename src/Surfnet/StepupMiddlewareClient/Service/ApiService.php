@@ -22,7 +22,7 @@ use GuzzleHttp\ClientInterface;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
-use Surfnet\StepupMiddlewareClient\Identity\Dto\HttpQuery;
+use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 
 /**
  * Provides remote read access to the Middleware's API.
