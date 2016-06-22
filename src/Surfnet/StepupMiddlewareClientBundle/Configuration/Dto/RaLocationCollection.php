@@ -16,14 +16,14 @@
  * limitations under the License.
  */
 
-namespace Surfnet\StepupMiddlewareClient\Identity\Dto;
+namespace Surfnet\StepupMiddlewareClientBundle\Configuration\Dto;
 
-interface HttpQuery
+use Surfnet\StepupMiddlewareClientBundle\Dto\CollectionDto;
+
+class RaLocationCollection extends CollectionDto
 {
-    /**
-     * Return the Http Query string as should be used, MUST include the '?' prefix.
-     *
-     * @return string
-     */
-    public function toHttpQuery();
+    protected static function createElementFromData(array $raLocation)
+    {
+        return RaLocation::fromData($raLocation);
+    }
 }
