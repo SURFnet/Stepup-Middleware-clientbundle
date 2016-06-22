@@ -2,6 +2,9 @@
 VERSION 1  RELEASE 1.0
 ======================
 
+   Version 1.2 - RA Locations
+      22/06/2016 11:16  1.2.0  initial release
+
    Version 1.1 - Add ProveU2fDevicePossessionCommand and documentNumber to RaSecondFactor
       09/06/2016 10:15  1.1.0  initial release
 
