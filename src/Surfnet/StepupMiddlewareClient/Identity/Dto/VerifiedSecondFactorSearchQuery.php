@@ -19,6 +19,7 @@
 namespace Surfnet\StepupMiddlewareClient\Identity\Dto;
 
 use Assert;
+use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 
 class VerifiedSecondFactorSearchQuery implements HttpQuery
 {
@@ -31,7 +32,6 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
      * @var string
      */
     private $secondFactorId;
-
 
     /**
      * @var string
