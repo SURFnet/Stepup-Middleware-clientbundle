@@ -20,8 +20,8 @@ class InstitutionWithPersonalRaLocationsService
      * @param string $institution
      * @return bool
      */
-    public function institutionHasPersonalRaLocations($institution)
+    public function institutionShowsRaLocations($institution)
     {
-        return $this->apiService->read('/has-personal-ra-locations/%s', [$institution]);
+        return $this->apiService->read('/shows-ra-locations/%s', [$institution]);
     }
 }
