@@ -2,7 +2,8 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Configuration\Service;
 
-use Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionWithPersonalRaLocationsService as LibraryInstitutionWithPersonalRaLocationsService;
+use Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionWithPersonalRaLocationsService
+    as LibraryInstitutionWithPersonalRaLocationsService;
 
 class InstitutionWithPersonalRaLocationsService
 {
