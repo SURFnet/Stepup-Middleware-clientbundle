@@ -4,22 +4,16 @@
 # Any custom Travis-ci configuration be added here
 # This file should be added to your project repository
 #
-
+sudo: false
 language: php
 
 php:
   - 5.6
-  - 5.5
-  - 5.4
   - 7.0
-
-matrix:
-  allow_failures:
-    - php: 7.0
 
 cache:
   directories:
-    - ~/.composer
+    - ~/.composer/cache/files/
 
 before_script:
   - phpenv config-add .travis.php.ini
@@ -28,7 +22,6 @@ before_script:
 
 script:
   - ant
-
 
 branches:
   only:

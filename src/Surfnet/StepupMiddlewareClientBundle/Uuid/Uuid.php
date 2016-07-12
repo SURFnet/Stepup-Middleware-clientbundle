@@ -18,7 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Uuid;
 
-use Rhumsaa\Uuid\Uuid as RhumsaaUuid;
+use Ramsey\Uuid\Uuid as RamseyUuid;
 
 class Uuid
 {
@@ -27,6 +27,6 @@ class Uuid
      */
     public static function generate()
     {
-        return (string) RhumsaaUuid::uuid4();
+        return (string) RamseyUuid::uuid4();
     }
 }
