@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 SURFnet bv
+ * Copyright 2016 SURFnet B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,47 +21,19 @@ namespace Surfnet\StepupMiddlewareClientBundle\Configuration\Dto;
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RaLocation implements Dto
+class InstitutionConfigurationOptions implements Dto
 {
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_location.id.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.ra_location.id.must_be_string")
-     *
-     * @var string
+     * @Assert\NotBlank(message="middleware_client.dto.configuration.use_ra_locations.must_not_be_blank")
+     * @Assert\Type(type="boolean", message="middleware_client.dto.configuration.use_ra_locations.must_be_boolean")
      */
-    public $id;
+    public $useRaLocations;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_location.institution.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.ra_location.institution.must_be_string")
-     *
-     * @var string
+     * @Assert\NotBlank(message="middleware_client.dto.configuration.show_raa_contact_information.must_not_be_blank")
+     * @Assert\Type(type="boolean", message="middleware_client.dto.configuration.show_raa_contact_information.must_be_boolean")
      */
-    public $institution;
-
-    /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_location.name.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.ra_location.name.must_be_string")
-     *
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_location.location.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.ra_location.location.must_be_string")
-     *
-     * @var string
-     */
-    public $location;
-
-    /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_location.contact_information.must_not_be_blank")
-     * @Assert\Type(type="string", message="middleware_client.dto.ra_location.contact_information.must_be_string")
-     *
-     * @var string
-     */
-    public $contactInformation;
+    public $showRaaContactInformation;
 
     /**
      * @param array $data
@@ -69,13 +41,10 @@ class RaLocation implements Dto
      */
     public static function fromData(array $data)
     {
-        $raLocation                     = new self();
-        $raLocation->id                 = $data['id'];
-        $raLocation->institution        = $data['institution'];
-        $raLocation->name               = $data['name'];
-        $raLocation->location           = $data['location'];
-        $raLocation->contactInformation = $data['contact_information'];
+        $institutionConfigurationOptions                            = new self();
+        $institutionConfigurationOptions->useRaLocations            = $data['use_ra_locations'];
+        $institutionConfigurationOptions->showRaaContactInformation = $data['show_raa_contact_information'];
 
-        return $raLocation;
+        return $institutionConfigurationOptions;
     }
 }
