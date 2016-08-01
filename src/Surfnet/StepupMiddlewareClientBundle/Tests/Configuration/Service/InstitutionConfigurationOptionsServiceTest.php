@@ -38,10 +38,8 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
         $expectedInstitutionConfigurationOptions->showRaaContactInformation = false;
 
         $validResponseData = [
-            $institution => [
-                'use_ra_locations'             => true,
-                'show_raa_contact_information' => false,
-            ],
+            'use_ra_locations'             => true,
+            'show_raa_contact_information' => false,
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -78,10 +76,8 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
-            $institution => [
-                'use_ra_locations' => $nonBoolean,
-                'show_raa_contact_information' => true
-            ]
+            'use_ra_locations'             => $nonBoolean,
+            'show_raa_contact_information' => true,
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -120,10 +116,8 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
-            $institution => [
-                'use_ra_locations' => $nonBoolean,
-                'show_raa_contact_information' => true
-            ]
+            'use_ra_locations'             => $nonBoolean,
+            'show_raa_contact_information' => true,
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);

@@ -48,8 +48,7 @@ final class InstitutionConfigurationOptionsService
             return null;
         }
 
-        $institutionConfigurationOptions = InstitutionConfigurationOptions::fromData($data[$institution]);
-
+        $institutionConfigurationOptions = InstitutionConfigurationOptions::fromData($data);
 
         $violations = $this->validator->validate($institutionConfigurationOptions);
         if (count($violations) > 0) {
