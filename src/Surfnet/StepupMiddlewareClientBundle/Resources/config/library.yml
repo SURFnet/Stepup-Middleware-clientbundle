@@ -80,6 +80,12 @@ services:
         arguments:
             - "@surfnet_stepup_middleware_client.library.service.api"
 
+    surfnet_stepup_middleware_client.library.configuration.service.institution_configuration_options:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionConfigurationOptionsService
+        arguments:
+            - "@surfnet_stepup_middleware_client.library.service.api"
+
     # Client Services
     surfnet_stepup_middleware_client.guzzle.commands:
         public: false

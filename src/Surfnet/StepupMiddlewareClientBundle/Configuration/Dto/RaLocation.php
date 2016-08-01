@@ -56,7 +56,6 @@ class RaLocation implements Dto
     public $location;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.ra_location.contact_information.must_not_be_blank")
      * @Assert\Type(type="string", message="middleware_client.dto.ra_location.contact_information.must_be_string")
      *
      * @var string

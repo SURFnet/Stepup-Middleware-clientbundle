@@ -79,3 +79,8 @@ services:
         arguments:
             - "@surfnet_stepup_middleware_client.library.identity.service.second_factor"
             - "@validator"
+
+    surfnet_stepup_middleware_client.configuration.service.institution_configuration_options:
+        class: Surfnet\StepupMiddlewareClientBundle\Configuration\Service\InstitutionConfigurationOptionsService
+            - "@surfnet_stepup_middleware_client.library.configuration.service.institution_configuration_options"
+            - "@validator"
