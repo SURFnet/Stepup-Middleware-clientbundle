@@ -82,5 +82,6 @@ services:
 
     surfnet_stepup_middleware_client.configuration.service.institution_configuration_options:
         class: Surfnet\StepupMiddlewareClientBundle\Configuration\Service\InstitutionConfigurationOptionsService
+        arguments:
             - "@surfnet_stepup_middleware_client.library.configuration.service.institution_configuration_options"
             - "@validator"
