@@ -37,7 +37,7 @@ class InstitutionConfigurationOptions implements Dto
 
     /**
      * @param array $data
-     * @return static
+     * @return InstitutionConfigurationOptions
      */
     public static function fromData(array $data)
     {

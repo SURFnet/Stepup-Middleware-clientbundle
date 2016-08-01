@@ -40,6 +40,10 @@ final class InstitutionConfigurationOptionsService
         $this->validator = $validator;
     }
 
+    /**
+     * @param $institution
+     * @return null|InstitutionConfigurationOptions
+     */
     public function getInstitutionConfigurationOptionsFor($institution)
     {
         $data = $this->service->getInstitutionConfigurationOptionsFor($institution);
