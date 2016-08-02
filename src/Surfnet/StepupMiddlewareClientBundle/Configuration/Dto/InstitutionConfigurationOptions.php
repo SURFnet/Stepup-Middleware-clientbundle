@@ -24,13 +24,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class InstitutionConfigurationOptions implements Dto
 {
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.configuration.use_ra_locations.must_not_be_blank")
      * @Assert\Type(type="boolean", message="middleware_client.dto.configuration.use_ra_locations.must_be_boolean")
      */
     public $useRaLocations;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.configuration.show_raa_contact_information.must_not_be_blank")
      * @Assert\Type(type="boolean", message="middleware_client.dto.configuration.show_raa_contact_information.must_be_boolean")
      */
     public $showRaaContactInformation;
