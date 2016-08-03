@@ -31,26 +31,50 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
         $processor = new Processor();
         $config = $processor->processConfiguration(new Configuration(), $config);
 
-        $loader = new YamlFileLoader(
-            $container,
-            new FileLocator(__DIR__.'/../Resources/config')
-        );
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('library.yml');
         $loader->load('services.yml');
 
+        $this->configureMiddlewareApiCredentials($config, $container);
+        $this->configureMiddlewareCommandApiUrl($config, $container);
+        $this->configureMiddlewareReadApiClient($config, $container);
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    private function configureMiddlewareApiCredentials(array $config, ContainerBuilder $container)
+    {
         $commandService = $container->getDefinition('surfnet_stepup_middleware_client.library.service.command');
         $commandService->replaceArgument(1, $config['authorisation']['username']);
         $commandService->replaceArgument(2, $config['authorisation']['password']);
+    }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @return \Symfony\Component\DependencyInjection\Definition
+     */
+    private function configureMiddlewareCommandApiUrl(array $config, ContainerBuilder $container)
+    {
         $guzzle = $container->getDefinition('surfnet_stepup_middleware_client.guzzle.commands');
         $guzzle->replaceArgument(0, ['base_url' => $config['url']['command_api']]);
+    }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    private function configureMiddlewareReadApiClient(array $config, ContainerBuilder $container)
+    {
         $guzzle = $container->getDefinition('surfnet_stepup_middleware_client.guzzle.api');
         $guzzle->replaceArgument(
             0,
             [
                 'base_url' => $config['url']['api'],
                 'defaults' => [
-                    'auth' => [
+                    'auth'    => [
                         $config['authorisation']['username'],
                         $config['authorisation']['password'],
                         'basic'

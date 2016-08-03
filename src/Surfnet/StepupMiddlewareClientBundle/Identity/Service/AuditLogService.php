@@ -25,7 +25,6 @@ use Surfnet\StepupMiddlewareClient\Identity\Dto\SecondFactorAuditLogSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\AuditLogService as LibraryAuditLogService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\AuditLog;
-use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\AuditLogCollection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AuditLogService
