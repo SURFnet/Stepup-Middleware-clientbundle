@@ -17,153 +17,71 @@ services:
     surfnet_stepup_middleware_client.service.command:
         class: Surfnet\StepupMiddlewareClientBundle\Service\CommandService
         arguments:
-            - @surfnet_stepup_middleware_client.library.service.command
-            - @logger
+            - "@surfnet_stepup_middleware_client.library.service.command"
+            - "@logger"
 
     # Read Services
     surfnet_stepup_middleware_client.configuration.service.ra_location:
         class: Surfnet\StepupMiddlewareClientBundle\Configuration\Service\RaLocationService
         arguments:
-            - @surfnet_stepup_middleware_client.library.configuration.service.ra_location
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.configuration.service.ra_location"
+            - "@validator"
 
     surfnet_stepup_middleware_client.configuration.service.institution_with_personal_ra_locations:
         class: Surfnet\StepupMiddlewareClientBundle\Configuration\Service\InstitutionWithPersonalRaLocationsService
         arguments:
-            - '@surfnet_stepup_middleware_client.library.configuration.service.institution_with_personal_ra_locations'
+            - "@surfnet_stepup_middleware_client.library.configuration.service.institution_with_personal_ra_locations"
 
     surfnet_stepup_middleware_client.identity.service.audit_log:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\AuditLogService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.audit_log
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.audit_log"
+            - "@validator"
 
     surfnet_stepup_middleware_client.identity.service.identity:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.identity
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.identity"
+            - "@validator"
 
     surfnet_stepup_middleware_client.identity.service.institution_listing:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\InstitutionListingService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.institution_listing
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.institution_listing"
+            - "@validator"
 
     surfnet_stepup_middleware_client.identity.service.ra:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\RaService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.ra
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.ra"
+            - "@validator"
 
     surfnet_stepup_middleware_client.identity.service.ra_candidate:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\RaCandidateService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.ra_candidate
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.ra_candidate"
+            - "@validator"
 
     surfnet_stepup_middleware_client.identity.service.ra_listing:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\RaListingService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.ra_listing
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.ra_listing"
+            - "@validator"
 
     surfnet_stepup_middleware_client.identity.service.ra_second_factor:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\RaSecondFactorService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.ra_second_factor
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.ra_second_factor"
+            - "@validator"
 
     surfnet_stepup_middleware_client.identity.service.second_factor:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\SecondFactorService
         arguments:
-            - @surfnet_stepup_middleware_client.library.identity.service.second_factor
-            - @validator
+            - "@surfnet_stepup_middleware_client.library.identity.service.second_factor"
+            - "@validator"
 
-    # Library Services
-    surfnet_stepup_middleware_client.library.service.command:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Service\CommandService
+    surfnet_stepup_middleware_client.configuration.service.institution_configuration_options:
+        class: Surfnet\StepupMiddlewareClientBundle\Configuration\Service\InstitutionConfigurationOptionsService
         arguments:
-            - @surfnet_stepup_middleware_client.guzzle.commands
-            - ~ # Username, overridden in extension
-            - ~ # Password, overridden in extension
-
-    surfnet_stepup_middleware_client.library.configuration.service.institution_with_personal_ra_locations:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionWithPersonalRaLocationsService
-        arguments:
-            - '@surfnet_stepup_middleware_client.library.service.api'
-
-    surfnet_stepup_middleware_client.library.configuration.service.ra_location:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Configuration\Service\RaLocationService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.audit_log:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\AuditLogService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.identity:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.institution_listing:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\InstitutionListingService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.ra:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.ra_candidate:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaCandidateService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.ra_listing:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaListingService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.ra_second_factor:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\RaSecondFactorService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    surfnet_stepup_middleware_client.library.identity.service.second_factor:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService
-        arguments:
-            - @surfnet_stepup_middleware_client.library.service.api
-
-    # Client Services
-    surfnet_stepup_middleware_client.guzzle.commands:
-        public: false
-        class: GuzzleHttp\Client
-        arguments:
-            - ~ # Guzzle options, overridden in extension
-
-    surfnet_stepup_middleware_client.library.service.api:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Service\ApiService
-        arguments:
-            - @surfnet_stepup_middleware_client.guzzle.api
-
-    surfnet_stepup_middleware_client.guzzle.api:
-        public: false
-        class: GuzzleHttp\Client
-        arguments:
-            - ~ # Guzzle options, overridden in extension
+            - "@surfnet_stepup_middleware_client.library.configuration.service.institution_configuration_options"
+            - "@validator"

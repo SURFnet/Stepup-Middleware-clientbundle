@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 SURFnet bv
+ * Copyright 2016 SURFnet B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,28 @@
  * limitations under the License.
  */
 
-namespace Surfnet\StepupMiddlewareClientBundle\Uuid;
+namespace Surfnet\StepupMiddlewareClient\Configuration\Service;
 
-use Ramsey\Uuid\Uuid as RamseyUuid;
+use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
-class Uuid
+class InstitutionConfigurationOptionsService
 {
     /**
-     * @return string
+     * @var ApiService
      */
-    public static function generate()
+    private $apiService;
+
+    public function __construct(ApiService $apiService)
     {
-        return (string) RamseyUuid::uuid4();
+        $this->apiService = $apiService;
+    }
+
+    /**
+     * @param string $institution
+     * @return array
+     */
+    public function getInstitutionConfigurationOptionsFor($institution)
+    {
+        return $this->apiService->read('/institution-configuration-options/%s', [$institution]);
     }
 }
