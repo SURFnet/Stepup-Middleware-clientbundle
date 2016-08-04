@@ -20,12 +20,6 @@ services:
             - ~ # Username, overridden in extension
             - ~ # Password, overridden in extension
 
-    surfnet_stepup_middleware_client.library.configuration.service.institution_with_personal_ra_locations:
-        public: false
-        class: Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionWithPersonalRaLocationsService
-        arguments:
-            - "@surfnet_stepup_middleware_client.library.service.api"
-
     surfnet_stepup_middleware_client.library.configuration.service.ra_location:
         public: false
         class: Surfnet\StepupMiddlewareClient\Configuration\Service\RaLocationService
