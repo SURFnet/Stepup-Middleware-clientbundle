@@ -27,11 +27,6 @@ services:
             - "@surfnet_stepup_middleware_client.library.configuration.service.ra_location"
             - "@validator"
 
-    surfnet_stepup_middleware_client.configuration.service.institution_with_personal_ra_locations:
-        class: Surfnet\StepupMiddlewareClientBundle\Configuration\Service\InstitutionWithPersonalRaLocationsService
-        arguments:
-            - "@surfnet_stepup_middleware_client.library.configuration.service.institution_with_personal_ra_locations"
-
     surfnet_stepup_middleware_client.identity.service.audit_log:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\AuditLogService
         arguments:
