@@ -1,14 +1,14 @@
 # Step-up Middleware Client Bundle
-[![Build Status](https://travis-ci.org/SURFnet/Stepup-Middleware-clientbundle.svg)](https://travis-ci.org/SURFnet/Stepup-Middleware-clientbundle) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SURFnet/Stepup-Middleware-clientbundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/SURFnet/Stepup-Middleware-clientbundle/?branch=develop) [![SensioLabs Insight](https://insight.sensiolabs.com/projects/3fef2be8-1351-4fbb-b6e8-00296c1d8d36/mini.png)](https://insight.sensiolabs.com/projects/3fef2be8-1351-4fbb-b6e8-00296c1d8d36)
+[![Build Status](https://travis-ci.org/OpenConext/Stepup-Middleware-clientbundle.svg)](https://travis-ci.org/OpenConext/Stepup-Middleware-clientbundle) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/OpenConext/Stepup-Middleware-clientbundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/OpenConext/Stepup-Middleware-clientbundle/?branch=develop) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3fef2be8-1351-4fbb-b6e8-00296c1d8d36/mini.png)](https://insight.sensiolabs.com/projects/3fef2be8-1351-4fbb-b6e8-00296c1d8d36)
 
-A Symfony2 bundle to consume the Step-up Middleware API.
+A Symfony2 bundle to consume the Step-up Middleware API. See [Stepup-Deploy](https://github.com/OpenConext/Stepup-Deploy) for an overview. 
 
 ## Requirements
 
  * PHP 5.6+ or PHP7
  * [Composer](https://getcomposer.org/)
- * A working [Gateway](https://github.com/SURFnet/Stepup-Gateway)
- * Working [Middleware](https://github.com/SURFnet/Stepup-Middleware)
+ * A working [Gateway](https://github.com/OpenConext/Stepup-Gateway)
+ * Working [Middleware](https://github.com/OpenConext/Stepup-Middleware)
 
 ## Installation
 
