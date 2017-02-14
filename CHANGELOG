@@ -2,6 +2,9 @@
 VERSION 1  RELEASE 1.0
 ======================
 
+   Version 1.5 - Added allowed second factor list
+      14/02/2017 17:07  1.5.0  initial release
+
    Version 1.4 - Removed capabilities that are not provided by MW anymore
       08/08/2016 17:11  1.4.0  initial release
 
