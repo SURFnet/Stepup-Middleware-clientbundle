@@ -54,6 +54,11 @@ class RaCandidateSearchQuery implements HttpQuery
     private $orderDirection;
 
     /**
+     * @var string[]
+     */
+    private $secondFactorTypes = [];
+
+    /**
      * @param string $institution
      * @param int    $pageNumber
      */
@@ -95,6 +100,19 @@ class RaCandidateSearchQuery implements HttpQuery
     }
 
     /**
+     * @param array $secondFactorTypes
+     *
+     * @return void
+     */
+    public function setSecondFactorTypes(array $secondFactorTypes)
+    {
+        Assert\Assertion::allString($secondFactorTypes);
+        Assert\Assertion::allNotEmpty($secondFactorTypes);
+
+        $this->secondFactorTypes = $secondFactorTypes;
+    }
+
+    /**
      * @param string $orderBy
      * @return $this
      */
@@ -129,12 +147,13 @@ class RaCandidateSearchQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'institution'    => $this->institution,
-                    'commonName'     => $this->commonName,
-                    'email'          => $this->email,
-                    'orderBy'        => $this->orderBy,
-                    'orderDirection' => $this->orderDirection,
-                    'p'              => $this->pageNumber,
+                    'institution'        => $this->institution,
+                    'commonName'         => $this->commonName,
+                    'email'              => $this->email,
+                    'secondFactoryTypes' => $this->secondFactorTypes,
+                    'orderBy'            => $this->orderBy,
+                    'orderDirection'     => $this->orderDirection,
+                    'p'                  => $this->pageNumber,
                 ],
                 function ($value) {
                     return !is_null($value);
