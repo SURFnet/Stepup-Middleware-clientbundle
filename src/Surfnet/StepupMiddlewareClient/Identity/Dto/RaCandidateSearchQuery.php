@@ -106,8 +106,7 @@ class RaCandidateSearchQuery implements HttpQuery
      */
     public function setSecondFactorTypes(array $secondFactorTypes)
     {
-        Assert\Assertion::allString($secondFactorTypes);
-        Assert\Assertion::allNotEmpty($secondFactorTypes);
+        $this->assertAllNonEmptyString($secondFactorTypes, 'secondFactorTypes');
 
         $this->secondFactorTypes = $secondFactorTypes;
     }
@@ -163,17 +162,35 @@ class RaCandidateSearchQuery implements HttpQuery
     }
 
     /**
-     * @param mixed  $value
-     * @param string $parameterName
+     * @param mixed       $value
+     * @param string      $parameterName
+     * @param string|null $message
      */
-    private function assertNonEmptyString($value, $parameterName)
+    private function assertNonEmptyString($value, $parameterName, $message = null)
     {
         $message = sprintf(
-            '"%s" must be a non-empty string, "%s" given',
+            $message ?: '"%s" must be a non-empty string, "%s" given',
             $parameterName,
             (is_object($value) ? get_class($value) : gettype($value))
         );
 
         Assert\that($value)->string($message)->notEmpty($message);
+    }
+
+    /**
+     * @param array $values
+     * @param string $parameterName
+     *
+     * @return void
+     */
+    private function assertAllNonEmptyString(array $values, $parameterName)
+    {
+        foreach ($values as $value) {
+            $this->assertNonEmptyString(
+                $value,
+                $parameterName,
+                'Elements of "%s" must be non-empty strings, element of type "%s" given'
+            );
+        }
     }
 }
