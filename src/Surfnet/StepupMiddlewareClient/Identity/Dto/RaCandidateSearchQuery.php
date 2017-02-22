@@ -147,13 +147,13 @@ class RaCandidateSearchQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'institution'        => $this->institution,
-                    'commonName'         => $this->commonName,
-                    'email'              => $this->email,
-                    'secondFactoryTypes' => $this->secondFactorTypes,
-                    'orderBy'            => $this->orderBy,
-                    'orderDirection'     => $this->orderDirection,
-                    'p'                  => $this->pageNumber,
+                    'institution'       => $this->institution,
+                    'commonName'        => $this->commonName,
+                    'email'             => $this->email,
+                    'secondFactorTypes' => $this->secondFactorTypes,
+                    'orderBy'           => $this->orderBy,
+                    'orderDirection'    => $this->orderDirection,
+                    'p'                 => $this->pageNumber,
                 ],
                 function ($value) {
                     return !is_null($value);
