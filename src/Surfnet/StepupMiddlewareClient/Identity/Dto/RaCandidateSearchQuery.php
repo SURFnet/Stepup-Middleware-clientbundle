@@ -54,6 +54,11 @@ class RaCandidateSearchQuery implements HttpQuery
     private $orderDirection;
 
     /**
+     * @var string[]
+     */
+    private $secondFactorTypes = [];
+
+    /**
      * @param string $institution
      * @param int    $pageNumber
      */
@@ -95,6 +100,18 @@ class RaCandidateSearchQuery implements HttpQuery
     }
 
     /**
+     * @param array $secondFactorTypes
+     *
+     * @return void
+     */
+    public function setSecondFactorTypes(array $secondFactorTypes)
+    {
+        $this->assertAllNonEmptyString($secondFactorTypes, 'secondFactorTypes');
+
+        $this->secondFactorTypes = $secondFactorTypes;
+    }
+
+    /**
      * @param string $orderBy
      * @return $this
      */
@@ -129,12 +146,13 @@ class RaCandidateSearchQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'institution'    => $this->institution,
-                    'commonName'     => $this->commonName,
-                    'email'          => $this->email,
-                    'orderBy'        => $this->orderBy,
-                    'orderDirection' => $this->orderDirection,
-                    'p'              => $this->pageNumber,
+                    'institution'       => $this->institution,
+                    'commonName'        => $this->commonName,
+                    'email'             => $this->email,
+                    'secondFactorTypes' => $this->secondFactorTypes,
+                    'orderBy'           => $this->orderBy,
+                    'orderDirection'    => $this->orderDirection,
+                    'p'                 => $this->pageNumber,
                 ],
                 function ($value) {
                     return !is_null($value);
@@ -144,17 +162,35 @@ class RaCandidateSearchQuery implements HttpQuery
     }
 
     /**
-     * @param mixed  $value
-     * @param string $parameterName
+     * @param mixed       $value
+     * @param string      $parameterName
+     * @param string|null $message
      */
-    private function assertNonEmptyString($value, $parameterName)
+    private function assertNonEmptyString($value, $parameterName, $message = null)
     {
         $message = sprintf(
-            '"%s" must be a non-empty string, "%s" given',
+            $message ?: '"%s" must be a non-empty string, "%s" given',
             $parameterName,
             (is_object($value) ? get_class($value) : gettype($value))
         );
 
         Assert\that($value)->string($message)->notEmpty($message);
+    }
+
+    /**
+     * @param array $values
+     * @param string $parameterName
+     *
+     * @return void
+     */
+    private function assertAllNonEmptyString(array $values, $parameterName)
+    {
+        foreach ($values as $value) {
+            $this->assertNonEmptyString(
+                $value,
+                $parameterName,
+                'Elements of "%s" must be non-empty strings, element of type "%s" given'
+            );
+        }
     }
 }
