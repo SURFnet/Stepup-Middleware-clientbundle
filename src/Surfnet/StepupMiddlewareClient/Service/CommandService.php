@@ -88,10 +88,10 @@ class CommandService
         }
 
         $requestOptions = [
-            'json'       => $body,
-            'exceptions' => false,
-            'auth'       => [$this->username, $this->password, 'basic'],
-            'headers'    => ['Accept' => 'application/json'],
+            'json'        => $body,
+            'http_errors' => false,
+            'auth'        => [$this->username, $this->password, 'basic'],
+            'headers'     => ['Accept' => 'application/json'],
         ];
         $httpResponse = $this->guzzleClient->post(null, $requestOptions);
 
