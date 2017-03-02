@@ -18,11 +18,12 @@
 
 namespace Surfnet\StepupMiddlewareClient\Service;
 
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
 use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
+use Surfnet\StepupMiddlewareClient\Helper\JsonHelper;
 
 /**
  * Provides remote read access to the Middleware's API.
@@ -30,14 +31,14 @@ use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 class ApiService
 {
     /**
-     * @var ClientInterface
+     * @var Client
      */
     private $guzzleClient;
 
     /**
-     * @param ClientInterface $guzzleClient A Guzzle client preconfigured with base URL and proper authentication.
+     * @param Client $guzzleClient A Guzzle client preconfigured with base URL and proper authentication.
      */
-    public function __construct(ClientInterface $guzzleClient)
+    public function __construct(Client $guzzleClient)
     {
         $this->guzzleClient = $guzzleClient;
     }
@@ -61,11 +62,11 @@ class ApiService
         $statusCode = $response->getStatusCode();
 
         try {
-            $data = $response->json();
+            $data = JsonHelper::decode((string) $response->getBody());
             $errors = isset($data['errors']) && is_array($data['errors']) ? $data['errors'] : [];
         } catch (\RuntimeException $e) {
             // Malformed JSON body
-            throw new MalformedResponseException('Cannot read resource: Middleware return malformed JSON');
+            throw new MalformedResponseException('Cannot read resource: Middleware returned malformed JSON');
         }
 
         if ($statusCode == 404) {
