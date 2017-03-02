@@ -72,16 +72,14 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
         $guzzle->replaceArgument(
             0,
             [
-                'base_url' => $config['url']['api'],
-                'defaults' => [
-                    'auth'    => [
-                        $config['authorisation']['username'],
-                        $config['authorisation']['password'],
-                        'basic'
-                    ],
-                    'headers' => [
-                        'Accept' => 'application/json'
-                    ]
+                'base_uri' => $config['url']['api'],
+                'auth'    => [
+                    $config['authorisation']['username'],
+                    $config['authorisation']['password'],
+                    'basic'
+                ],
+                'headers' => [
+                    'Accept' => 'application/json'
                 ]
             ]
         );
