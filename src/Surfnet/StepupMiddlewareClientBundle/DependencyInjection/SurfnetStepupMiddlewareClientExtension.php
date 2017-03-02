@@ -59,7 +59,7 @@ class SurfnetStepupMiddlewareClientExtension extends Extension
     private function configureMiddlewareCommandApiUrl(array $config, ContainerBuilder $container)
     {
         $guzzle = $container->getDefinition('surfnet_stepup_middleware_client.guzzle.commands');
-        $guzzle->replaceArgument(0, ['base_url' => $config['url']['command_api']]);
+        $guzzle->replaceArgument(0, ['base_uri' => $config['url']['command_api']]);
     }
 
     /**
