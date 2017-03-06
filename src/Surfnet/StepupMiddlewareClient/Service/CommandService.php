@@ -18,15 +18,16 @@
 
 namespace Surfnet\StepupMiddlewareClient\Service;
 
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use RuntimeException;
 use Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException;
 use Surfnet\StepupMiddlewareClient\Exception\InvalidArgumentException;
+use Surfnet\StepupMiddlewareClient\Helper\JsonHelper;
 
 class CommandService
 {
     /**
-     * @var ClientInterface
+     * @var Client
      */
     private $guzzleClient;
 
@@ -41,11 +42,11 @@ class CommandService
     private $password;
 
     /**
-     * @param ClientInterface $guzzleClient A Guzzle client preconfigured with the command URL.
+     * @param Client $guzzleClient A Guzzle client preconfigured with the command URL.
      * @param string $username
      * @param string $password
      */
-    public function __construct(ClientInterface $guzzleClient, $username, $password)
+    public function __construct(Client $guzzleClient, $username, $password)
     {
         if (!is_string($username)) {
             throw InvalidArgumentException::invalidType('string', 'username', $username);
