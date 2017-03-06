@@ -97,7 +97,7 @@ class CommandService
         $httpResponse = $this->guzzleClient->post(null, $requestOptions);
 
         try {
-            $response = $httpResponse->json();
+            $response = JsonHelper::decode((string) $httpResponse->getBody());
         } catch (RuntimeException $e) {
             throw new CommandExecutionFailedException(
                 'Server response could not be decoded as it isn\'t valid JSON.',
