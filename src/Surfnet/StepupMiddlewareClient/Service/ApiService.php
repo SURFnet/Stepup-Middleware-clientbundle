@@ -58,7 +58,7 @@ class ApiService
     {
         $resource = $this->buildResourcePath($path, $parameters, $httpQuery);
 
-        $response = $this->guzzleClient->get($resource, ['exceptions' => false]);
+        $response = $this->guzzleClient->get($resource, ['http_errors' => false]);
         $statusCode = $response->getStatusCode();
 
         try {
