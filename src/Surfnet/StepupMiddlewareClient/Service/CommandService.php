@@ -18,15 +18,16 @@
 
 namespace Surfnet\StepupMiddlewareClient\Service;
 
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use RuntimeException;
 use Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException;
 use Surfnet\StepupMiddlewareClient\Exception\InvalidArgumentException;
+use Surfnet\StepupMiddlewareClient\Helper\JsonHelper;
 
 class CommandService
 {
     /**
-     * @var ClientInterface
+     * @var Client
      */
     private $guzzleClient;
 
@@ -41,11 +42,11 @@ class CommandService
     private $password;
 
     /**
-     * @param ClientInterface $guzzleClient A Guzzle client preconfigured with the command URL.
+     * @param Client $guzzleClient A Guzzle client preconfigured with the command URL.
      * @param string $username
      * @param string $password
      */
-    public function __construct(ClientInterface $guzzleClient, $username, $password)
+    public function __construct(Client $guzzleClient, $username, $password)
     {
         if (!is_string($username)) {
             throw InvalidArgumentException::invalidType('string', 'username', $username);
@@ -88,15 +89,15 @@ class CommandService
         }
 
         $requestOptions = [
-            'json'       => $body,
-            'exceptions' => false,
-            'auth'       => [$this->username, $this->password, 'basic'],
-            'headers'    => ['Accept' => 'application/json'],
+            'json'        => $body,
+            'http_errors' => false,
+            'auth'        => [$this->username, $this->password, 'basic'],
+            'headers'     => ['Accept' => 'application/json'],
         ];
         $httpResponse = $this->guzzleClient->post(null, $requestOptions);
 
         try {
-            $response = $httpResponse->json();
+            $response = JsonHelper::decode((string) $httpResponse->getBody());
         } catch (RuntimeException $e) {
             throw new CommandExecutionFailedException(
                 'Server response could not be decoded as it isn\'t valid JSON.',

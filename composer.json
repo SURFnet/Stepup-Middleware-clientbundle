@@ -17,15 +17,19 @@
         "symfony/dependency-injection": "^2.7",
         "symfony/http-kernel": "^2.7",
         "symfony/validator": "^2.7",
-        "guzzlehttp/guzzle": "~4",
+        "guzzlehttp/guzzle": "^6.0",
         "beberlei/assert": "~2.0",
         "ramsey/uuid": "^3.4"
     },
     "require-dev": {
-        "ibuildings/qa-tools": "~1.1",
         "matthiasnoback/symfony-config-test": "0.*",
         "mockery/mockery": "0.9.*",
-        "liip/rmt": "1.1.*"
+        "liip/rmt": "1.1.*",
+        "phpmd/phpmd": "^2.0",
+        "phpunit/phpunit": "^4.0",
+        "sensiolabs/security-checker": "^2.0",
+        "sebastian/phpcpd": "^2.0",
+        "squizlabs/php_codesniffer": "^1.0"
     },
     "conflict": {
         "surfnet/stepup-middleware-client": "*"
