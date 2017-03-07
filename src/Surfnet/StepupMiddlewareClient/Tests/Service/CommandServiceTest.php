@@ -32,11 +32,13 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
     {
         $uuid = 'uu-id';
         $processedBy = 'server-1';
-        $responseStub = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->once()->andReturn(['command' => $uuid, 'processed_by' => $processedBy])
+        $json = json_encode(['command' => $uuid, 'processed_by' => $processedBy]);
+
+        $responseStub = m::mock('Psr\Http\Message\ResponseInterface')
+            ->shouldReceive('getBody')->once()->andReturn($json)
             ->shouldReceive('getStatusCode')->once()->andReturn('200')
             ->getMock();
-        $guzzleClient = m::mock('GuzzleHttp\ClientInterface')
+        $guzzleClient = m::mock('GuzzleHttp\Client')
             ->shouldReceive('post')->once()->with(null, self::spy($options))->andReturn($responseStub)
             ->getMock();
 
@@ -76,11 +78,13 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
     public function testItHandlesErrorResponses()
     {
         $errors = ['Field X is fine', 'Field Y is durable', 'Field Z is zepto'];
-        $responseStub = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->once()->andReturn(['errors' => $errors])
+        $json = json_encode(['errors' => $errors]);
+
+        $responseStub = m::mock('Psr\Http\Message\ResponseInterface')
+            ->shouldReceive('getBody')->once()->andReturn($json)
             ->shouldReceive('getStatusCode')->once()->andReturn('400')
             ->getMock();
-        $guzzleClient = m::mock('GuzzleHttp\ClientInterface')
+        $guzzleClient = m::mock('GuzzleHttp\Client')
             ->shouldReceive('post')->once()->with(null, self::spy($options))->andReturn($responseStub)
             ->getMock();
 
@@ -108,10 +112,12 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
 
-        $responseStub = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->once()->andThrow(new \RuntimeException)
+        $malformedJson = "Malformed JSON";
+
+        $responseStub = m::mock('Psr\Http\Message\ResponseInterface')
+            ->shouldReceive('getBody')->andReturn($malformedJson)
             ->getMock();
-        $guzzleClient = m::mock('GuzzleHttp\ClientInterface')
+        $guzzleClient = m::mock('GuzzleHttp\Client')
             ->shouldReceive('post')->once()->with(null, m::type('array'))->andReturn($responseStub)
             ->getMock();
 
@@ -132,11 +138,13 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
 
-        $responseStub = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->once()->andReturn($response)
+        $json = json_encode($response);
+
+        $responseStub = m::mock('Psr\Http\Message\ResponseInterface')
+            ->shouldReceive('getBody')->once()->andReturn($json)
             ->shouldReceive('getStatusCode')->once()->andReturn((string) $statusCode)
             ->getMock();
-        $guzzleClient = m::mock('GuzzleHttp\ClientInterface')
+        $guzzleClient = m::mock('GuzzleHttp\Client')
             ->shouldReceive('post')->once()->with(null, m::type('array'))->andReturn($responseStub)
             ->getMock();
 

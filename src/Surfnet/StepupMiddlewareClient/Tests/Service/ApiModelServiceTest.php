@@ -18,6 +18,9 @@
 
 namespace Surfnet\StepupMiddlewareClient\Tests\Service;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 use Mockery as m;
 use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
@@ -25,28 +28,29 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testItResources()
     {
-        $data = 'My first resource';
-        $response = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->andReturn($data)
-            ->shouldReceive('getStatusCode')->andReturn('200')
-            ->getMock();
-        $guzzle = m::mock('GuzzleHttp\ClientInterface')
-            ->shouldReceive('get')->with('/resource', m::any())->once()->andReturn($response)
-            ->getMock();
+        $data     = ['data' => 'My first resource'];
+        $response = new Response(200, [], json_encode($data));
 
-        $service = new ApiService($guzzle);
+        $handler = new MockHandler([$response]);
+        $client  = new Client(['handler' => $handler]);
+        $service = new ApiService($client);
 
-        $this->assertEquals($data, $service->read('/resource'));
+        $responseData = $service->read('/resource');
+
+        $this->assertSame($data, $responseData);
     }
 
     public function testItFormatsResourceParameters()
     {
+        $data        = ['data' => 'My first resource'];
+        $expectedUri = '/resource/John%2FDoe';
+
         $response = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->andReturn('My first resource')
+            ->shouldReceive('getBody')->andReturn(json_encode($data))
             ->shouldReceive('getStatusCode')->andReturn('200')
             ->getMock();
-        $guzzle = m::mock('GuzzleHttp\ClientInterface')
-            ->shouldReceive('get')->with('/resource/John%2FDoe', m::any())->once()->andReturn($response)
+        $guzzle      = m::mock('GuzzleHttp\Client')
+            ->shouldReceive('get')->with($expectedUri, m::any())->once()->andReturn($response)
             ->getMock();
 
         $service = new ApiService($guzzle);
@@ -55,48 +59,46 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testItThrowsWhenMalformedJsonIsReturned()
     {
-        $this->setExpectedException('Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException');
+        $malformedJson = 'This is some malformed JSON';
+        $response      = new Response(200, [], $malformedJson);
 
-        $response = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->andThrow(new \RuntimeException)
-            ->shouldReceive('getStatusCode')->andReturn('200')
-            ->getMock();
-        $guzzle = m::mock('GuzzleHttp\ClientInterface')
-            ->shouldReceive('get')->with('/resource/John%2FDoe', m::any())->once()->andReturn($response)
-            ->getMock();
+        $handler = new MockHandler([$response]);
+        $client  = new Client(['handler' => $handler]);
+        $service = new ApiService($client);
 
-        $service = new ApiService($guzzle);
-        $service->read('/resource/%s', ['John/Doe']);
+        $this->setExpectedException(
+            '\Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException',
+            'malformed JSON'
+        );
+
+        $service->read('/resource');
     }
 
     public function testItReturnsNullWhenTheResourceDoesntExist()
     {
-        $response = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->andReturn(['errors' => ["Requested identity doesn't exist"]])
-            ->shouldReceive('getStatusCode')->andReturn('404')
-            ->getMock();
-        $guzzle = m::mock('GuzzleHttp\ClientInterface')
-            ->shouldReceive('get')->with('/identity/abc', m::any())->once()->andReturn($response)
-            ->getMock();
+        $data     = ['errors' => ["Requested identity doesn't exist"]];
+        $response = new Response(404, [], json_encode($data));
 
-        $service = new ApiService($guzzle);
+        $handler = new MockHandler([$response]);
+        $client  = new Client(['handler' => $handler]);
+        $service = new ApiService($client);
 
-        $this->assertNull($service->read('/identity/abc'), "Resource doesn't exist, yet a non-null value was returned");
+        $responseData = $service->read('/identity/abc');
+
+        $this->assertNull($responseData, "Resource doesn't exist, yet a non-null value was returned");
     }
 
     public function testItThrowsWhenTheConsumerIsntAuthorisedToAccessTheResource()
     {
         $this->setExpectedException('Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException');
 
-        $response = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('json')->andReturn(['errors' => ["You are not authorised to access this identity"]])
-            ->shouldReceive('getStatusCode')->andReturn('403')
-            ->getMock();
-        $guzzle = m::mock('GuzzleHttp\ClientInterface')
-            ->shouldReceive('get')->with('/identity/abc', m::any())->once()->andReturn($response)
-            ->getMock();
+        $data     = ['errors' => ['You are not authorised to access this identity']];
+        $response = new Response(403, [], json_encode($data));
 
-        $service = new ApiService($guzzle);
+        $handler = new MockHandler([$response]);
+        $client  = new Client(['handler' => $handler]);
+        $service = new ApiService($client);
+
         $service->read('/identity/abc');
     }
 }
