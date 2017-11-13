@@ -18,6 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClient\Tests\Identity\Service;
 
+use DateTime;
 use Mockery as m;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\UnverifiedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\VerifiedSecondFactorSearchQuery;
@@ -76,6 +77,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
                     "type" => "yubikey",
                     "second_factor_identifier" => "ccccccbtbhnh",
                     'registration_code' => 'abc',
+                    'registration_requested_at' => '2017-01-01 10:00:00',
                     "identity_id" => "a",
                     "institution" => "b",
                     "common_name" => "c",
@@ -102,6 +104,9 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
         $expectedSecondFactor->type = $secondFactorData['items'][0]['type'];
         $expectedSecondFactor->secondFactorIdentifier = $secondFactorData['items'][0]['second_factor_identifier'];
         $expectedSecondFactor->registrationCode = $secondFactorData['items'][0]['registration_code'];
+        $expectedSecondFactor->registrationRequestedAt = new DateTime(
+            $secondFactorData['items'][0]['registration_requested_at']
+        );
         $expectedSecondFactor->identityId = $secondFactorData['items'][0]['identity_id'];
         $expectedSecondFactor->institution = $secondFactorData['items'][0]['institution'];
         $expectedSecondFactor->commonName = $secondFactorData['items'][0]['common_name'];
