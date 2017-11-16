@@ -18,6 +18,7 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
+use DateTime;
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -59,6 +60,12 @@ class VerifiedSecondFactor implements Dto
      */
     public $registrationCode;
 
+
+    /**
+     * @var DateTime
+     */
+    public $registrationRequestedAt;
+
     /**
      * @Assert\NotBlank(message="middleware_client.dto.verified_second_factor.identity_id.must_not_be_blank")
      * @Assert\Type(
@@ -96,6 +103,10 @@ class VerifiedSecondFactor implements Dto
         $secondFactor->type = $data['type'];
         $secondFactor->secondFactorIdentifier = $data['second_factor_identifier'];
         $secondFactor->registrationCode = $data['registration_code'];
+        $secondFactor->registrationRequestedAt = new DateTime(
+            $data['registration_requested_at']
+        );
+
         $secondFactor->identityId = $data['identity_id'];
         $secondFactor->institution = $data['institution'];
         $secondFactor->commonName = $data['common_name'];
