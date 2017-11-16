@@ -2,6 +2,9 @@
 VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLASHES IN VERSION 6, THE COMMAND API NEEDS TO BE RECONFIGURED BY CONSUMERS. THIS WARRANTS A MAJOR RELEASE.
 =======================================================================================================================================================================================
 
+   Version 2.1 - Support requested-at date for verified second factors
+      16/11/2017 08:28  2.1.0  initial release
+
    Version 2.0 - Upgrade Guzzle to Guzzle 6.  As Guzzle no longer strips trailing slashes in version 6, the Command API needs to be reconfigured by consumers. This warrants a major release.
       07/03/2017 15:10  2.0.0  initial release
 
