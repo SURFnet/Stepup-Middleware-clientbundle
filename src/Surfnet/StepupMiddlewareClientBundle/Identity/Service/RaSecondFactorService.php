@@ -92,7 +92,7 @@ class RaSecondFactorService
      */
     public function searchForExport(RaSecondFactorExportQuery $query)
     {
-        $data = $this->service->export($query);
+        $data = $this->service->searchForExport($query);
 
         if ($data === null) {
             return null;
