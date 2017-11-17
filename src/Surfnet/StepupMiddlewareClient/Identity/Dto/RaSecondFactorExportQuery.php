@@ -19,6 +19,7 @@
 namespace Surfnet\StepupMiddlewareClient\Identity\Dto;
 
 use Assert;
+use DateTime;
 use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 
 final class RaSecondFactorExportQuery implements HttpQuery
@@ -75,6 +76,24 @@ final class RaSecondFactorExportQuery implements HttpQuery
     {
         $this->assertNonEmptyString($institution, 'institution');
         $this->institution = $institution;
+    }
+
+    public function getFileName()
+    {
+        $date = new DateTime();
+        $date = $date->format('Y-m-d');
+
+        $extension = '.csv';
+        $fileName = "token_export_{$date}";
+
+        if ($this->type) {
+            $fileName .= "-{$this->type}";
+        }
+
+        if ($this->status) {
+            $fileName .= "-{$this->status}";
+        }
+        return $fileName . $extension;
     }
 
     /**
@@ -212,21 +231,21 @@ final class RaSecondFactorExportQuery implements HttpQuery
     public function toHttpQuery()
     {
         return '?' . http_build_query(
-            array_filter(
-                [
-                    'institution'    => $this->institution,
-                    'name'           => $this->name,
-                    'type'           => $this->type,
-                    'secondFactorId' => $this->secondFactorId,
-                    'email'          => $this->email,
-                    'status'         => $this->status,
-                    'orderBy'        => $this->orderBy,
-                    'orderDirection' => $this->orderDirection
-                ],
-                function ($value) {
-                    return !is_null($value);
-                }
-            )
-        );
+                array_filter(
+                    [
+                        'institution'    => $this->institution,
+                        'name'           => $this->name,
+                        'type'           => $this->type,
+                        'secondFactorId' => $this->secondFactorId,
+                        'email'          => $this->email,
+                        'status'         => $this->status,
+                        'orderBy'        => $this->orderBy,
+                        'orderDirection' => $this->orderDirection
+                    ],
+                    function ($value) {
+                        return !is_null($value);
+                    }
+                )
+            );
     }
 }

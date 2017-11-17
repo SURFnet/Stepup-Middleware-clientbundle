@@ -47,6 +47,19 @@ class RaSecondFactorExportCollection
         return count($this->elements);
     }
 
+    public function getColumnNames()
+    {
+        return [
+            'secondFactorId' => 'Token ID',
+            'type' => 'Type',
+            'name' => 'Name',
+            'email' => 'Email',
+            'institution' => 'Institution',
+            'documentNumber' => 'Document Number',
+            'status' => 'Status',
+        ];
+    }
+
     /**
      * @return array
      */
