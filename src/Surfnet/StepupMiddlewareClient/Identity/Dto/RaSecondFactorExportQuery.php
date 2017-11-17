@@ -231,21 +231,21 @@ final class RaSecondFactorExportQuery implements HttpQuery
     public function toHttpQuery()
     {
         return '?' . http_build_query(
-                array_filter(
-                    [
-                        'institution'    => $this->institution,
-                        'name'           => $this->name,
-                        'type'           => $this->type,
-                        'secondFactorId' => $this->secondFactorId,
-                        'email'          => $this->email,
-                        'status'         => $this->status,
-                        'orderBy'        => $this->orderBy,
-                        'orderDirection' => $this->orderDirection
-                    ],
-                    function ($value) {
-                        return !is_null($value);
-                    }
-                )
-            );
+            array_filter(
+                [
+                    'institution'    => $this->institution,
+                    'name'           => $this->name,
+                    'type'           => $this->type,
+                    'secondFactorId' => $this->secondFactorId,
+                    'email'          => $this->email,
+                    'status'         => $this->status,
+                    'orderBy'        => $this->orderBy,
+                    'orderDirection' => $this->orderDirection
+                ],
+                function ($value) {
+                    return !is_null($value);
+                }
+            )
+        );
     }
 }
