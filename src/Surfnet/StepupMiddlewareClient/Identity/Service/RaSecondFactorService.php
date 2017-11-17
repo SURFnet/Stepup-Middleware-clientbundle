@@ -21,6 +21,7 @@ namespace Surfnet\StepupMiddlewareClient\Identity\Service;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\RaSecondFactorExportQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\RaSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
@@ -52,5 +53,17 @@ class RaSecondFactorService
     public function search(RaSecondFactorSearchQuery $query)
     {
         return $this->apiService->read('ra-second-factors' . $query->toHttpQuery());
+    }
+
+    /**
+     * @param RaSecondFactorExportQuery $query
+     * @return null|array
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws ResourceReadException When the server doesn't respond with the resource.
+     * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
+     */
+    public function searchForExport(RaSecondFactorExportQuery $query)
+    {
+        return $this->apiService->read('ra-second-factors-export' . $query->toHttpQuery());
     }
 }
