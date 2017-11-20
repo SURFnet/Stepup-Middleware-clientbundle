@@ -83,7 +83,6 @@ final class RaSecondFactorExportQuery implements HttpQuery
         $date = new DateTime();
         $date = $date->format('Y-m-d');
 
-        $extension = '.csv';
         $fileName = "token_export_{$date}";
 
         if ($this->type) {
@@ -93,7 +92,8 @@ final class RaSecondFactorExportQuery implements HttpQuery
         if ($this->status) {
             $fileName .= "-{$this->status}";
         }
-        return $fileName . $extension;
+
+        return $fileName;
     }
 
     /**
