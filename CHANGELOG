@@ -3,6 +3,7 @@ VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLAS
 =======================================================================================================================================================================================
 
    Version 2.2 - This release exposes a new middleware api endpoint.
+      20/11/2017 10:31  2.2.3  Do not provide file name extension in getFileName method of RaSecondFactorExportQuery
       17/11/2017 15:02  2.2.0  initial release
 
    Version 2.1 - Support requested-at date for verified second factors
