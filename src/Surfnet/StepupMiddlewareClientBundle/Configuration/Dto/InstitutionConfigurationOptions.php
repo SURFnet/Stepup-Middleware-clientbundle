@@ -34,6 +34,11 @@ class InstitutionConfigurationOptions implements Dto
     public $showRaaContactInformation;
 
     /**
+     * @Assert\Type(type="boolean", message="middleware_client.dto.configuration.verify_email.must_be_boolean")
+     */
+    public $verifyEmail;
+
+    /**
      * @Assert\Type(type="array", message="middleware_client.dto.configuration.allowed_second_factors.must_be_array")
      * @Assert\All(
      *     @Assert\Type(type="string", message="middleware_client.dto.configuration.allowed_second_factors.item_must_be_string")
@@ -50,6 +55,7 @@ class InstitutionConfigurationOptions implements Dto
         $institutionConfigurationOptions                            = new self();
         $institutionConfigurationOptions->useRaLocations            = $data['use_ra_locations'];
         $institutionConfigurationOptions->showRaaContactInformation = $data['show_raa_contact_information'];
+        $institutionConfigurationOptions->verifyEmail               = $data['verify_email'];
         $institutionConfigurationOptions->allowedSecondFactors      = $data['allowed_second_factors'];
 
         return $institutionConfigurationOptions;
