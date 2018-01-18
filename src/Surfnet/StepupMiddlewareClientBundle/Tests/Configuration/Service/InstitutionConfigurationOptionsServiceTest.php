@@ -36,12 +36,14 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
         $expectedInstitutionConfigurationOptions = new InstitutionConfigurationOptions();
         $expectedInstitutionConfigurationOptions->useRaLocations = true;
         $expectedInstitutionConfigurationOptions->showRaaContactInformation = false;
+        $expectedInstitutionConfigurationOptions->verifyEmail = true;
         $expectedInstitutionConfigurationOptions->allowedSecondFactors = ['sms', 'yubikey'];
 
         $validResponseData = [
             'institution'                  => $institution,
             'use_ra_locations'             => true,
             'show_raa_contact_information' => false,
+            'verify_email'                 => true,
             'allowed_second_factors'       => ['sms', 'yubikey']
         ];
 
@@ -60,7 +62,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
         $validator->shouldReceive('validate')
             ->once()
             ->andReturn($violations);
-        
+
         $service = new InstitutionConfigurationOptionsService($libraryService, $validator);
         $actualInstitutionConfigurationOptions = $service->getInstitutionConfigurationOptionsFor($institution);
 
@@ -83,6 +85,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'institution'                  => $institution,
             'use_ra_locations'             => true,
             'show_raa_contact_information' => $nonBoolean,
+            'verify_email'                 => true,
             'allowed_second_factors'       => ['sms', 'yubikey']
         ];
 
@@ -126,6 +129,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'institution'                  => $institution,
             'use_ra_locations'             => $nonBoolean,
             'show_raa_contact_information' => true,
+            'verify_email'                 => true,
             'allowed_second_factors'       => ['sms', 'yubikey']
         ];
 
@@ -169,6 +173,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'institution'                  => $institution,
             'use_ra_locations'             => $nonArray,
             'show_raa_contact_information' => true,
+            'verify_email'                 => true,
             'allowed_second_factors'       => ['sms', 'yubikey']
         ];
 
@@ -212,6 +217,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'institution'                  => $institution,
             'use_ra_locations'             => $nonArray,
             'show_raa_contact_information' => true,
+            'verify_email'                 => true,
             'allowed_second_factors'       => ['sms', 'yubikey']
         ];
 
