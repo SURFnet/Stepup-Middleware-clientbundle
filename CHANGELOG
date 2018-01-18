@@ -2,6 +2,9 @@
 VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLASHES IN VERSION 6, THE COMMAND API NEEDS TO BE RECONFIGURED BY CONSUMERS. THIS WARRANTS A MAJOR RELEASE.
 =======================================================================================================================================================================================
 
+   Version 2.3 - This release supports token registration without email verification
+      01/19/2018 10:00  2.3.0  initial release
+
    Version 2.2 - This release exposes a new middleware api endpoint.
       20/11/2017 10:31  2.2.3  Do not provide file name extension in getFileName method of RaSecondFactorExportQuery
       17/11/2017 15:02  2.2.0  initial release
