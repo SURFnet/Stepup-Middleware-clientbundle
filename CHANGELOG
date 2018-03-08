@@ -3,6 +3,7 @@ VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLAS
 =======================================================================================================================================================================================
 
    Version 2.3 - This release supports token registration without email verification
+      02/08/2018 16:34  2.3.1  Add additional institution config second factor validation
       01/19/2018 10:00  2.3.0  initial release
 
    Version 2.2 - This release exposes a new middleware api endpoint.
