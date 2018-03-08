@@ -36,7 +36,10 @@ class InstitutionConfigurationOptions implements Dto
     /**
      * @Assert\Type(type="array", message="middleware_client.dto.configuration.allowed_second_factors.must_be_array")
      * @Assert\All(
-     *     @Assert\Type(type="string", message="middleware_client.dto.configuration.allowed_second_factors.item_must_be_string")
+     *     @Assert\Choice(
+     *         callback={"Surfnet\StepupBundle\Value\SecondFactorType", "getAvailableSecondFactorTypes"},
+     *         message="may only contain supported second factor types"
+     *     )
      * )
      */
     public $allowedSecondFactors;
