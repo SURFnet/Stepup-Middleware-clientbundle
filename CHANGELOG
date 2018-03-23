@@ -1,3 +1,5 @@
+# 2.3.2
+Bugfix release. Remove call to non existing SecondFactorType::getAvailableSecondFactorTypes
 
 VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLASHES IN VERSION 6, THE COMMAND API NEEDS TO BE RECONFIGURED BY CONSUMERS. THIS WARRANTS A MAJOR RELEASE.
 =======================================================================================================================================================================================
