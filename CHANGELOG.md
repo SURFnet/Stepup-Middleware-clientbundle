@@ -1,8 +1,12 @@
+# 2.4.0
+Add support for the institution specific number of tokens per identity config setting.
+
 # 2.3.2
 Bugfix release. Remove call to non existing SecondFactorType::getAvailableSecondFactorTypes
 
-VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLASHES IN VERSION 6, THE COMMAND API NEEDS TO BE RECONFIGURED BY CONSUMERS. THIS WARRANTS A MAJOR RELEASE.
-=======================================================================================================================================================================================
+# Release notes from the RMT era
+
+## VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLASHES IN VERSION 6, THE COMMAND API NEEDS TO BE RECONFIGURED BY CONSUMERS. THIS WARRANTS A MAJOR RELEASE.
 
    Version 2.3 - This release supports token registration without email verification
       02/08/2018 16:34  2.3.1  Add additional institution config second factor validation
@@ -18,8 +22,7 @@ VERSION 2  UPGRADE GUZZLE TO GUZZLE 6.  AS GUZZLE NO LONGER STRIPS TRAILING SLAS
    Version 2.0 - Upgrade Guzzle to Guzzle 6.  As Guzzle no longer strips trailing slashes in version 6, the Command API needs to be reconfigured by consumers. This warrants a major release.
       07/03/2017 15:10  2.0.0  initial release
 
-VERSION 1  RELEASE 1.0
-======================
+## VERSION 1  RELEASE 1.0
 
    Version 1.6 - Added support for searching for RA candidates with specific second factor types
       22/02/2017 16:55  1.6.0  initial release
@@ -44,8 +47,7 @@ VERSION 1  RELEASE 1.0
    Version 1.0 - Release 1.0
       19/06/2015 11:21  1.0.0  initial release
 
-VERSION 0  FIRST PILOT RELEASE
-==============================
+## VERSION 0  FIRST PILOT RELEASE
 
    Version 0.3 - Release for second Pilot
       04/05/2015 13:55  0.3.0  initial release
