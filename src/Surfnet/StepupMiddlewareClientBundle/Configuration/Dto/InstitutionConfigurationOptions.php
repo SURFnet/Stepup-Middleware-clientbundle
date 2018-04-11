@@ -39,6 +39,11 @@ class InstitutionConfigurationOptions implements Dto
     public $verifyEmail;
 
     /**
+     * @Assert\Type(type="integer", message="middleware_client.dto.configuration.number_of_tokens_per_identity.must_be_integer")
+     */
+    public $numberOfTokensPerIdentity;
+
+    /**
      * @Assert\Type(type="array", message="middleware_client.dto.configuration.allowed_second_factors.must_be_array")
      */
     public $allowedSecondFactors;
@@ -54,6 +59,7 @@ class InstitutionConfigurationOptions implements Dto
         $institutionConfigurationOptions->showRaaContactInformation = $data['show_raa_contact_information'];
         $institutionConfigurationOptions->verifyEmail               = $data['verify_email'];
         $institutionConfigurationOptions->allowedSecondFactors      = $data['allowed_second_factors'];
+        $institutionConfigurationOptions->numberOfTokensPerIdentity = $data['number_of_tokens_per_identity'];
 
         return $institutionConfigurationOptions;
     }
