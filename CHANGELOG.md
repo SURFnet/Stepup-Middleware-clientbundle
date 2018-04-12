@@ -1,3 +1,6 @@
+#2.4.1
+This release adds 'expiration date' helper methods to the VerifiedSecondFactor DTO. 
+
 # 2.4.0
 Add support for the institution specific number of tokens per identity config setting.
 
