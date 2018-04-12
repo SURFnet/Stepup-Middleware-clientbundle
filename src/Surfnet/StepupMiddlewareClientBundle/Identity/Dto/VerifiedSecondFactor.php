@@ -19,6 +19,7 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Dto;
 
 use DateTime;
+use DateInterval;
 use Surfnet\StepupMiddlewareClientBundle\Dto\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -96,7 +97,13 @@ class VerifiedSecondFactor implements Dto
      */
     public $commonName;
 
-    public static function fromData(array $data)
+    /**
+     * The current time, this field can be set for testing purposes
+     * @var DateTime
+     */
+    private $now;
+
+    public static function fromData(array $data, $now = null)
     {
         $secondFactor = new self();
         $secondFactor->id = $data['id'];
@@ -111,6 +118,32 @@ class VerifiedSecondFactor implements Dto
         $secondFactor->institution = $data['institution'];
         $secondFactor->commonName = $data['common_name'];
 
+        if (isset($now) && $now instanceof DateTime) {
+            $secondFactor->now = $now;
+        }
+
         return $secondFactor;
+    }
+
+    public function expiresAt()
+    {
+        $expirationDate = clone $this->registrationRequestedAt;
+        return $expirationDate->add(
+            new DateInterval('P14D')
+        );
+    }
+
+    public function hasExpired()
+    {
+        $now = $this->getNow();
+        return $this->expiresAt() <= $now;
+    }
+
+    private function getNow()
+    {
+        if (is_null($this->now)) {
+            $this->now = new DateTime();
+        }
+        return $this->now;
     }
 }
