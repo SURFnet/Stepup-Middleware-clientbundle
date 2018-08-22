@@ -1,3 +1,6 @@
+# 2.4.1
+Add support for newer than v2.7 Symfony versions, they still have to be lower than version 4 though.
+
 # 2.4.0
 Add support for the institution specific number of tokens per identity config setting.
 
