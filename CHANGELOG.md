@@ -1,3 +1,6 @@
+# 2.4.2
+Require the new release of the StepupBundle to be fully 3.4 compatible.
+
 # 2.4.1
 Add support for newer than v2.7 Symfony versions, they still have to be lower than version 4 though.
 
