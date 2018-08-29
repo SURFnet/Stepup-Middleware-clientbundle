@@ -1,3 +1,8 @@
+# 2.4.2
+ * Require the new release of the StepupBundle to be fully 3.4 compatible.
+ 
+# 2.4.1
+ * Add Symfony 3.4 support
 # 2.4.0
 Add support for the institution specific number of tokens per identity config setting.
 
