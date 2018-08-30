@@ -13,6 +13,10 @@
 # limitations under the License.
 
 services:
+    # To be compatible with loading services from the container instead of using DI, TODO, Utilize DI throughout the
+    # application.
+    _defaults: { public: true }
+
     # Write Services
     surfnet_stepup_middleware_client.service.command:
         class: Surfnet\StepupMiddlewareClientBundle\Service\CommandService

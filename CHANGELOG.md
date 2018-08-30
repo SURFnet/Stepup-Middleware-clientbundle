@@ -1,3 +1,6 @@
+# 2.4.3
+Make services public to prevent Symfony deprecation warnings, will be undone with #138225085
+
 # 2.4.2
 Require the new release of the StepupBundle to be fully 3.4 compatible.
 
