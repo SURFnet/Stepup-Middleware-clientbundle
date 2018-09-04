@@ -60,3 +60,6 @@ $service = $container->get('surfnet_stepup_middleware_client.identity.service.id
 /** @var null|\Surfnet\StepupMiddlewareClientBundle\Identity\Dto\Identity */
 $identity = $service->get($id);
 ```
+
+## Release strategy
+Please read: https://github.com/OpenConext/Stepup-Deploy/wiki/Release-Management fro more information on the release strategy used in Stepup projects.

@@ -25,7 +25,6 @@
     "require-dev": {
         "matthiasnoback/symfony-config-test": "0.*",
         "mockery/mockery": "0.9.*",
-        "liip/rmt": "1.1.*",
         "phpmd/phpmd": "^2.0",
         "phpunit/phpunit": "^4.0",
         "sensiolabs/security-checker": "^2.0",
