@@ -1,3 +1,8 @@
+## Develop
+
+**Features**
+# Set institution on VerifiedSecondFactorSearchQuery #59
+
 ## 2.4.4
 Removed RMT
 
