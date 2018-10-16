@@ -39,6 +39,11 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
     private $registrationCode;
 
     /**
+     * @var string
+     */
+    private $institution;
+
+    /**
      * @param string $identityId
      * @return self
      */
@@ -77,6 +82,18 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
         return $this;
     }
 
+    /**
+     * @param string $institution
+     */
+    public function setInstitution($institution)
+    {
+        $this->assertNonEmptyString($institution, 'institution');
+
+        $this->institution = $institution;
+
+        return $this;
+    }
+
     private function assertNonEmptyString($value, $name)
     {
         $message = sprintf(
@@ -91,6 +108,8 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
     public function toHttpQuery()
     {
         $fields = [];
+
+        $fields['institution'] = $this->institution;
 
         if ($this->identityId) {
             $fields['identityId'] = $this->identityId;
