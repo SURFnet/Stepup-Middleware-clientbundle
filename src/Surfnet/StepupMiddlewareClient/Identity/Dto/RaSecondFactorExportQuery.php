@@ -32,7 +32,7 @@ final class RaSecondFactorExportQuery implements HttpQuery
     /**
      * @var string
      */
-    private $institution;
+    private $actorInstitution;
 
     /**
      * @var string|null
@@ -55,6 +55,11 @@ final class RaSecondFactorExportQuery implements HttpQuery
     private $email;
 
     /**
+     * @var string|null
+     */
+    private $institution;
+
+    /**
      * @var string|null One of the STATUS_* constants.
      */
     private $status;
@@ -70,12 +75,12 @@ final class RaSecondFactorExportQuery implements HttpQuery
     private $orderDirection;
 
     /**
-     * @param string $institution
+     * @param string $actorInstitution
      */
-    public function __construct($institution)
+    public function __construct($actorInstitution)
     {
-        $this->assertNonEmptyString($institution, 'institution');
-        $this->institution = $institution;
+        $this->assertNonEmptyString($actorInstitution, 'institution');
+        $this->actorInstitution = $actorInstitution;
     }
 
     public function getFileName()
@@ -171,6 +176,22 @@ final class RaSecondFactorExportQuery implements HttpQuery
     /**
      * @return null|string
      */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
+     * @param null|string $institution
+     */
+    public function setInstitution($institution)
+    {
+        $this->institution = $institution;
+    }
+
+    /**
+     * @return null|string
+     */
     public function getStatus()
     {
         return $this->status;
@@ -233,14 +254,15 @@ final class RaSecondFactorExportQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'institution'    => $this->institution,
-                    'name'           => $this->name,
-                    'type'           => $this->type,
-                    'secondFactorId' => $this->secondFactorId,
-                    'email'          => $this->email,
-                    'status'         => $this->status,
-                    'orderBy'        => $this->orderBy,
-                    'orderDirection' => $this->orderDirection
+                    'actorInstitution' => $this->actorInstitution,
+                    'name'             => $this->name,
+                    'type'             => $this->type,
+                    'secondFactorId'   => $this->secondFactorId,
+                    'email'            => $this->email,
+                    'institution'      => $this->institution,
+                    'status'           => $this->status,
+                    'orderBy'          => $this->orderBy,
+                    'orderDirection'   => $this->orderDirection
                 ],
                 function ($value) {
                     return !is_null($value);
