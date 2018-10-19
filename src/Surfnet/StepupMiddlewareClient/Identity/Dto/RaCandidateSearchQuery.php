@@ -26,6 +26,11 @@ class RaCandidateSearchQuery implements HttpQuery
     /**
      * @var string
      */
+    private $actorInstitution;
+
+    /**
+     * @var string
+     */
     private $institution;
 
     /**
@@ -62,14 +67,14 @@ class RaCandidateSearchQuery implements HttpQuery
      * @param string $institution
      * @param int    $pageNumber
      */
-    public function __construct($institution, $pageNumber)
+    public function __construct($actorInstitution, $pageNumber)
     {
-        $this->assertNonEmptyString($institution, 'institution');
+        $this->assertNonEmptyString($actorInstitution, 'actorInstitution');
         Assert\that($pageNumber)
             ->integer('Page number must be an integer')
             ->min(0, 'Page number must be greater than or equal to 1');
 
-        $this->institution = $institution;
+        $this->actorInstitution = $actorInstitution;
         $this->pageNumber  = $pageNumber;
     }
 
@@ -95,6 +100,32 @@ class RaCandidateSearchQuery implements HttpQuery
         $this->assertNonEmptyString($email, 'email');
 
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @param string $institution
+     * @return $this
+     */
+    public function setInstitution($institution)
+    {
+        $this->assertNonEmptyString($institution, 'institution');
+
+        $this->institution = $institution;
+
+        return $this;
+    }
+
+    /**
+     * @param string $role
+     * @return $this
+     */
+    public function setRole($role)
+    {
+        $this->assertNonEmptyString($role, 'role');
+
+        $this->role = $role;
 
         return $this;
     }
@@ -146,6 +177,7 @@ class RaCandidateSearchQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
+                    'actorInstitution'  => $this->actorInstitution,
                     'institution'       => $this->institution,
                     'commonName'        => $this->commonName,
                     'email'             => $this->email,
