@@ -70,11 +70,12 @@ class RaCandidateService
 
     /**
      * @param string $identityId
+     * @param string $institution
      * @return null|RaCandidate
      */
-    public function getByIdentityId($identityId)
+    public function get($identityId, $institution)
     {
-        $data = $this->libraryService->getByIdentityId($identityId);
+        $data = $this->libraryService->get($identityId, $institution);
 
         if ($data === null) {
             return null;
