@@ -78,9 +78,9 @@ class AccreditIdentityCommand extends AbstractCommand
     public function serialise()
     {
         return [
-            'actor_institution'   => $this->actorInstitution,
+            'institution'   => $this->actorInstitution,
             'identity_id'         => $this->identityId,
-            'institution'         => $this->institution,
+            'ra_institution'         => $this->institution,
             'role'                => $this->role,
             'location'            => $this->location,
             'contact_information' => $this->contactInformation
