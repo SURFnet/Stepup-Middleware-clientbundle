@@ -28,6 +28,8 @@ use Surfnet\StepupMiddlewareClientBundle\Identity\Service\SecondFactorService;
 
 class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use m\Adapter\Phpunit\MockeryPHPUnitIntegration;
+
     public function testItSearchesUnverifiedSecondFactorsByIdentity()
     {
         $identityId = 'a';

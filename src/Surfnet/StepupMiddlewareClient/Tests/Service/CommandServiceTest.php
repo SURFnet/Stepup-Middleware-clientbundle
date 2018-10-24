@@ -23,6 +23,7 @@ use Surfnet\StepupMiddlewareClient\Service\CommandService;
 
 class CommandServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use m\Adapter\Phpunit\MockeryPHPUnitIntegration;
     /**
      * @dataProvider commandMetadata
      * @param bool $shouldHaveMeta
@@ -34,10 +35,9 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
         $processedBy = 'server-1';
         $json = json_encode(['command' => $uuid, 'processed_by' => $processedBy]);
 
-        $responseStub = m::mock('Psr\Http\Message\ResponseInterface')
-            ->shouldReceive('getBody')->once()->andReturn($json)
-            ->shouldReceive('getStatusCode')->once()->andReturn('200')
-            ->getMock();
+        $responseStub = m::mock('Psr\Http\Message\ResponseInterface');
+        $responseStub->shouldReceive('getBody')->once()->andReturn($json);
+        $responseStub->shouldReceive('getStatusCode')->once()->andReturn('200');
         $guzzleClient = m::mock('GuzzleHttp\Client')
             ->shouldReceive('post')->once()->with(null, self::spy($options))->andReturn($responseStub)
             ->getMock();
@@ -80,10 +80,10 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
         $errors = ['Field X is fine', 'Field Y is durable', 'Field Z is zepto'];
         $json = json_encode(['errors' => $errors]);
 
-        $responseStub = m::mock('Psr\Http\Message\ResponseInterface')
-            ->shouldReceive('getBody')->once()->andReturn($json)
-            ->shouldReceive('getStatusCode')->once()->andReturn('400')
-            ->getMock();
+        $responseStub = m::mock('Psr\Http\Message\ResponseInterface');
+        $responseStub->shouldReceive('getBody')->once()->andReturn($json);
+        $responseStub->shouldReceive('getStatusCode')->once()->andReturn('400');
+
         $guzzleClient = m::mock('GuzzleHttp\Client')
             ->shouldReceive('post')->once()->with(null, self::spy($options))->andReturn($responseStub)
             ->getMock();
@@ -110,7 +110,7 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testItThrowsWhenMalformedJsonIsReturned()
     {
-        $this->setExpectedException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
+        $this->expectException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
 
         $malformedJson = "Malformed JSON";
 
@@ -136,7 +136,7 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testItThrowsWhenInvalidResponseIsReturned($statusCode, $response)
     {
-        $this->setExpectedException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
+        $this->expectException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
 
         $json = json_encode($response);
 
