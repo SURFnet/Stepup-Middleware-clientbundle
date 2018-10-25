@@ -27,6 +27,7 @@ use Surfnet\StepupMiddlewareClientBundle\Tests\Service\Fixtures\Root\Command\Nam
 
 class CommandServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use m\Adapter\Phpunit\MockeryPHPUnitIntegration;
     /**
      * @dataProvider commands
      * @param string $expectedCommandName

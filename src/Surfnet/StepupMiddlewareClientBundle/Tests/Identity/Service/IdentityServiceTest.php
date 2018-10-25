@@ -24,6 +24,7 @@ use Surfnet\StepupMiddlewareClientBundle\Identity\Service\IdentityService;
 
 class IdentityServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use m\Adapter\Phpunit\MockeryPHPUnitIntegration;
     private $mockIdentity = [
         'id' => '123',
         'name_id' => '456',
@@ -55,7 +56,7 @@ class IdentityServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testItValidatesTheIdentity()
     {
-        $this->setExpectedException('Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException');
+        $this->expectException('Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException');
 
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService')
             ->shouldReceive('get')->with($this->mockIdentity['id'])->once()->andReturn($this->mockIdentity)

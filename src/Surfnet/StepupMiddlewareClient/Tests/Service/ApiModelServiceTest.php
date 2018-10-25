@@ -26,6 +26,8 @@ use Surfnet\StepupMiddlewareClient\Service\ApiService;
 
 class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use m\Adapter\Phpunit\MockeryPHPUnitIntegration;
+
     public function testItResources()
     {
         $data     = ['data' => 'My first resource'];
@@ -45,10 +47,9 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
         $data        = ['data' => 'My first resource'];
         $expectedUri = '/resource/John%2FDoe';
 
-        $response = m::mock('GuzzleHttp\Message\ResponseInterface')
-            ->shouldReceive('getBody')->andReturn(json_encode($data))
-            ->shouldReceive('getStatusCode')->andReturn('200')
-            ->getMock();
+        $response = m::mock('GuzzleHttp\Message\ResponseInterface');
+        $response->shouldReceive('getBody')->andReturn(json_encode($data));
+        $response->shouldReceive('getStatusCode')->andReturn('200');
         $guzzle      = m::mock('GuzzleHttp\Client')
             ->shouldReceive('get')->with($expectedUri, m::any())->once()->andReturn($response)
             ->getMock();
@@ -66,10 +67,8 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
         $client  = new Client(['handler' => $handler]);
         $service = new ApiService($client);
 
-        $this->setExpectedException(
-            '\Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException',
-            'malformed JSON'
-        );
+        $this->expectException('\Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException');
+        $this->expectExceptionMessage('malformed JSON');
 
         $service->read('/resource');
     }
@@ -90,7 +89,7 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testItThrowsWhenTheConsumerIsntAuthorisedToAccessTheResource()
     {
-        $this->setExpectedException('Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException');
+        $this->expectException('Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException');
 
         $data     = ['errors' => ['You are not authorised to access this identity']];
         $response = new Response(403, [], json_encode($data));

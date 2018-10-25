@@ -26,6 +26,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InstitutionConfigurationOptionsServiceTest extends TestCase
 {
+    use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+
     /**
      * @group institution-configuration
      */
@@ -79,7 +81,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      */
     public function testInstitutionConfigurationOptionsWithANonBooleanUseRaLocationsOptionAreInvalid($nonBoolean)
     {
-        $this->setExpectedException(InvalidResponseException::class);
+        $this->expectException(InvalidResponseException::class);
 
         $institution = 'surfnet.nl';
 
@@ -124,7 +126,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      */
     public function testInstitutionConfigurationOptionsWithANonBooleanShowRaaContactInformationOptionAreInvalid($nonBoolean)
     {
-        $this->setExpectedException(InvalidResponseException::class);
+        $this->expectException(InvalidResponseException::class);
 
         $institution = 'surfnet.nl';
 
@@ -169,7 +171,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      */
     public function testInstitutionConfigurationOptionsWithANonArrayAllowedSecondFactorsAreInvalid($nonArray)
     {
-        $this->setExpectedException(InvalidResponseException::class);
+        $this->expectException(InvalidResponseException::class);
 
         $institution = 'surfnet.nl';
 
@@ -214,7 +216,7 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      */
     public function testInstitutionConfigurationOptionsWithANonStringsAllowedSecondFactorsAreInvalid($nonArray)
     {
-        $this->setExpectedException(InvalidResponseException::class);
+        $this->expectException(InvalidResponseException::class);
 
         $institution = 'surfnet.nl';
 

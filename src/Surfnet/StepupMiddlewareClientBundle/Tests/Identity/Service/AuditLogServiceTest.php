@@ -27,6 +27,8 @@ use Surfnet\StepupMiddlewareClientBundle\Identity\Service\AuditLogService;
 
 class AuditLogServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use m\Adapter\Phpunit\MockeryPHPUnitIntegration;
+
     private $mockAuditLog = <<<'JSON'
 {
   "collection":{
