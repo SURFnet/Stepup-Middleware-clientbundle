@@ -29,6 +29,11 @@ final class RaListingSearchQuery implements HttpQuery
     private $actorInstitution;
 
     /**
+     * @var string|null
+     */
+    private $institution;
+
+    /**
      * @var int
      */
     private $pageNumber;
@@ -56,6 +61,19 @@ final class RaListingSearchQuery implements HttpQuery
 
         $this->actorInstitution = $actorInstitution;
         $this->pageNumber  = $pageNumber;
+    }
+
+    /**
+     * @param string $institution
+     * @return $this
+     */
+    public function setInstitution($institution)
+    {
+        $this->assertNonEmptyString($institution, 'institution');
+
+        $this->institution = $institution;
+
+        return $this;
     }
 
     /**
@@ -104,6 +122,7 @@ final class RaListingSearchQuery implements HttpQuery
             array_filter(
                 [
                     'actorInstitution' => $this->actorInstitution,
+                    'institution'      => $this->institution,
                     'orderBy'          => $this->orderBy,
                     'orderDirection'   => $this->orderDirection,
                     'p'                => $this->pageNumber,
