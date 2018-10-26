@@ -93,6 +93,7 @@ class RaListing implements Dto
         $raListing->role               = $data['role'];
         $raListing->location           = $data['location'];
         $raListing->contactInformation = $data['contact_information'];
+        $raListing->raInstitution      = $data['ra_institution'];
 
         return $raListing;
     }

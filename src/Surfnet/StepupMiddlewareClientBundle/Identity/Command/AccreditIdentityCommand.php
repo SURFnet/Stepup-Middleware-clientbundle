@@ -29,14 +29,6 @@ class AccreditIdentityCommand extends AbstractCommand
      *
      * @var string
      */
-    public $actorInstitution;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Type(type="string")
-     *
-     * @var string
-     */
     public $identityId;
 
     /**
@@ -73,17 +65,25 @@ class AccreditIdentityCommand extends AbstractCommand
     public $contactInformation;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
+     * @var string
+     */
+    public $raInstitution;
+
+    /**
      * @return array
      */
     public function serialise()
     {
         return [
-            'institution'   => $this->actorInstitution,
+            'institution'         => $this->institution,
             'identity_id'         => $this->identityId,
-            'ra_institution'         => $this->institution,
             'role'                => $this->role,
             'location'            => $this->location,
-            'contact_information' => $this->contactInformation
+            'contact_information' => $this->contactInformation,
+            'ra_institution'      => $this->raInstitution,
         ];
     }
 }

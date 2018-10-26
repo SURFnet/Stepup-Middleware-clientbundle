@@ -27,8 +27,16 @@ class RetractRegistrationAuthorityCommand extends AbstractCommand
      */
     public $identityId;
 
+    /**
+     * @var string
+     */
+    public $institution;
+
     public function serialise()
     {
-        return ['identity_id' => $this->identityId];
+        return [
+            'identity_id' => $this->identityId,
+            'ra_institution' => $this->institution,
+        ];
     }
 }
