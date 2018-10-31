@@ -48,6 +48,14 @@ class AmendRegistrationAuthorityInformationCommand extends AbstractCommand
     public $contactInformation;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
+     * @var string
+     */
+    public $raInstitution;
+
+    /**
      * @return array
      */
     public function serialise()
@@ -55,7 +63,8 @@ class AmendRegistrationAuthorityInformationCommand extends AbstractCommand
         return [
             'identity_id'         => $this->identityId,
             'location'            => $this->location,
-            'contact_information' => $this->contactInformation
+            'contact_information' => $this->contactInformation,
+            'ra_institution'      => $this->raInstitution,
         ];
     }
 }
