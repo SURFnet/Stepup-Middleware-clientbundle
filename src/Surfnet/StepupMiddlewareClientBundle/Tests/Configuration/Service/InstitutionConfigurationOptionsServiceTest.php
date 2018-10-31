@@ -41,14 +41,20 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
         $expectedInstitutionConfigurationOptions->verifyEmail = true;
         $expectedInstitutionConfigurationOptions->numberOfTokensPerIdentity = 2;
         $expectedInstitutionConfigurationOptions->allowedSecondFactors = ['sms', 'yubikey'];
+        $expectedInstitutionConfigurationOptions->useRa = ['surfnet.nl'];
+        $expectedInstitutionConfigurationOptions->useRaa = ['surfnet.nl'];
+        $expectedInstitutionConfigurationOptions->selectRaa = ['surfnet.nl'];
 
         $validResponseData = [
-            'institution'                  => $institution,
-            'use_ra_locations'             => true,
-            'show_raa_contact_information' => false,
-            'verify_email'                 => true,
+            'institution'                   => $institution,
+            'use_ra_locations'              => true,
+            'show_raa_contact_information'  => false,
+            'verify_email'                  => true,
             'number_of_tokens_per_identity' => 2,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'        => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -91,7 +97,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => $nonBoolean,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 1,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -136,7 +145,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => true,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 0,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -181,7 +193,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => true,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 5,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -226,7 +241,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => true,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 1,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
