@@ -40,6 +40,14 @@ class RaListing implements Dto
     public $institution;
 
     /**
+     * @Assert\NotBlank(message="middleware_client.dto.ra_listing.institution.must_not_be_blank")
+     * @Assert\Type(type="string", message="middleware_client.dto.ra_listing.institution.must_be_string")
+     *
+     * @var string
+     */
+    public $raInstitution;
+
+    /**
      * @Assert\NotBlank(message="middleware_client.dto.ra_listing.common_name.must_not_be_blank")
      * @Assert\Type(type="string", message="middleware_client.dto.ra_listing.common_name.must_be_string")
      *
@@ -93,6 +101,7 @@ class RaListing implements Dto
         $raListing->role               = $data['role'];
         $raListing->location           = $data['location'];
         $raListing->contactInformation = $data['contact_information'];
+        $raListing->raInstitution      = $data['ra_institution'];
 
         return $raListing;
     }
