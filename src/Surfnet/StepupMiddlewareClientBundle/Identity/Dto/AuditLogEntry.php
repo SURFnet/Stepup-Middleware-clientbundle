@@ -34,6 +34,11 @@ final class AuditLogEntry implements Dto
     public $actorInstitution;
 
     /**
+     * @var string|null
+     */
+    public $raInstitution;
+
+    /**
      * @var string
      */
     public $actorCommonName;
@@ -83,6 +88,7 @@ final class AuditLogEntry implements Dto
         $entry->actorId                = $data['actor_id'];
         $entry->actorInstitution       = $data['actor_institution'];
         $entry->actorCommonName        = $data['actor_common_name'];
+        $entry->raInstitution          = $data['ra_institution'];
         $entry->identityId             = $data['identity_id'];
         $entry->identityInstitution    = $data['identity_institution'];
         $entry->secondFactorId         = $data['second_factor_id'];
