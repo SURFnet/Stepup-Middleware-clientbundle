@@ -1,7 +1,6 @@
-## Develop
+## 3.0.0 FGA (fine grained authorization)
 
-**Features**
-# Set institution on VerifiedSecondFactorSearchQuery #59
+The new fine grained authorization logic will allow RA's from other institutions to accredidate RA's on behalf of another organisation. This is determined based on the institution configuration. https://github.com/OpenConext/Stepup-Deploy/wiki/rfc-fine-grained-authorization/b6852587baee698cccae7ebc922f29552420a296
 
 ## 2.4.4
 Removed RMT
