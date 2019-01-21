@@ -38,7 +38,9 @@ class UnverifiedSecondFactor implements Dto
     public $type;
 
     /**
-     * @Assert\NotBlank(message="middleware_client.dto.unverified_second_factor.second_factor_identifier.must_not_be_blank")
+     * @Assert\NotBlank(
+     *     message="middleware_client.dto.unverified_second_factor.second_factor_identifier.must_not_be_blank"
+     * )
      * @Assert\Type(
      *     type="string",
      *     message="middleware_client.dto.unverified_second_factor.second_factor_identifier.must_be_string"

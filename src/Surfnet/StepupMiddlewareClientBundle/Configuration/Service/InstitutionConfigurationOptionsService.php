@@ -18,7 +18,8 @@
 
 namespace Surfnet\StepupMiddlewareClientBundle\Configuration\Service;
 
-use Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionConfigurationOptionsService as LibraryInstitutionConfigurationOptionsService;
+use Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionConfigurationOptionsService
+    as LibraryInstitutionConfigurationOptionsService;
 use Surfnet\StepupMiddlewareClientBundle\Configuration\Dto\InstitutionConfigurationOptions;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
