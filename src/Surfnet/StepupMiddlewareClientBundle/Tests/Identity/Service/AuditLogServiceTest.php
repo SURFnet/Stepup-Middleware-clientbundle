@@ -40,6 +40,7 @@ class AuditLogServiceTest extends \PHPUnit_Framework_TestCase
     {
       "actor_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "actor_institution":"Ibuildings bv",
+      "ra_institution":"Ibuildings bv",
       "actor_common_name":"Foo Bar",
       "identity_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "identity_institution":"Ibuildings bv",
@@ -52,6 +53,7 @@ class AuditLogServiceTest extends \PHPUnit_Framework_TestCase
     {
       "actor_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "actor_institution":"Ibuildings bv",
+      "ra_institution":"Ibuildings bv",
       "actor_common_name":"Foo Bar",
       "identity_id":"5613875b-410e-407c-91ce-35bf0b5a8d89",
       "identity_institution":"Ibuildings bv",

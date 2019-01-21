@@ -31,7 +31,7 @@ final class RaSecondFactorSearchQuery implements HttpQuery
     /**
      * @var string
      */
-    private $institution;
+    private $actorInstitution;
 
     /**
      * @var string|null
@@ -61,6 +61,11 @@ final class RaSecondFactorSearchQuery implements HttpQuery
     /**
      * @var string|null
      */
+    private $institution;
+
+    /**
+     * @var string|null
+     */
     private $orderBy;
 
     /**
@@ -84,7 +89,7 @@ final class RaSecondFactorSearchQuery implements HttpQuery
             ->integer('Page number must be an integer')
             ->min(1, 'Page number must be greater than or equal to 1');
 
-        $this->institution = $institution;
+        $this->actorInstitution = $institution;
         $this->pageNumber = $pageNumber;
     }
 
@@ -182,6 +187,22 @@ final class RaSecondFactorSearchQuery implements HttpQuery
     }
 
     /**
+     * @return null|string
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
+     * @param null|string $institution
+     */
+    public function setInstitution($institution)
+    {
+        $this->institution = $institution;
+    }
+
+    /**
      * @param string $orderBy
      */
     public function setOrderBy($orderBy)
@@ -225,15 +246,16 @@ final class RaSecondFactorSearchQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'institution'    => $this->institution,
-                    'name'           => $this->name,
-                    'type'           => $this->type,
-                    'secondFactorId' => $this->secondFactorId,
-                    'email'          => $this->email,
-                    'status'         => $this->status,
-                    'orderBy'        => $this->orderBy,
-                    'orderDirection' => $this->orderDirection,
-                    'p'              => $this->pageNumber,
+                    'actorInstitution' => $this->actorInstitution,
+                    'name'             => $this->name,
+                    'type'             => $this->type,
+                    'secondFactorId'   => $this->secondFactorId,
+                    'email'            => $this->email,
+                    'status'           => $this->status,
+                    'institution'      => $this->institution,
+                    'orderBy'          => $this->orderBy,
+                    'orderDirection'   => $this->orderDirection,
+                    'p'                => $this->pageNumber,
                 ],
                 function ($value) {
                     return !is_null($value);

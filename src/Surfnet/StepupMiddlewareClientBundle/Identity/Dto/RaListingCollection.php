@@ -26,4 +26,20 @@ class RaListingCollection extends CollectionDto
     {
         return RaListing::fromData($raListing);
     }
+
+    /**
+     * Checks if a certain institution is listed in the RA listing
+     * @param $institution
+     * @return bool
+     */
+    public function isListed($institution)
+    {
+        /** @var RaListing $raListing */
+        foreach ($this->getElements() as $raListing) {
+            if ($raListing->institution === $institution) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

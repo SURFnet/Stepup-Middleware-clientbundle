@@ -19,9 +19,7 @@
 namespace Surfnet\StepupMiddlewareClient\Tests\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Surfnet\StepupMiddlewareClient\Exception\InvalidArgumentException;
 use Surfnet\StepupMiddlewareClient\Helper\JsonHelper;
-use Surfnet\StepupMiddlewareClient\Exception\JsonException;
 
 class JsonHelperTest extends TestCase
 {
@@ -30,11 +28,11 @@ class JsonHelperTest extends TestCase
      * @group json
      *
      * @dataProvider nonStringProvider
+     * @expectedException \Surfnet\StepupMiddlewareClient\Exception\InvalidArgumentException
      * @param $nonString
      */
     public function jsonHelperCanOnlyDecodeStrings($nonString)
     {
-        $this->expectException(InvalidArgumentException::class);
         JsonHelper::decode($nonString);
     }
 
@@ -53,11 +51,12 @@ class JsonHelperTest extends TestCase
     /**
      * @test
      * @group json
+     * @expectedException \Surfnet\StepupMiddlewareClient\Exception\JsonException
+     * @expectedExceptionMessage Syntax error
+     *
      */
     public function jsonHelperThrowsAnExceptionWhenThereIsASyntaxError()
     {
-        $this->expectException(JsonException::class);
-        $this->expectExceptionMessage('Syntax error');
         $jsonWithMissingDoubleQuotes = '{ hello : world }';
         JsonHelper::decode($jsonWithMissingDoubleQuotes);
     }

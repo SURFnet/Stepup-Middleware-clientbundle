@@ -48,6 +48,12 @@ class InstitutionConfigurationOptions implements Dto
      */
     public $allowedSecondFactors;
 
+    public $useRa;
+
+    public $useRaa;
+
+    public $selectRaa;
+
     /**
      * @param array $data
      * @return InstitutionConfigurationOptions
@@ -60,6 +66,9 @@ class InstitutionConfigurationOptions implements Dto
         $institutionConfigurationOptions->verifyEmail               = $data['verify_email'];
         $institutionConfigurationOptions->allowedSecondFactors      = $data['allowed_second_factors'];
         $institutionConfigurationOptions->numberOfTokensPerIdentity = $data['number_of_tokens_per_identity'];
+        $institutionConfigurationOptions->useRa                     = $data['use_ra'];
+        $institutionConfigurationOptions->useRaa                    = $data['use_raa'];
+        $institutionConfigurationOptions->selectRaa                 = $data['select_raa'];
 
         return $institutionConfigurationOptions;
     }

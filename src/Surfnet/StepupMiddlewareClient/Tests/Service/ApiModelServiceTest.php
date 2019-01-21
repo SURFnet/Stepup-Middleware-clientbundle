@@ -58,6 +58,10 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
         $service->read('/resource/%s', ['John/Doe']);
     }
 
+    /**
+     * @expectedException \Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException
+     * @expectedExceptionMessage malformed JSON
+     */
     public function testItThrowsWhenMalformedJsonIsReturned()
     {
         $malformedJson = 'This is some malformed JSON';
@@ -66,9 +70,6 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
         $handler = new MockHandler([$response]);
         $client  = new Client(['handler' => $handler]);
         $service = new ApiService($client);
-
-        $this->expectException('\Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException');
-        $this->expectExceptionMessage('malformed JSON');
 
         $service->read('/resource');
     }
@@ -87,10 +88,11 @@ class ApiModelServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($responseData, "Resource doesn't exist, yet a non-null value was returned");
     }
 
+    /**
+     * @expectedException \Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException
+     */
     public function testItThrowsWhenTheConsumerIsntAuthorisedToAccessTheResource()
     {
-        $this->expectException('Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException');
-
         $data     = ['errors' => ['You are not authorised to access this identity']];
         $response = new Response(403, [], json_encode($data));
 

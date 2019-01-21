@@ -108,10 +108,11 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(3, $command->getErrors());
     }
 
+    /**
+     * @expectedException \Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException
+     */
     public function testItThrowsWhenMalformedJsonIsReturned()
     {
-        $this->expectException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
-
         $malformedJson = "Malformed JSON";
 
         $responseStub = m::mock('Psr\Http\Message\ResponseInterface')
@@ -133,11 +134,10 @@ class CommandServiceTest extends \PHPUnit_Framework_TestCase
      * @dataProvider invalidResponses
      * @param int $statusCode
      * @param array $response
+     * @expectedException \Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException
      */
     public function testItThrowsWhenInvalidResponseIsReturned($statusCode, $response)
     {
-        $this->expectException('Surfnet\StepupMiddlewareClient\Exception\CommandExecutionFailedException');
-
         $json = json_encode($response);
 
         $responseStub = m::mock('Psr\Http\Message\ResponseInterface')

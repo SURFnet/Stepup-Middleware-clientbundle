@@ -20,7 +20,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionConfigurationOptionsService as LibraryInstitutionConfigurationOptionsService;
 use Surfnet\StepupMiddlewareClientBundle\Configuration\Dto\InstitutionConfigurationOptions;
 use Surfnet\StepupMiddlewareClientBundle\Configuration\Service\InstitutionConfigurationOptionsService;
-use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -41,14 +40,20 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
         $expectedInstitutionConfigurationOptions->verifyEmail = true;
         $expectedInstitutionConfigurationOptions->numberOfTokensPerIdentity = 2;
         $expectedInstitutionConfigurationOptions->allowedSecondFactors = ['sms', 'yubikey'];
+        $expectedInstitutionConfigurationOptions->useRa = ['surfnet.nl'];
+        $expectedInstitutionConfigurationOptions->useRaa = ['surfnet.nl'];
+        $expectedInstitutionConfigurationOptions->selectRaa = ['surfnet.nl'];
 
         $validResponseData = [
-            'institution'                  => $institution,
-            'use_ra_locations'             => true,
-            'show_raa_contact_information' => false,
-            'verify_email'                 => true,
+            'institution'                   => $institution,
+            'use_ra_locations'              => true,
+            'show_raa_contact_information'  => false,
+            'verify_email'                  => true,
             'number_of_tokens_per_identity' => 2,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'        => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -78,11 +83,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonBooleanProvider
      * @param $nonBoolean
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonBooleanUseRaLocationsOptionAreInvalid($nonBoolean)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
@@ -91,7 +95,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => $nonBoolean,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 1,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -123,11 +130,11 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonBooleanProvider
      * @param $nonBoolean
+     *
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonBooleanShowRaaContactInformationOptionAreInvalid($nonBoolean)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
@@ -136,7 +143,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => true,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 0,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -168,11 +178,11 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonArrayProvider
      * @param $nonArray
+     *
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonArrayAllowedSecondFactorsAreInvalid($nonArray)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
@@ -181,7 +191,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => true,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 5,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);
@@ -213,11 +226,11 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonStringProvider
      * @param $nonArray
+     *
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonStringsAllowedSecondFactorsAreInvalid($nonArray)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
@@ -226,7 +239,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
             'show_raa_contact_information' => true,
             'verify_email'                 => true,
             'number_of_tokens_per_identity' => 1,
-            'allowed_second_factors'       => ['sms', 'yubikey']
+            'allowed_second_factors'       => ['sms', 'yubikey'],
+            'use_ra'                        => [$institution],
+            'use_raa'                       => [$institution],
+            'select_raa'                    => [$institution],
         ];
 
         $libraryService = Mockery::mock(LibraryInstitutionConfigurationOptionsService::class);

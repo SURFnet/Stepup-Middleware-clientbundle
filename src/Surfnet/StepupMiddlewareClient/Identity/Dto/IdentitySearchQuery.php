@@ -45,12 +45,15 @@ class IdentitySearchQuery implements HttpQuery
 
     /**
      * @param string $institution
+     * @return IdentitySearchQuery
      */
-    public function __construct($institution)
+    public function setInstitution($institution)
     {
         $this->assertNonEmptyString($institution, 'institution');
 
         $this->institution = $institution;
+
+        return $this;
     }
 
     /**
@@ -108,7 +111,9 @@ class IdentitySearchQuery implements HttpQuery
      */
     public function toHttpQuery()
     {
-        $fields = ['institution' => $this->institution];
+        if ($this->institution) {
+            $fields = ['institution' => $this->institution];
+        }
 
         if ($this->commonName) {
             $fields['commonName'] = $this->commonName;

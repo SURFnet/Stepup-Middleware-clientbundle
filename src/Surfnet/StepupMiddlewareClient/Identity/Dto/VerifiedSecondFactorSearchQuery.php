@@ -39,6 +39,20 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
     private $registrationCode;
 
     /**
+     * @var string
+     */
+    private $actorInstitution;
+
+    /**
+     * @var string
+     */
+    private $institution;
+    /**
+     * @var string
+     */
+    private $actorId;
+
+    /**
      * @param string $identityId
      * @return self
      */
@@ -77,6 +91,45 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
         return $this;
     }
 
+    /**
+     * @param string $actorInstitution
+     * @return VerifiedSecondFactorSearchQuery
+     */
+    public function setActorInstitution($actorInstitution)
+    {
+        $this->assertNonEmptyString($actorInstitution, 'actorInstitution');
+
+        $this->actorInstitution = $actorInstitution;
+
+        return $this;
+    }
+
+    /**
+     * @param string $institution
+     * @return VerifiedSecondFactorSearchQuery
+     */
+    public function setInstitution($institution)
+    {
+        $this->assertNonEmptyString($institution, 'institution');
+
+        $this->institution = $institution;
+
+        return $this;
+    }
+
+    /**
+     * @param string $actorInstitution
+     * @return VerifiedSecondFactorSearchQuery
+     */
+    public function setActorId($actorId)
+    {
+        $this->assertNonEmptyString($actorId, 'actorId');
+
+        $this->actorId = $actorId;
+
+        return $this;
+    }
+
     private function assertNonEmptyString($value, $name)
     {
         $message = sprintf(
@@ -92,6 +145,9 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
     {
         $fields = [];
 
+        $fields['actorInstitution'] = $this->actorInstitution;
+        $fields['institution'] = $this->institution;
+
         if ($this->identityId) {
             $fields['identityId'] = $this->identityId;
         }
@@ -102,6 +158,10 @@ class VerifiedSecondFactorSearchQuery implements HttpQuery
 
         if ($this->registrationCode) {
             $fields['registrationCode'] = $this->registrationCode;
+        }
+
+        if ($this->actorId) {
+            $fields['actorId'] = $this->actorId;
         }
 
         return '?' . http_build_query($fields);

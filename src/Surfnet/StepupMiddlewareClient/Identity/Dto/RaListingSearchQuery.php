@@ -26,7 +26,17 @@ final class RaListingSearchQuery implements HttpQuery
     /**
      * @var string
      */
+    private $actorInstitution;
+
+    /**
+     * @var string|null
+     */
     private $institution;
+
+    /**
+     * @var string|null
+     */
+    private $identityId;
 
     /**
      * @var int
@@ -47,15 +57,41 @@ final class RaListingSearchQuery implements HttpQuery
      * @param string $institution
      * @param int    $pageNumber
      */
-    public function __construct($institution, $pageNumber)
+    public function __construct($actorInstitution, $pageNumber)
     {
-        $this->assertNonEmptyString($institution, 'institution');
+        $this->assertNonEmptyString($actorInstitution, 'actorInstitution');
         Assert\that($pageNumber)
             ->integer('Page number must be an integer')
             ->min(0, 'Page number must be greater than or equal to 1');
 
-        $this->institution = $institution;
+        $this->actorInstitution = $actorInstitution;
         $this->pageNumber  = $pageNumber;
+    }
+
+    /**
+     * @param string $institution
+     * @return $this
+     */
+    public function setInstitution($institution)
+    {
+        $this->assertNonEmptyString($institution, 'institution');
+
+        $this->institution = $institution;
+
+        return $this;
+    }
+
+    /**
+     * @param string $identityId
+     * @return RaListingSearchQuery
+     */
+    public function setIdentityId($identityId)
+    {
+        $this->assertNonEmptyString($identityId, 'identityId');
+
+        $this->identityId = $identityId;
+
+        return $this;
     }
 
     /**
@@ -103,10 +139,12 @@ final class RaListingSearchQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'institution'    => $this->institution,
-                    'orderBy'        => $this->orderBy,
-                    'orderDirection' => $this->orderDirection,
-                    'p'              => $this->pageNumber,
+                    'actorInstitution' => $this->actorInstitution,
+                    'institution'      => $this->institution,
+                    'identityId '      => $this->identityId,
+                    'orderBy'          => $this->orderBy,
+                    'orderDirection'   => $this->orderDirection,
+                    'p'                => $this->pageNumber,
                 ],
                 function ($value) {
                     return !is_null($value);
