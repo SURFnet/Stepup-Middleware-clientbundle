@@ -54,10 +54,11 @@ class IdentityServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedIdentity, $identity);
     }
 
+    /**
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
+     */
     public function testItValidatesTheIdentity()
     {
-        $this->expectException('Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException');
-
         $libraryService = m::mock('Surfnet\StepupMiddlewareClient\Identity\Service\IdentityService')
             ->shouldReceive('get')->with($this->mockIdentity['id'])->once()->andReturn($this->mockIdentity)
             ->getMock();

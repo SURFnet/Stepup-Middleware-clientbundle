@@ -20,7 +20,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Surfnet\StepupMiddlewareClient\Configuration\Service\InstitutionConfigurationOptionsService as LibraryInstitutionConfigurationOptionsService;
 use Surfnet\StepupMiddlewareClientBundle\Configuration\Dto\InstitutionConfigurationOptions;
 use Surfnet\StepupMiddlewareClientBundle\Configuration\Service\InstitutionConfigurationOptionsService;
-use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -84,11 +83,10 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonBooleanProvider
      * @param $nonBoolean
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonBooleanUseRaLocationsOptionAreInvalid($nonBoolean)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
@@ -132,11 +130,11 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonBooleanProvider
      * @param $nonBoolean
+     *
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonBooleanShowRaaContactInformationOptionAreInvalid($nonBoolean)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
@@ -180,11 +178,11 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonArrayProvider
      * @param $nonArray
+     *
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonArrayAllowedSecondFactorsAreInvalid($nonArray)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
@@ -228,11 +226,11 @@ class InstitutionConfigurationOptionsServiceTest extends TestCase
      *
      * @dataProvider nonStringProvider
      * @param $nonArray
+     *
+     * @expectedException \Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException
      */
     public function testInstitutionConfigurationOptionsWithANonStringsAllowedSecondFactorsAreInvalid($nonArray)
     {
-        $this->expectException(InvalidResponseException::class);
-
         $institution = 'surfnet.nl';
 
         $invalidResponseData = [
