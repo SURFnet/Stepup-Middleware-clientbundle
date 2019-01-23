@@ -1,3 +1,7 @@
+## 3.0.1
+New feature
+* Consume the profile endpoint #73
+
 ## 3.0.0 
 
 **FGA (fine grained authorization)**
