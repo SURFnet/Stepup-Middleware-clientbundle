@@ -38,6 +38,12 @@ services:
         arguments:
             - "@surfnet_stepup_middleware_client.library.service.api"
 
+    surfnet_stepup_middleware_client.library.identity.service.profile:
+        public: false
+        class: Surfnet\StepupMiddlewareClient\Identity\Service\ProfileService
+        arguments:
+            - "@surfnet_stepup_middleware_client.library.service.api"
+
     surfnet_stepup_middleware_client.library.identity.service.institution_listing:
         public: false
         class: Surfnet\StepupMiddlewareClient\Identity\Service\InstitutionListingService

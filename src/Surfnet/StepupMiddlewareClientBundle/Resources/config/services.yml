@@ -43,6 +43,12 @@ services:
             - "@surfnet_stepup_middleware_client.library.identity.service.identity"
             - "@validator"
 
+    surfnet_stepup_middleware_client.identity.service.profile:
+        class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\ProfileService
+        arguments:
+            - "@surfnet_stepup_middleware_client.library.identity.service.profile"
+            - "@validator"
+
     surfnet_stepup_middleware_client.identity.service.institution_listing:
         class: Surfnet\StepupMiddlewareClientBundle\Identity\Service\InstitutionListingService
         arguments:
