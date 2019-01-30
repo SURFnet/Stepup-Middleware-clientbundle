@@ -23,6 +23,8 @@ use Surfnet\StepupMiddlewareClient\Identity\Service\RaCandidateService as Librar
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidate;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidateCollection;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidateInstitution;
+use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidateInstitutions;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RaCandidateService
@@ -71,7 +73,7 @@ class RaCandidateService
     /**
      * @param string $identityId
      * @param string $institution
-     * @return null|RaCandidate
+     * @return RaCandidateInstitutions
      */
     public function get($identityId, $institution)
     {
@@ -81,11 +83,11 @@ class RaCandidateService
             return null;
         }
 
-        $raCandidate = RaCandidate::fromData($data);
+        $raCandidateInstitutions = RaCandidateInstitutions::fromData($data);
 
-        $this->assertIsValid($raCandidate, 'Received invalid RaCandidate');
+        $this->assertIsValid($raCandidateInstitutions, 'Received invalid RaCandidate');
 
-        return $raCandidate;
+        return $raCandidateInstitutions;
     }
 
     /**
