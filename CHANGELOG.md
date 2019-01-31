@@ -1,8 +1,10 @@
+## 3.0.2
 New feature
-* Consume the profile endpoint #73
+Add possible institutions to candidate listing endpoint and not the unique identities to support fga
 
 ## 3.0.1
-Add possible institutions to candidate listing endpoint and not the unique identities   
+New feature
+* Consume the profile endpoint #73   
 
 ## 3.0.0 
 
