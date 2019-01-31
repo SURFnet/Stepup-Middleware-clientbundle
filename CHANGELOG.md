@@ -1,3 +1,8 @@
+## 3.0.1
+
+Add possible institutions to candidate listing endpoint and not the unique identities   
+
+
 ## 3.0.0 
 
 **FGA (fine grained authorization)**
