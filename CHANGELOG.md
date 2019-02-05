@@ -1,4 +1,4 @@
-## 3.0.3
+## 3.0.4
 New feature
 * Fix token listing for SRAA
 
