@@ -79,10 +79,16 @@ final class RaSecondFactorSearchQuery implements HttpQuery
     private $pageNumber;
 
     /**
+     * @var string
+     */
+    private $actorId;
+
+    /**
      * @param string $institution
      * @param int $pageNumber
+     * @param  string $actorId
      */
-    public function __construct($institution, $pageNumber)
+    public function __construct($institution, $pageNumber, $actorId)
     {
         $this->assertNonEmptyString($institution, 'institution');
         Assert\that($pageNumber)
@@ -90,7 +96,21 @@ final class RaSecondFactorSearchQuery implements HttpQuery
             ->min(1, 'Page number must be greater than or equal to 1');
 
         $this->actorInstitution = $institution;
+        $this->actorId = $actorId;
         $this->pageNumber = $pageNumber;
+    }
+
+    /**
+     * @param string $actorInstitution
+     * @return VerifiedSecondFactorSearchQuery
+     */
+    public function setActorId($actorId)
+    {
+        $this->assertNonEmptyString($actorId, 'actorId');
+
+        $this->actorId = $actorId;
+
+        return $this;
     }
 
     /**
@@ -247,6 +267,7 @@ final class RaSecondFactorSearchQuery implements HttpQuery
             array_filter(
                 [
                     'actorInstitution' => $this->actorInstitution,
+                    'actorId'          => $this->actorId,
                     'name'             => $this->name,
                     'type'             => $this->type,
                     'secondFactorId'   => $this->secondFactorId,

@@ -1,3 +1,7 @@
+## 3.0.3
+New feature
+* Fix token listing for SRAA Bas Strooband 5-2-19 11:28
+
 ## 3.0.2
 New feature
 Add possible institutions to candidate listing endpoint and not the unique identities to support fga
