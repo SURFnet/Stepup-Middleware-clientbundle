@@ -75,12 +75,32 @@ final class RaSecondFactorExportQuery implements HttpQuery
     private $orderDirection;
 
     /**
-     * @param string $actorInstitution
+     * @var string
      */
-    public function __construct($actorInstitution)
+    private $actorId;
+
+    /**
+     * @param string $actorInstitution
+     * @param string $actorId
+     */
+    public function __construct($actorInstitution, $actorId)
     {
         $this->assertNonEmptyString($actorInstitution, 'institution');
         $this->actorInstitution = $actorInstitution;
+        $this->actorId = $actorId;
+    }
+
+    /**
+     * @param string $actorInstitution
+     * @return VerifiedSecondFactorSearchQuery
+     */
+    public function setActorId($actorId)
+    {
+        $this->assertNonEmptyString($actorId, 'actorId');
+
+        $this->actorId = $actorId;
+
+        return $this;
     }
 
     public function getFileName()
@@ -255,6 +275,7 @@ final class RaSecondFactorExportQuery implements HttpQuery
             array_filter(
                 [
                     'actorInstitution' => $this->actorInstitution,
+                    'actorId'          => $this->actorId,
                     'name'             => $this->name,
                     'type'             => $this->type,
                     'secondFactorId'   => $this->secondFactorId,
