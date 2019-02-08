@@ -47,11 +47,12 @@ class RaCandidateService
 
     /**
      * @param string $identityId
-     * @param string $identityId
+     * @param string $institution
+     * @param string $actorId
      * @return array|null
      */
-    public function get($identityId, $institution)
+    public function get($identityId, $institution, $actorId)
     {
-        return $this->apiClient->read('ra-candidate/%s/%s', [$identityId, $institution]);
+        return $this->apiClient->read('ra-candidate/%s/%s?actorId=%s', [$identityId, $institution, $actorId]);
     }
 }

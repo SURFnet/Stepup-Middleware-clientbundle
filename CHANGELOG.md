@@ -1,3 +1,8 @@
+## 3.0.5
+New feature
+* Add actorId to management
+
+## 3.0.4
 ## 3.0.3
 New feature
 * Fix token listing for SRAA
