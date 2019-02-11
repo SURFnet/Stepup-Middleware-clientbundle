@@ -21,9 +21,7 @@ namespace Surfnet\StepupMiddlewareClientBundle\Identity\Service;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\RaCandidateSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\RaCandidateService as LibraryRaCandidateService;
 use Surfnet\StepupMiddlewareClientBundle\Exception\InvalidResponseException;
-use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidate;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidateCollection;
-use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidateInstitution;
 use Surfnet\StepupMiddlewareClientBundle\Identity\Dto\RaCandidateInstitutions;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -73,11 +71,12 @@ class RaCandidateService
     /**
      * @param string $identityId
      * @param string $institution
+     * @param string $actorId
      * @return RaCandidateInstitutions
      */
-    public function get($identityId, $institution)
+    public function get($identityId, $institution, $actorId)
     {
-        $data = $this->libraryService->get($identityId, $institution);
+        $data = $this->libraryService->get($identityId, $institution, $actorId);
 
         if ($data === null) {
             return null;
