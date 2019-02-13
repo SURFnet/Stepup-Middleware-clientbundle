@@ -1,3 +1,6 @@
+## 3.0.6
+Allow searching RA listing on name, email, role #78
+
 ## 3.0.5
 New feature
 * Add actorId to management
