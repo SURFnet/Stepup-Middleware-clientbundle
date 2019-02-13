@@ -26,7 +26,32 @@ final class RaListingSearchQuery implements HttpQuery
     /**
      * @var string
      */
+    private $actorId;
+
+    /**
+     * @var string
+     */
     private $actorInstitution;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $role;
+
+    /**
+     * @var string
+     */
+    private $raInstitution;
 
     /**
      * @var string|null
@@ -54,16 +79,19 @@ final class RaListingSearchQuery implements HttpQuery
     private $orderDirection = 'asc';
 
     /**
-     * @param string $institution
-     * @param int    $pageNumber
+     * @param string $actorId
+     * @param string string $actorInstitution
+     * @param int $pageNumber
      */
-    public function __construct($actorInstitution, $pageNumber)
+    public function __construct($actorId, $actorInstitution, $pageNumber)
     {
+        $this->assertNonEmptyString($actorId, 'actorId');
         $this->assertNonEmptyString($actorInstitution, 'actorInstitution');
         Assert\that($pageNumber)
             ->integer('Page number must be an integer')
             ->min(0, 'Page number must be greater than or equal to 1');
 
+        $this->actorId = $actorId;
         $this->actorInstitution = $actorInstitution;
         $this->pageNumber  = $pageNumber;
     }
@@ -123,6 +151,50 @@ final class RaListingSearchQuery implements HttpQuery
         return $this;
     }
 
+    /**
+     * @param string $name
+     * @return RaListingSearchQuery
+     */
+    public function setName($name)
+    {
+        $this->assertNonEmptyString($name, 'name');
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param string $email
+     * @return RaListingSearchQuery
+     */
+    public function setEmail($email)
+    {
+        $this->assertNonEmptyString($email, 'email');
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @param string $role
+     * @return RaListingSearchQuery
+     */
+    public function setRole($role)
+    {
+        $this->assertNonEmptyString($role, 'role');
+        $this->role = $role;
+        return $this;
+    }
+
+    /**
+     * @param string $raInstitution
+     * @return RaListingSearchQuery
+     */
+    public function setRaInstitution($raInstitution)
+    {
+        $this->assertNonEmptyString($raInstitution, 'raInstitution');
+        $this->raInstitution = $raInstitution;
+        return $this;
+    }
+
     private function assertNonEmptyString($value, $parameterName)
     {
         $message = sprintf(
@@ -136,15 +208,20 @@ final class RaListingSearchQuery implements HttpQuery
 
     public function toHttpQuery()
     {
-        return '?' . http_build_query(
+        return '?'.http_build_query(
             array_filter(
                 [
+                    'actorId' => $this->actorId,
                     'actorInstitution' => $this->actorInstitution,
-                    'institution'      => $this->institution,
-                    'identityId '      => $this->identityId,
-                    'orderBy'          => $this->orderBy,
-                    'orderDirection'   => $this->orderDirection,
-                    'p'                => $this->pageNumber,
+                    'institution' => $this->institution,
+                    'identityId' => $this->identityId,
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'role' => $this->role,
+                    'raInstitution' => $this->raInstitution,
+                    'orderBy' => $this->orderBy,
+                    'orderDirection' => $this->orderDirection,
+                    'p' => $this->pageNumber,
                 ],
                 function ($value) {
                     return !is_null($value);
