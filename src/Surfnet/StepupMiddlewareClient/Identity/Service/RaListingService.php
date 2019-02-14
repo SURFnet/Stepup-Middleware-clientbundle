@@ -39,14 +39,16 @@ class RaListingService
     /**
      * @param string $id The RA's identity ID.
      * @param string $institution The institution.
+     * @param string $actorInstitution The institution of the actor.
+     * @param string $actorId The identity id of the actor.
      * @return null|array
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws ResourceReadException When the server doesn't respond with the resource.
      * @throws MalformedResponseException When the server doesn't respond with (well-formed) JSON.
      */
-    public function get($id, $institution)
+    public function get($id, $institution, $actorInstitution, $actorId)
     {
-        return $this->apiService->read('ra-listing/%s/%s', [$id, $institution]);
+        return $this->apiService->read('ra-listing/%s/%s?actorId=%s&actorInstitution=%s', [$id, $institution, $actorId, $actorInstitution]);
     }
 
     /**
