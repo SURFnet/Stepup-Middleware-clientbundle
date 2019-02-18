@@ -53,11 +53,13 @@ class RaListingService
     /**
      * @param string $id
      * @param string $institution
+     * @param string $actorInstitution
+     * @param string $actorId
      * @return null|RaListing
      */
-    public function get($id, $institution)
+    public function get($id, $institution, $actorInstitution, $actorId)
     {
-        $data = $this->service->get($id, $institution);
+        $data = $this->service->get($id, $institution, $actorInstitution, $actorId);
 
         if ($data === null) {
             return null;
