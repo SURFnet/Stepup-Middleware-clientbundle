@@ -50,13 +50,15 @@ abstract class CollectionDto implements Dto
      * @param int   $totalItems
      * @param int   $currentPage
      * @param int   $itemsPerPage
+     * @param array $filterOptions
      */
-    public function __construct(array $elements, $totalItems, $currentPage, $itemsPerPage)
+    public function __construct(array $elements, $totalItems, $currentPage, $itemsPerPage, $filterOptions = array())
     {
         $this->elements = $elements;
         $this->totalItems = (int) $totalItems;
         $this->currentPage = (int) $currentPage;
         $this->itemsPerPage = (int) $itemsPerPage;
+        $this->filterOptions = $filterOptions;
     }
 
     /**
@@ -74,7 +76,8 @@ abstract class CollectionDto implements Dto
             $elements,
             $data['collection']['total_items'],
             $data['collection']['page'],
-            $data['collection']['page_size']
+            $data['collection']['page_size'],
+            $data['filters']
         );
     }
 
@@ -105,6 +108,17 @@ abstract class CollectionDto implements Dto
     public function getElements()
     {
         return $this->elements;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getFilterOption($key)
+    {
+        if (!array_key_exists($key, $this->filterOptions)) {
+            return null;
+        }
+        return $this->filterOptions[$key];
     }
 
     /**
