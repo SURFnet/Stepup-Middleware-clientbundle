@@ -63,7 +63,8 @@ class AuditLogServiceTest extends \PHPUnit_Framework_TestCase
       "action":"possession_proven",
       "recorded_on":"2015-03-31T12:07:12+02:00"
     }
-  ]
+  ],
+  "filters":[]
 }
 JSON;
 
