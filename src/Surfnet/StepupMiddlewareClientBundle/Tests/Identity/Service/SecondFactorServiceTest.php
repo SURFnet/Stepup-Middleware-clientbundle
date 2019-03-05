@@ -43,6 +43,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
                     "second_factor_identifier" => "ccccccbtbhnh",
                 ]
             ],
+            "filters" => [],
         ];
         $query = (new UnverifiedSecondFactorSearchQuery())->setIdentityId($identityId);
 
@@ -85,6 +86,7 @@ class SecondFactorServiceTest extends \PHPUnit_Framework_TestCase
                     "common_name" => "c",
                 ]
             ],
+            "filters" => [],
         ];
         $query = (new VerifiedSecondFactorSearchQuery())->setIdentityId($identityId);
 
