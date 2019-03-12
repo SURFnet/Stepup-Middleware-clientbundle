@@ -1,3 +1,20 @@
+## Next release
+
+## 3.0.15
+Add implicit management roles to profile response #81
+
+## 3.0.13 & 3.0.14
+Add filter options to pagination results
+
+## 3.0.12
+In order to use the filters on the ra listing and ra candidate page
+we need to return the possible available filters.
+
+## 3.0.7
+Add actorId to ra-listing endpoint
+When requesting a single ra listing the actorId was not send so
+a ra could be returned while this shouldn't be allowed.
+
 ## 3.0.6
 Allow searching RA listing on name, email, role #78
 
