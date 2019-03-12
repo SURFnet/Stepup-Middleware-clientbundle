@@ -75,6 +75,11 @@ class Profile implements Dto
      */
     public $authorizations;
 
+    /**
+     * @var array
+     */
+    public $implicitRaaAt;
+
     public static function fromData(array $data)
     {
         $identity = new self();
@@ -85,6 +90,7 @@ class Profile implements Dto
         $identity->commonName = $data['common_name'];
         $identity->preferredLocale = $data['preferred_locale'];
         $identity->authorizations = $data['authorizations'];
+        $identity->implicitRaaAt = $data['implicit_raa_at'];
         $identity->isSraa = $data['is_sraa'];
 
         return $identity;
