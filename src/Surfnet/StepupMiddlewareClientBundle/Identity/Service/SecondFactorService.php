@@ -22,6 +22,7 @@ use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\UnverifiedSecondFactorSearchQuery;
+use Surfnet\StepupMiddlewareClient\Identity\Dto\VerifiedSecondFactorOfIdentitySearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\VerifiedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Dto\VettedSecondFactorSearchQuery;
 use Surfnet\StepupMiddlewareClient\Identity\Service\SecondFactorService as LibrarySecondFactorService;
@@ -186,6 +187,35 @@ class SecondFactorService
     public function searchVerified(VerifiedSecondFactorSearchQuery $query)
     {
         $data = $this->service->searchVerified($query);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $secondFactors = VerifiedSecondFactorCollection::fromData($data);
+        $violations = $this->validator->validate($secondFactors);
+
+        if (count($violations) > 0) {
+            throw InvalidResponseException::withViolations(
+                "One or more second factors retrieved from the Middleware were invalid",
+                $violations
+            );
+        }
+
+        return $secondFactors;
+    }
+
+    /**
+     * @param VerifiedSecondFactorOfIdentitySearchQuery $query
+     * @return VerifiedSecondFactorCollection
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws InvalidResponseException When the API responded with invalid data.
+     * @throws ResourceReadException When the API doesn't respond with the resource.
+     * @throws MalformedResponseException When the API doesn't respond with a proper response.
+     */
+    public function searchOwnVerified(VerifiedSecondFactorOfIdentitySearchQuery $query)
+    {
+        $data = $this->service->searchOwnVerified($query);
 
         if ($data === null) {
             return null;
