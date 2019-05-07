@@ -1,5 +1,8 @@
 ## Next release
 
+## 3.0.17
+* Add profile helper function #84
+
 ## 3.0.16
 * Expose the self service verified endpoint #82
 * Updated the Symfony version constraints #83
