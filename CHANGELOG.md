@@ -1,5 +1,9 @@
 ## Next release
 
+## 3.0.16
+* Expose the self service verified endpoint #82
+* Updated the Symfony version constraints #83
+
 ## 3.0.15
 Add implicit management roles to profile response #81
 
