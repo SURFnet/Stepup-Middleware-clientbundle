@@ -95,4 +95,20 @@ class Profile implements Dto
 
         return $identity;
     }
+
+
+    /**
+     * @return array List with institutions
+     */
+    public function getRaaInstitutions()
+    {
+        $choices = [];
+        foreach ($this->authorizations as $institution => $role) {
+            if ($role[0] == 'raa') {
+                $choices[$institution] = $institution;
+            }
+        }
+
+        return $choices;
+    }
 }
