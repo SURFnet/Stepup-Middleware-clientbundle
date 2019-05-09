@@ -31,11 +31,6 @@ final class RaListingSearchQuery implements HttpQuery
     /**
      * @var string
      */
-    private $actorInstitution;
-
-    /**
-     * @var string
-     */
     private $name;
 
     /**
@@ -80,19 +75,16 @@ final class RaListingSearchQuery implements HttpQuery
 
     /**
      * @param string $actorId
-     * @param string string $actorInstitution
      * @param int $pageNumber
      */
-    public function __construct($actorId, $actorInstitution, $pageNumber)
+    public function __construct($actorId, $pageNumber)
     {
         $this->assertNonEmptyString($actorId, 'actorId');
-        $this->assertNonEmptyString($actorInstitution, 'actorInstitution');
         Assert\that($pageNumber)
             ->integer('Page number must be an integer')
             ->min(0, 'Page number must be greater than or equal to 1');
 
         $this->actorId = $actorId;
-        $this->actorInstitution = $actorInstitution;
         $this->pageNumber  = $pageNumber;
     }
 
@@ -212,7 +204,6 @@ final class RaListingSearchQuery implements HttpQuery
             array_filter(
                 [
                     'actorId' => $this->actorId,
-                    'actorInstitution' => $this->actorInstitution,
                     'institution' => $this->institution,
                     'identityId' => $this->identityId,
                     'name' => $this->name,

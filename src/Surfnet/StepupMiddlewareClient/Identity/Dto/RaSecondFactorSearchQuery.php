@@ -29,11 +29,6 @@ final class RaSecondFactorSearchQuery implements HttpQuery
     const STATUS_REVOKED = 'revoked';
 
     /**
-     * @var string
-     */
-    private $actorInstitution;
-
-    /**
      * @var string|null
      */
     private $name;
@@ -84,24 +79,21 @@ final class RaSecondFactorSearchQuery implements HttpQuery
     private $actorId;
 
     /**
-     * @param string $institution
      * @param int $pageNumber
      * @param  string $actorId
      */
-    public function __construct($institution, $pageNumber, $actorId)
+    public function __construct($pageNumber, $actorId)
     {
-        $this->assertNonEmptyString($institution, 'institution');
         Assert\that($pageNumber)
             ->integer('Page number must be an integer')
             ->min(1, 'Page number must be greater than or equal to 1');
 
-        $this->actorInstitution = $institution;
         $this->actorId = $actorId;
         $this->pageNumber = $pageNumber;
     }
 
     /**
-     * @param string $actorInstitution
+     * @param string $actorId
      * @return VerifiedSecondFactorSearchQuery
      */
     public function setActorId($actorId)
@@ -266,7 +258,6 @@ final class RaSecondFactorSearchQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'actorInstitution' => $this->actorInstitution,
                     'actorId'          => $this->actorId,
                     'name'             => $this->name,
                     'type'             => $this->type,

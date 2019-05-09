@@ -74,9 +74,9 @@ class RaCandidateService
      * @param string $actorId
      * @return RaCandidateInstitutions
      */
-    public function get($identityId, $institution, $actorId)
+    public function get($identityId, $actorId)
     {
-        $data = $this->libraryService->get($identityId, $institution, $actorId);
+        $data = $this->libraryService->get($identityId, $actorId);
 
         if ($data === null) {
             return null;
