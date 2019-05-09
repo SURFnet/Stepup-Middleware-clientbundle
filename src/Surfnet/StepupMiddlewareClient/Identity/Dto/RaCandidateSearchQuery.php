@@ -31,11 +31,6 @@ class RaCandidateSearchQuery implements HttpQuery
     /**
      * @var string
      */
-    private $actorInstitution;
-
-    /**
-     * @var string
-     */
     private $institution;
 
     /**
@@ -47,6 +42,11 @@ class RaCandidateSearchQuery implements HttpQuery
      * @var string
      */
     private $email;
+
+    /**
+     * @var string
+     */
+    private $raInstitution;
 
     /**
      * @var int
@@ -70,19 +70,16 @@ class RaCandidateSearchQuery implements HttpQuery
 
     /**
      * @param string $actorId
-     * @param string $actorInstitution
      * @param int $pageNumber
      */
-    public function __construct($actorId, $actorInstitution, $pageNumber)
+    public function __construct($actorId, $pageNumber)
     {
         $this->assertNonEmptyString($actorId, 'actorId');
-        $this->assertNonEmptyString($actorInstitution, 'actorInstitution');
         Assert\that($pageNumber)
             ->integer('Page number must be an integer')
             ->min(0, 'Page number must be greater than or equal to 1');
 
         $this->actorId = $actorId;
-        $this->actorInstitution = $actorInstitution;
         $this->pageNumber  = $pageNumber;
     }
 
@@ -123,6 +120,14 @@ class RaCandidateSearchQuery implements HttpQuery
         $this->institution = $institution;
 
         return $this;
+    }
+
+    /**
+     * @param string $raInstitution
+     */
+    public function setRaInstitution($raInstitution)
+    {
+        $this->raInstitution = $raInstitution;
     }
 
     /**
@@ -186,10 +191,10 @@ class RaCandidateSearchQuery implements HttpQuery
             array_filter(
                 [
                     'actorId'           => $this->actorId,
-                    'actorInstitution'  => $this->actorInstitution,
                     'institution'       => $this->institution,
                     'commonName'        => $this->commonName,
                     'email'             => $this->email,
+                    'raInstitution'     => $this->raInstitution,
                     'secondFactorTypes' => $this->secondFactorTypes,
                     'orderBy'           => $this->orderBy,
                     'orderDirection'    => $this->orderDirection,
