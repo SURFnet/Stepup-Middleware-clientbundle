@@ -30,11 +30,6 @@ final class RaSecondFactorExportQuery implements HttpQuery
     const STATUS_REVOKED = 'revoked';
 
     /**
-     * @var string
-     */
-    private $actorInstitution;
-
-    /**
      * @var string|null
      */
     private $name;
@@ -80,13 +75,12 @@ final class RaSecondFactorExportQuery implements HttpQuery
     private $actorId;
 
     /**
-     * @param string $actorInstitution
      * @param string $actorId
      */
-    public function __construct($actorInstitution, $actorId)
+    public function __construct($actorId)
     {
-        $this->assertNonEmptyString($actorInstitution, 'institution');
-        $this->actorInstitution = $actorInstitution;
+        $this->assertNonEmptyString($actorId, 'actorId');
+
         $this->actorId = $actorId;
     }
 
@@ -274,7 +268,6 @@ final class RaSecondFactorExportQuery implements HttpQuery
         return '?' . http_build_query(
             array_filter(
                 [
-                    'actorInstitution' => $this->actorInstitution,
                     'actorId'          => $this->actorId,
                     'name'             => $this->name,
                     'type'             => $this->type,
