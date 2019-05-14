@@ -1,12 +1,10 @@
 ## Next release
 
 ## 3.0.18
-**Remove the actorInstitution** #85
+The actorInstitution was removed because the SRAA switcher is no longer useful after the FGA changes.
+This because earlier, all overviews were from the view point of an institution but now it's from a registration authority.
 
-The actorInstitution could be removed because the institution switcher because it is no longer useful after the FGA changes.
-This because earlier all overviews were from the view point of an institution but now it's from a registration authority.
-
-These changes are needed to reflect the changes in RA.
+* Remove the actorInstitution #85
 
 ## 3.0.17
 * Add profile helper function #84
