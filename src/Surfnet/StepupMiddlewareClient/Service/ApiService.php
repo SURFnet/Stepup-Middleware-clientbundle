@@ -62,7 +62,8 @@ class ApiService
         $statusCode = $response->getStatusCode();
 
         try {
-            $data = JsonHelper::decode((string) $response->getBody());
+            $body = (string)$response->getBody();
+            $data = JsonHelper::decode($body);
             $errors = isset($data['errors']) && is_array($data['errors']) ? $data['errors'] : [];
         } catch (\RuntimeException $e) {
             // Malformed JSON body
