@@ -1,10 +1,11 @@
 ## Next release
 
-## 3.0.17
-* Add profile helper function #84
+## 3.0.19
+* Remove implicit raa from profile #86
 
 ## 3.0.18
-* Remove the actorInstitution #85
+* The actorInstitution was removed because the SRAA switcher is no longer useful after the FGA changes. 
+This because earlier, all overviews were from the view point of an institution but now it's from a registration authority. #85
 
 ## 3.0.17
 * Add profile helper function #84
