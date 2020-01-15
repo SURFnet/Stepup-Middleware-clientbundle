@@ -19,10 +19,11 @@
 namespace Surfnet\StepupMiddlewareClient\Service;
 
 use GuzzleHttp\Client;
+use RuntimeException;
+use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
-use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 use Surfnet\StepupMiddlewareClient\Helper\JsonHelper;
 
 /**
@@ -65,7 +66,7 @@ class ApiService
             $body = (string)$response->getBody();
             $data = JsonHelper::decode($body);
             $errors = isset($data['errors']) && is_array($data['errors']) ? $data['errors'] : [];
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             // Malformed JSON body
             throw new MalformedResponseException('Cannot read resource: Middleware returned malformed JSON');
         }
@@ -104,7 +105,7 @@ class ApiService
         }
 
         if (empty($resource)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     'Could not construct resource path from path "%s", parameters "%s" and search query "%s"',
                     $path,
