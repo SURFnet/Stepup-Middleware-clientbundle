@@ -110,6 +110,8 @@ class CommandService
      */
     private function getCommandName(Command $command)
     {
+        $commandNameParts = [];
+
         if (!preg_match('~(\\w+)\\\\Command\\\\((\\w+\\\\)*\\w+)Command$~', get_class($command), $commandNameParts)) {
             throw new InvalidArgumentException(
                 "Given command's class name cannot be expressed using command name notation."
