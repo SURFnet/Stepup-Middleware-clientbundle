@@ -19,10 +19,11 @@
 namespace Surfnet\StepupMiddlewareClient\Service;
 
 use GuzzleHttp\Client;
+use RuntimeException;
+use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 use Surfnet\StepupMiddlewareClient\Exception\AccessDeniedToResourceException;
 use Surfnet\StepupMiddlewareClient\Exception\MalformedResponseException;
 use Surfnet\StepupMiddlewareClient\Exception\ResourceReadException;
-use Surfnet\StepupMiddlewareClient\Dto\HttpQuery;
 use Surfnet\StepupMiddlewareClient\Helper\JsonHelper;
 
 /**
@@ -104,7 +105,7 @@ class ApiService
         }
 
         if (empty($resource)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     'Could not construct resource path from path "%s", parameters "%s" and search query "%s"',
                     $path,
