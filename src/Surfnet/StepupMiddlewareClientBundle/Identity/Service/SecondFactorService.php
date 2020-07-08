@@ -120,6 +120,21 @@ class SecondFactorService
 
     /**
      * @param string $secondFactorId
+     * @return bool|null
+     * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
+     * @throws InvalidResponseException When the API responded with invalid data.
+     * @throws ResourceReadException When the API doesn't respond with the resource.
+     * @throws MalformedResponseException When the API doesn't respond with a proper response.
+     */
+    public function getVerifiedCanSkipProvePossession($secondFactorId)
+    {
+        $data = $this->service->getVerifiedCanSkipProvePossession($secondFactorId);
+
+        return (bool)$data;
+    }
+
+    /**
+     * @param string $secondFactorId
      * @return VettedSecondFactor|null
      * @throws AccessDeniedToResourceException When the consumer isn't authorised to access given resource.
      * @throws InvalidResponseException When the API responded with invalid data.

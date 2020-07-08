@@ -59,6 +59,11 @@ class VetSecondFactorCommand extends AbstractCommand
     public $documentNumber;
 
     /**
+     * @var bool
+     */
+    public $provePossessionSkipped;
+
+    /**
      * @var boolean
      */
     public $identityVerified;
@@ -74,6 +79,7 @@ class VetSecondFactorCommand extends AbstractCommand
             'second_factor_identifier' => $this->secondFactorIdentifier,
             'document_number'          => $this->documentNumber,
             'identity_verified'        => $this->identityVerified,
+            'prove_possession_skipped' => $this->provePossessionSkipped,
         ];
     }
 }
