@@ -21,7 +21,8 @@
         "symfony/validator": "^3.4|^4.4",
         "guzzlehttp/guzzle": "^6.0",
         "beberlei/assert": "~2.0",
-        "ramsey/uuid": "^3.4"
+        "ramsey/uuid": "^3.4",
+        "ext-json": "*"
     },
     "require-dev": {
         "matthiasnoback/symfony-config-test": "^2.0|3.0",
