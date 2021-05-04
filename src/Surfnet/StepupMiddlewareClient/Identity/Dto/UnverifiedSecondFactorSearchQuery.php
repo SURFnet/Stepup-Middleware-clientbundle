@@ -72,6 +72,8 @@ class UnverifiedSecondFactorSearchQuery implements HttpQuery
 
     public function toHttpQuery()
     {
+        $fields = [];
+
         if ($this->identityId) {
             $fields['identityId'] = $this->identityId;
         }

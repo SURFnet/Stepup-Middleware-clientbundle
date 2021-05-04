@@ -1,4 +1,6 @@
 ## Next release
+## 3.0.20
+* Provide support for self vetting
 
 ## 3.0.19
 * Remove implicit raa from profile #86

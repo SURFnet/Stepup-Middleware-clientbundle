@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 SURFnet bv
+ * Copyright 2021 SURF bv
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,8 @@
 namespace Surfnet\StepupMiddlewareClientBundle\Identity\Command;
 
 use Surfnet\StepupMiddlewareClientBundle\Command\AbstractCommand;
-use Symfony\Component\Validator\Constraints as Assert;
 
-class VetSecondFactorCommand extends AbstractCommand
+class SelfVetSecondFactorCommand extends AbstractCommand
 {
     /**
      * @var string
@@ -56,30 +55,19 @@ class VetSecondFactorCommand extends AbstractCommand
     /**
      * @var string
      */
-    public $documentNumber;
+    public $authoringSecondFactorIdentifier;
 
-    /**
-     * @var bool
-     */
-    public $provePossessionSkipped;
-
-    /**
-     * @var boolean
-     */
-    public $identityVerified;
 
     public function serialise()
     {
         return [
-            'authority_id'             => $this->authorityId,
-            'identity_id'              => $this->identityId,
-            'second_factor_id'         => $this->secondFactorId,
-            'registration_code'        => $this->registrationCode,
-            'second_factor_type'       => $this->secondFactorType,
+            'authority_id' => $this->authorityId,
+            'identity_id' => $this->identityId,
+            'second_factor_id' => $this->secondFactorId,
+            'second_factor_type' => $this->secondFactorType,
+            'registration_code' => $this->registrationCode,
             'second_factor_identifier' => $this->secondFactorIdentifier,
-            'document_number'          => $this->documentNumber,
-            'identity_verified'        => $this->identityVerified,
-            'prove_possession_skipped' => $this->provePossessionSkipped,
+            'authoring_second_factor_identifier' => $this->authoringSecondFactorIdentifier,
         ];
     }
 }
