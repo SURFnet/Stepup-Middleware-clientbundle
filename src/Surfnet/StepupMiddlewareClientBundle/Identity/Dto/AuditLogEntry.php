@@ -79,23 +79,35 @@ final class AuditLogEntry implements Dto
     public $recordedOn;
 
     /**
+     * @var string
+     */
+    public $tokenMigrationStatus;
+
+    /**
      * @param array $data
      * @return static
      */
     public static function fromData(array $data)
     {
-        $entry                         = new self();
-        $entry->actorId                = $data['actor_id'];
-        $entry->actorInstitution       = $data['actor_institution'];
-        $entry->actorCommonName        = $data['actor_common_name'];
-        $entry->raInstitution          = $data['ra_institution'];
-        $entry->identityId             = $data['identity_id'];
-        $entry->identityInstitution    = $data['identity_institution'];
-        $entry->secondFactorId         = $data['second_factor_id'];
-        $entry->secondFactorType       = $data['second_factor_type'];
+        $entry = new self();
+        $entry->actorId = $data['actor_id'];
+        $entry->actorInstitution = $data['actor_institution'];
+        $entry->actorCommonName = $data['actor_common_name'];
+        $entry->raInstitution = $data['ra_institution'];
+        $entry->identityId = $data['identity_id'];
+        $entry->identityInstitution = $data['identity_institution'];
+        $entry->secondFactorId = $data['second_factor_id'];
+        $entry->secondFactorType = $data['second_factor_type'];
         $entry->secondFactorIdentifier = $data['second_factor_identifier'];
-        $entry->action                 = $data['action'];
-        $entry->recordedOn             = new DateTime($data['recorded_on']);
+        $entry->tokenMigrationStatus = $data['token_migration_status'];
+        $entry->action = $data['action'];
+        $entry->recordedOn = new DateTime($data['recorded_on']);
+
+        // When a token migration is encountered, we use the actor common name field to show details about
+        // the token migration.
+        if (!empty($data['token_migration_status'])) {
+            $entry->actorCommonName = $data['token_migration_status'];
+        }
 
         return $entry;
     }
